@@ -1,0 +1,96 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using WUApiLib;
+using System.Management;
+using OnboardingHelper_NetCore.wrappers;
+
+namespace OnboardingHelper_NetCore
+{
+    public class WindowsUpdate
+    {
+        private UpdateSession uSession;
+        private IUpdateSearcher uSearcher;
+        private ISearchResult uResult;
+
+        public WindowsUpdate()
+        {
+            uSession = new UpdateSession();
+            uSearcher = uSession.CreateUpdateSearcher();
+        }
+
+        public List<UpdateWrapper> GetUpdates()
+        {
+            List<UpdateWrapper> updates = new List<UpdateWrapper>();
+
+            Utility.MainForm.UpdateWindowsUpdateLabel("Searching for updates...");
+            uResult = uSearcher.Search("IsInstalled=0");
+            Utility.MainForm.UpdateWindowsUpdateChecker(20);
+
+            int counter = 0;
+            foreach (IUpdate update in uResult.Updates)
+            {
+                Utility.MainForm.UpdateWindowsUpdateLabel("Found update: " + update.Title);
+                StringBuilder bldr = new StringBuilder();
+                foreach (string s in update.KBArticleIDs)
+                {
+                    bldr.Append(s).Append(", ");
+                }
+
+                updates.Add(new UpdateWrapper()
+                {
+                    KB = bldr.ToString(),
+                    Size = Utility.FormatSize((long) update.MaxDownloadSize),
+                    Title = update.Title
+                });
+                counter++;
+                Utility.MainForm.UpdateWindowsUpdateChecker((counter * 100) / uResult.Updates.Count);
+            }
+
+            Utility.MainForm.UpdateWindowsUpdateLabel($"Updates: {updates.Count}");
+            return updates;
+        }
+
+        public void DownloadUpdates()
+        {
+            if (uResult == null)
+                GetUpdates();
+
+            UpdateDownloader downloader = uSession.CreateUpdateDownloader();
+            downloader.Updates = uResult.Updates;
+            downloader.Download();
+        }
+
+        public void InstallSelectedUpdates(List<UpdateWrapper> updates)
+        {
+            if (updates == null)
+                return;
+            
+        }
+
+        public void InstallAllUpdates()
+        {
+            if (uResult == null)
+            {
+                GetUpdates();
+                DownloadUpdates();
+            }
+
+            UpdateCollection updatesToInstall = new UpdateCollection();
+            foreach (IUpdate update in uResult.Updates)
+            {
+                if (update.IsDownloaded)
+                    updatesToInstall.Add(update);
+            }
+
+            IUpdateInstaller installer = uSession.CreateUpdateInstaller();
+            installer.Updates = updatesToInstall;
+            IInstallationResult installationRes = installer.Install();
+
+        }
+
+        
+    }
+}
