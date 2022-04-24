@@ -42,6 +42,7 @@
             this.cmbNTPServers = new System.Windows.Forms.ComboBox();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.basicTab = new System.Windows.Forms.TabPage();
+            this.btnInstallAllUpdates = new System.Windows.Forms.Button();
             this.statusStrip2 = new System.Windows.Forms.StatusStrip();
             this.lblUpdateStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.updatesProgressBar = new System.Windows.Forms.ToolStripProgressBar();
@@ -64,13 +65,14 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdatesBackground = new System.ComponentModel.BackgroundWorker();
             this.installUpdatesBackground = new System.ComponentModel.BackgroundWorker();
-            this.btnInstallAllUpdates = new System.Windows.Forms.Button();
+            this.programsUserCtl1 = new OnboardingHelper_NetCore.userControls.ProgramsUserCtl();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.basicTab.SuspendLayout();
             this.statusStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgWindowsUpdate)).BeginInit();
+            this.programsTab.SuspendLayout();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -232,6 +234,16 @@
             this.basicTab.Text = "Basic";
             this.basicTab.UseVisualStyleBackColor = true;
             // 
+            // btnInstallAllUpdates
+            // 
+            this.btnInstallAllUpdates.Location = new System.Drawing.Point(305, 179);
+            this.btnInstallAllUpdates.Name = "btnInstallAllUpdates";
+            this.btnInstallAllUpdates.Size = new System.Drawing.Size(145, 23);
+            this.btnInstallAllUpdates.TabIndex = 9;
+            this.btnInstallAllUpdates.Text = "Install All Updates";
+            this.btnInstallAllUpdates.UseVisualStyleBackColor = true;
+            this.btnInstallAllUpdates.Click += new System.EventHandler(this.btnInstallAllUpdates_Click);
+            // 
             // statusStrip2
             // 
             this.statusStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -289,6 +301,7 @@
             // 
             this.dgWindowsUpdate.AllowUserToAddRows = false;
             this.dgWindowsUpdate.AllowUserToDeleteRows = false;
+            this.dgWindowsUpdate.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             this.dgWindowsUpdate.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgWindowsUpdate.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dgWindowsUpdate.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
@@ -332,6 +345,7 @@
             // 
             // programsTab
             // 
+            this.programsTab.Controls.Add(this.programsUserCtl1);
             this.programsTab.Location = new System.Drawing.Point(4, 24);
             this.programsTab.Name = "programsTab";
             this.programsTab.Padding = new System.Windows.Forms.Padding(3);
@@ -431,15 +445,13 @@
             this.installUpdatesBackground.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.installUpdatesBackground_ProgressChanged);
             this.installUpdatesBackground.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.installUpdatesBackground_RunWorkerCompleted);
             // 
-            // btnInstallAllUpdates
+            // programsUserCtl1
             // 
-            this.btnInstallAllUpdates.Location = new System.Drawing.Point(305, 179);
-            this.btnInstallAllUpdates.Name = "btnInstallAllUpdates";
-            this.btnInstallAllUpdates.Size = new System.Drawing.Size(145, 23);
-            this.btnInstallAllUpdates.TabIndex = 9;
-            this.btnInstallAllUpdates.Text = "Install All Updates";
-            this.btnInstallAllUpdates.UseVisualStyleBackColor = true;
-            this.btnInstallAllUpdates.Click += new System.EventHandler(this.btnInstallAllUpdates_Click);
+            this.programsUserCtl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.programsUserCtl1.Location = new System.Drawing.Point(3, 3);
+            this.programsUserCtl1.Name = "programsUserCtl1";
+            this.programsUserCtl1.Size = new System.Drawing.Size(732, 581);
+            this.programsUserCtl1.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -470,6 +482,7 @@
             this.statusStrip2.ResumeLayout(false);
             this.statusStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgWindowsUpdate)).EndInit();
+            this.programsTab.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -517,5 +530,6 @@
         private System.ComponentModel.BackgroundWorker checkForUpdatesBackground;
         private System.ComponentModel.BackgroundWorker installUpdatesBackground;
         private Button btnInstallAllUpdates;
+        private userControls.ProgramsUserCtl programsUserCtl1;
     }
 }
