@@ -21,9 +21,9 @@ namespace OnboardingHelper_NetCore
             uSearcher = uSession.CreateUpdateSearcher();
         }
 
-        public List<UpdateWrapper> GetUpdates()
+        public List<IUpdate> GetUpdates()
         {
-            List<UpdateWrapper> updates = new List<UpdateWrapper>();
+            List<IUpdate> updates = new List<IUpdate>();
 
             Utility.MainForm.UpdateWindowsUpdateLabel("Searching for updates...");
             uResult = uSearcher.Search("IsInstalled=0");
@@ -33,18 +33,19 @@ namespace OnboardingHelper_NetCore
             foreach (IUpdate update in uResult.Updates)
             {
                 Utility.MainForm.UpdateWindowsUpdateLabel("Found update: " + update.Title);
-                StringBuilder bldr = new StringBuilder();
-                foreach (string s in update.KBArticleIDs)
-                {
-                    bldr.Append(s).Append(", ");
-                }
+                //StringBuilder bldr = new StringBuilder();
+                //foreach (string s in update.KBArticleIDs)
+                //{
+                //    bldr.Append(s).Append(", ");
+                //}
 
-                updates.Add(new UpdateWrapper()
-                {
-                    KB = bldr.ToString(),
-                    Size = Utility.FormatSize((long) update.MaxDownloadSize),
-                    Title = update.Title
-                });
+                //updates.Add(new UpdateWrapper()
+                //{
+                //    KB = bldr.ToString(),
+                //    Size = Utility.FormatSize((long) update.MaxDownloadSize),
+                //    Title = update.Title
+                //});
+                updates.Add(update);
                 counter++;
                 Utility.MainForm.UpdateWindowsUpdateChecker((counter * 100) / uResult.Updates.Count);
             }
@@ -60,24 +61,39 @@ namespace OnboardingHelper_NetCore
 
             UpdateDownloader downloader = uSession.CreateUpdateDownloader();
             downloader.Updates = uResult.Updates;
-            downloader.Download();
+
+            if (downloader.Updates.Count > 0)
+                downloader.Download();
         }
 
-        public void InstallSelectedUpdates(List<UpdateWrapper> updates)
-        {
-            if (updates == null)
-                return;
+        //public IInstallationResult InstallSelectedUpdates(List<IUpdate> updates)
+        //{
+        //    if (updates == null)
+        //        return null;
             
-        }
+        //    UpdateCollection updatesToInstall = new UpdateCollection();
+        //    List<IUpdate> updateList = new List<IUpdate>();
+
+        //    foreach (IUpdate update in updates)
+        //        updateList.Add(update);
+
+        //    //foreach (IUpdate update in uResult.Updates)
+        //    //    if (updates.Any(e => e.Title.Equals(update.Title)))
+        //    //        updatesToInstall.Add(update);
+
+        //    var _ = updateList.Except(updates);
+
+        //    IUpdateInstaller installer = uSession.CreateUpdateInstaller();
+        //    installer.Updates = updatesToInstall;
+        //    return installer.Install();
+        //}
 
         public void InstallAllUpdates()
         {
             if (uResult == null)
-            {
                 GetUpdates();
-                DownloadUpdates();
-            }
 
+            DownloadUpdates();
             UpdateCollection updatesToInstall = new UpdateCollection();
             foreach (IUpdate update in uResult.Updates)
             {
@@ -87,10 +103,7 @@ namespace OnboardingHelper_NetCore
 
             IUpdateInstaller installer = uSession.CreateUpdateInstaller();
             installer.Updates = updatesToInstall;
-            IInstallationResult installationRes = installer.Install();
-
+            installer.Install();
         }
-
-        
     }
 }

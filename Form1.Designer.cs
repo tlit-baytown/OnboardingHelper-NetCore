@@ -64,6 +64,7 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdatesBackground = new System.ComponentModel.BackgroundWorker();
             this.installUpdatesBackground = new System.ComponentModel.BackgroundWorker();
+            this.btnInstallAllUpdates = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -215,6 +216,7 @@
             // 
             // basicTab
             // 
+            this.basicTab.Controls.Add(this.btnInstallAllUpdates);
             this.basicTab.Controls.Add(this.statusStrip2);
             this.basicTab.Controls.Add(this.btnSelectAllUpdates);
             this.basicTab.Controls.Add(this.btnInstallUpdates);
@@ -429,6 +431,16 @@
             this.installUpdatesBackground.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.installUpdatesBackground_ProgressChanged);
             this.installUpdatesBackground.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.installUpdatesBackground_RunWorkerCompleted);
             // 
+            // btnInstallAllUpdates
+            // 
+            this.btnInstallAllUpdates.Location = new System.Drawing.Point(305, 179);
+            this.btnInstallAllUpdates.Name = "btnInstallAllUpdates";
+            this.btnInstallAllUpdates.Size = new System.Drawing.Size(145, 23);
+            this.btnInstallAllUpdates.TabIndex = 9;
+            this.btnInstallAllUpdates.Text = "Install All Updates";
+            this.btnInstallAllUpdates.UseVisualStyleBackColor = true;
+            this.btnInstallAllUpdates.Click += new System.EventHandler(this.btnInstallAllUpdates_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -504,5 +516,6 @@
         private ToolStripProgressBar updatesProgressBar;
         private System.ComponentModel.BackgroundWorker checkForUpdatesBackground;
         private System.ComponentModel.BackgroundWorker installUpdatesBackground;
+        private Button btnInstallAllUpdates;
     }
 }
