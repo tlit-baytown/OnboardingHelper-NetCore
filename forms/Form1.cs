@@ -22,6 +22,10 @@ namespace OnboardingHelper_NetCore
 
             lblOsVersion.Text = SystemInfo.Instance.OSName + "\t" + SystemInfo.Instance.CSDVersion;
             lblProcessorInfo.Text = SystemInfo.Instance.ProcessorName;
+            lblRamAmount.Text = SystemInfo.Instance.RAMAmount;
+
+            txtDomain.Enabled = !SystemInfo.Instance.OSName.Contains("Home");
+            txtDomain.PlaceholderText = "Domain not available in 'Home' versions of Windows!";
         }
 
         #region Windows Update Functionality
@@ -114,5 +118,19 @@ namespace OnboardingHelper_NetCore
             }
         }
         #endregion
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new HelpBox().ShowDialog();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(this, "Are you sure you want to exit?\nThe configuration is NOT automatically saved.", "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+            if (result == DialogResult.No || result == DialogResult.Cancel)
+                return;
+
+            System.Windows.Forms.Application.Exit();
+        }
     }
 }

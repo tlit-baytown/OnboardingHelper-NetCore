@@ -36,17 +36,20 @@
             this.appPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.appIsWindowsInstaller = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.appIsISOImage = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.dgApplications)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnDeleteApplications
             // 
+            this.btnDeleteApplications.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.btnDeleteApplications.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnDeleteApplications.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDeleteApplications.ForeColor = System.Drawing.Color.Black;
-            this.btnDeleteApplications.Location = new System.Drawing.Point(589, 386);
+            this.btnDeleteApplications.Location = new System.Drawing.Point(620, 6);
             this.btnDeleteApplications.Name = "btnDeleteApplications";
-            this.btnDeleteApplications.Size = new System.Drawing.Size(142, 23);
+            this.btnDeleteApplications.Size = new System.Drawing.Size(142, 25);
             this.btnDeleteApplications.TabIndex = 5;
             this.btnDeleteApplications.Text = "Delete Selected";
             this.btnDeleteApplications.UseVisualStyleBackColor = false;
@@ -54,11 +57,12 @@
             // 
             // btnAddApplication
             // 
+            this.btnAddApplication.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnAddApplication.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnAddApplication.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddApplication.Location = new System.Drawing.Point(14, 386);
+            this.btnAddApplication.Location = new System.Drawing.Point(3, 6);
             this.btnAddApplication.Name = "btnAddApplication";
-            this.btnAddApplication.Size = new System.Drawing.Size(142, 23);
+            this.btnAddApplication.Size = new System.Drawing.Size(142, 25);
             this.btnAddApplication.TabIndex = 4;
             this.btnAddApplication.Text = "Add Application...";
             this.btnAddApplication.UseVisualStyleBackColor = false;
@@ -66,6 +70,8 @@
             // 
             // dgApplications
             // 
+            this.dgApplications.AllowUserToAddRows = false;
+            this.dgApplications.AllowUserToDeleteRows = false;
             this.dgApplications.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             this.dgApplications.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgApplications.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -81,7 +87,7 @@
             this.dgApplications.ReadOnly = true;
             this.dgApplications.RowTemplate.Height = 25;
             this.dgApplications.ShowEditingIcon = false;
-            this.dgApplications.Size = new System.Drawing.Size(746, 380);
+            this.dgApplications.Size = new System.Drawing.Size(765, 340);
             this.dgApplications.TabIndex = 3;
             // 
             // appName
@@ -90,7 +96,7 @@
             this.appName.HeaderText = "Name";
             this.appName.Name = "appName";
             this.appName.ReadOnly = true;
-            this.appName.Width = 62;
+            this.appName.Width = 65;
             // 
             // appArguments
             // 
@@ -98,7 +104,7 @@
             this.appArguments.HeaderText = "Install Arguments";
             this.appArguments.Name = "appArguments";
             this.appArguments.ReadOnly = true;
-            this.appArguments.Width = 113;
+            this.appArguments.Width = 121;
             // 
             // appPath
             // 
@@ -113,7 +119,7 @@
             this.appIsWindowsInstaller.HeaderText = "Is Windows Installer?";
             this.appIsWindowsInstaller.Name = "appIsWindowsInstaller";
             this.appIsWindowsInstaller.ReadOnly = true;
-            this.appIsWindowsInstaller.Width = 108;
+            this.appIsWindowsInstaller.Width = 115;
             // 
             // appIsISOImage
             // 
@@ -121,18 +127,33 @@
             this.appIsISOImage.HeaderText = "Is ISO Image?";
             this.appIsISOImage.Name = "appIsISOImage";
             this.appIsISOImage.ReadOnly = true;
-            this.appIsISOImage.Width = 73;
+            this.appIsISOImage.Width = 77;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.btnAddApplication, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnDeleteApplications, 1, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 342);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(765, 38);
+            this.tableLayoutPanel1.TabIndex = 6;
             // 
             // ProgramsUserCtl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btnDeleteApplications);
-            this.Controls.Add(this.btnAddApplication);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.dgApplications);
             this.Name = "ProgramsUserCtl";
-            this.Size = new System.Drawing.Size(746, 417);
+            this.Size = new System.Drawing.Size(765, 380);
             ((System.ComponentModel.ISupportInitialize)(this.dgApplications)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -147,5 +168,6 @@
         private DataGridViewTextBoxColumn appPath;
         private DataGridViewCheckBoxColumn appIsWindowsInstaller;
         private DataGridViewCheckBoxColumn appIsISOImage;
+        private TableLayoutPanel tableLayoutPanel1;
     }
 }

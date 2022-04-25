@@ -18,6 +18,8 @@ namespace OnboardingHelper_NetCore
         public string? CSDVersion { get; private set; }
         public string? ProcessorName { get; private set; }
 
+        public string? RAMAmount { get; private set; }
+
         public static SystemInfo Instance
         {
             get
@@ -35,6 +37,7 @@ namespace OnboardingHelper_NetCore
         {
             getOperatingSystemInfo();
             getProcessorInfo();
+            getRamInfo();
         }
 
         private void getOperatingSystemInfo()
@@ -61,6 +64,11 @@ namespace OnboardingHelper_NetCore
                 if (processor_name.GetValue("ProcessorNameString") != null)
                     ProcessorName = processor_name.GetValue("ProcessorNameString").ToString();
             }
+        }
+
+        private void getRamInfo()
+        {
+            RAMAmount = "Total RAM: " + Utility.FormatSize(GC.GetGCMemoryInfo().TotalAvailableMemoryBytes);
         }
     }
 }

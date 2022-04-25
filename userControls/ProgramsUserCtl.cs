@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnboardingHelper_NetCore.wrappers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,17 +24,29 @@ namespace OnboardingHelper_NetCore.userControls
             popUp.ApplicationAdded += UpdateGrid;
 
             popUp.ShowDialog();
-
-            foreach (wrappers.Application a in wrappers.ApplicationWrapper.Applications)
-            {
-                Console.WriteLine(a.Name);
-            }
-            Console.WriteLine("\n");
         }
 
         private void btnDeleteApplications_Click(object sender, EventArgs e)
         {
+            if (dgApplications.SelectedRows.Count <= 0)
+            {
+                MessageBox.Show(this, "No rows were selected to delete. Please select at least 1 row and try again.", "Empty Selection", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
+            DialogResult result = MessageBox.Show(this, $"Are you sure you wish to delete {dgApplications.SelectedRows.Count} programs?", "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            if (result == DialogResult.No || result == DialogResult.Cancel)
+                return;
+
+            foreach (DataGridViewRow row in dgApplications.SelectedRows)
+                ApplicationWrapper.RemoveApplication((wrappers.Application)row.Tag);
+
+            dgApplications.Rows.Clear();
+            dgApplications.Update();
+            foreach (wrappers.Application app in ApplicationWrapper.Applications)
+            {
+                UpdateGrid(this, new CEventArgs.ApplicationAddedEventArgs(app));
+            }
         }
 
         private void UpdateGrid(object o, EventArgs e)

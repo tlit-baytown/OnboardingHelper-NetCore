@@ -28,9 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.lblOsVersion = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblProcessorInfo = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblRamAmount = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -52,8 +57,12 @@
             this.dgWindowsUpdate = new System.Windows.Forms.DataGridView();
             this.chkPerformTZSync = new System.Windows.Forms.CheckBox();
             this.accountsTab = new System.Windows.Forms.TabPage();
+            this.accountsUserCtl1 = new OnboardingHelper_NetCore.userControls.AccountsUserCtl();
             this.connectionsTab = new System.Windows.Forms.TabPage();
             this.programsTab = new System.Windows.Forms.TabPage();
+            this.programsUserCtl1 = new OnboardingHelper_NetCore.userControls.ProgramsUserCtl();
+            this.remoteDesktopTab = new System.Windows.Forms.TabPage();
+            this.iconList = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -65,13 +74,13 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdatesBackground = new System.ComponentModel.BackgroundWorker();
             this.installUpdatesBackground = new System.ComponentModel.BackgroundWorker();
-            this.programsUserCtl1 = new OnboardingHelper_NetCore.userControls.ProgramsUserCtl();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.basicTab.SuspendLayout();
             this.statusStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgWindowsUpdate)).BeginInit();
+            this.accountsTab.SuspendLayout();
             this.programsTab.SuspendLayout();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -79,12 +88,18 @@
             // 
             // statusStrip1
             // 
+            this.statusStrip1.BackColor = System.Drawing.SystemColors.Control;
+            this.statusStrip1.GripMargin = new System.Windows.Forms.Padding(0);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblOsVersion,
-            this.lblProcessorInfo});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 639);
+            this.toolStripStatusLabel1,
+            this.lblProcessorInfo,
+            this.toolStripStatusLabel2,
+            this.lblRamAmount});
+            this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
+            this.statusStrip1.Location = new System.Drawing.Point(0, 640);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(746, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(746, 21);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 0;
             // 
@@ -92,18 +107,37 @@
             // 
             this.lblOsVersion.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.lblOsVersion.Name = "lblOsVersion";
-            this.lblOsVersion.Size = new System.Drawing.Size(365, 17);
+            this.lblOsVersion.Size = new System.Drawing.Size(80, 16);
             this.lblOsVersion.Spring = true;
             this.lblOsVersion.Text = "<OS Version>";
+            this.lblOsVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(10, 16);
+            this.toolStripStatusLabel1.Text = "|";
             // 
             // lblProcessorInfo
             // 
             this.lblProcessorInfo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.lblProcessorInfo.Name = "lblProcessorInfo";
-            this.lblProcessorInfo.Size = new System.Drawing.Size(365, 17);
+            this.lblProcessorInfo.Size = new System.Drawing.Size(114, 16);
             this.lblProcessorInfo.Spring = true;
             this.lblProcessorInfo.Text = "<Processor Name>";
             this.lblProcessorInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(10, 16);
+            this.toolStripStatusLabel2.Text = "|";
+            // 
+            // lblRamAmount
+            // 
+            this.lblRamAmount.Name = "lblRamAmount";
+            this.lblRamAmount.Size = new System.Drawing.Size(95, 16);
+            this.lblRamAmount.Text = "<RAM Amount>";
             // 
             // tableLayoutPanel1
             // 
@@ -132,9 +166,9 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 115);
+            this.label4.Location = new System.Drawing.Point(3, 114);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(128, 15);
+            this.label4.Size = new System.Drawing.Size(128, 16);
             this.label4.TabIndex = 6;
             this.label4.Text = "Primary NTP Server: ";
             // 
@@ -142,9 +176,9 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 80);
+            this.label3.Location = new System.Drawing.Point(3, 79);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(128, 15);
+            this.label3.Size = new System.Drawing.Size(128, 16);
             this.label3.TabIndex = 4;
             this.label3.Text = "Time Zone: ";
             // 
@@ -152,9 +186,9 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 45);
+            this.label2.Location = new System.Drawing.Point(3, 44);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(128, 15);
+            this.label2.Size = new System.Drawing.Size(128, 16);
             this.label2.TabIndex = 2;
             this.label2.Text = "Domain: ";
             // 
@@ -170,9 +204,9 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 10);
+            this.label1.Location = new System.Drawing.Point(3, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(128, 15);
+            this.label1.Size = new System.Drawing.Size(128, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "Computer Name: ";
             // 
@@ -188,19 +222,20 @@
             // 
             this.cmbTimeZones.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbTimeZones.DisplayMember = "DisplayName";
+            this.cmbTimeZones.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTimeZones.FormattingEnabled = true;
-            this.cmbTimeZones.Location = new System.Drawing.Point(137, 76);
+            this.cmbTimeZones.Location = new System.Drawing.Point(137, 75);
             this.cmbTimeZones.Name = "cmbTimeZones";
-            this.cmbTimeZones.Size = new System.Drawing.Size(582, 23);
+            this.cmbTimeZones.Size = new System.Drawing.Size(582, 24);
             this.cmbTimeZones.TabIndex = 5;
             // 
             // cmbNTPServers
             // 
             this.cmbNTPServers.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbNTPServers.FormattingEnabled = true;
-            this.cmbNTPServers.Location = new System.Drawing.Point(137, 111);
+            this.cmbNTPServers.Location = new System.Drawing.Point(137, 110);
             this.cmbNTPServers.Name = "cmbNTPServers";
-            this.cmbNTPServers.Size = new System.Drawing.Size(582, 23);
+            this.cmbNTPServers.Size = new System.Drawing.Size(582, 24);
             this.cmbNTPServers.TabIndex = 7;
             // 
             // tabControl
@@ -209,11 +244,13 @@
             this.tabControl.Controls.Add(this.accountsTab);
             this.tabControl.Controls.Add(this.connectionsTab);
             this.tabControl.Controls.Add(this.programsTab);
+            this.tabControl.Controls.Add(this.remoteDesktopTab);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl.ImageList = this.iconList;
             this.tabControl.Location = new System.Drawing.Point(0, 24);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(746, 615);
+            this.tabControl.Size = new System.Drawing.Size(746, 616);
             this.tabControl.TabIndex = 3;
             // 
             // basicTab
@@ -226,10 +263,11 @@
             this.basicTab.Controls.Add(this.dgWindowsUpdate);
             this.basicTab.Controls.Add(this.chkPerformTZSync);
             this.basicTab.Controls.Add(this.tableLayoutPanel1);
-            this.basicTab.Location = new System.Drawing.Point(4, 24);
+            this.basicTab.ImageKey = "settings (Custom).png";
+            this.basicTab.Location = new System.Drawing.Point(4, 39);
             this.basicTab.Name = "basicTab";
             this.basicTab.Padding = new System.Windows.Forms.Padding(3);
-            this.basicTab.Size = new System.Drawing.Size(738, 587);
+            this.basicTab.Size = new System.Drawing.Size(738, 573);
             this.basicTab.TabIndex = 0;
             this.basicTab.Text = "Basic";
             this.basicTab.UseVisualStyleBackColor = true;
@@ -249,7 +287,7 @@
             this.statusStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblUpdateStatus,
             this.updatesProgressBar});
-            this.statusStrip2.Location = new System.Drawing.Point(3, 205);
+            this.statusStrip2.Location = new System.Drawing.Point(3, 206);
             this.statusStrip2.Name = "statusStrip2";
             this.statusStrip2.Size = new System.Drawing.Size(732, 22);
             this.statusStrip2.SizingGrip = false;
@@ -305,12 +343,12 @@
             this.dgWindowsUpdate.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgWindowsUpdate.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dgWindowsUpdate.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgWindowsUpdate.Location = new System.Drawing.Point(3, 227);
+            this.dgWindowsUpdate.Location = new System.Drawing.Point(3, 228);
             this.dgWindowsUpdate.Name = "dgWindowsUpdate";
             this.dgWindowsUpdate.ReadOnly = true;
             this.dgWindowsUpdate.RowTemplate.Height = 25;
             this.dgWindowsUpdate.ShowEditingIcon = false;
-            this.dgWindowsUpdate.Size = new System.Drawing.Size(732, 357);
+            this.dgWindowsUpdate.Size = new System.Drawing.Size(732, 342);
             this.dgWindowsUpdate.TabIndex = 3;
             // 
             // chkPerformTZSync
@@ -318,27 +356,38 @@
             this.chkPerformTZSync.AutoSize = true;
             this.chkPerformTZSync.Location = new System.Drawing.Point(8, 152);
             this.chkPerformTZSync.Name = "chkPerformTZSync";
-            this.chkPerformTZSync.Size = new System.Drawing.Size(166, 19);
+            this.chkPerformTZSync.Size = new System.Drawing.Size(175, 20);
             this.chkPerformTZSync.TabIndex = 1;
             this.chkPerformTZSync.Text = "Perform Time Server Sync?";
             this.chkPerformTZSync.UseVisualStyleBackColor = true;
             // 
             // accountsTab
             // 
-            this.accountsTab.Location = new System.Drawing.Point(4, 24);
+            this.accountsTab.Controls.Add(this.accountsUserCtl1);
+            this.accountsTab.ImageKey = "user (Custom).png";
+            this.accountsTab.Location = new System.Drawing.Point(4, 39);
             this.accountsTab.Name = "accountsTab";
             this.accountsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.accountsTab.Size = new System.Drawing.Size(738, 587);
+            this.accountsTab.Size = new System.Drawing.Size(738, 573);
             this.accountsTab.TabIndex = 1;
             this.accountsTab.Text = "Accounts";
             this.accountsTab.UseVisualStyleBackColor = true;
             // 
+            // accountsUserCtl1
+            // 
+            this.accountsUserCtl1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.accountsUserCtl1.Location = new System.Drawing.Point(3, 3);
+            this.accountsUserCtl1.Name = "accountsUserCtl1";
+            this.accountsUserCtl1.Size = new System.Drawing.Size(732, 537);
+            this.accountsUserCtl1.TabIndex = 0;
+            // 
             // connectionsTab
             // 
-            this.connectionsTab.Location = new System.Drawing.Point(4, 24);
+            this.connectionsTab.ImageKey = "internet (Custom).png";
+            this.connectionsTab.Location = new System.Drawing.Point(4, 39);
             this.connectionsTab.Name = "connectionsTab";
             this.connectionsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.connectionsTab.Size = new System.Drawing.Size(738, 587);
+            this.connectionsTab.Size = new System.Drawing.Size(738, 573);
             this.connectionsTab.TabIndex = 2;
             this.connectionsTab.Text = "Connections";
             this.connectionsTab.UseVisualStyleBackColor = true;
@@ -346,19 +395,53 @@
             // programsTab
             // 
             this.programsTab.Controls.Add(this.programsUserCtl1);
-            this.programsTab.Location = new System.Drawing.Point(4, 24);
+            this.programsTab.ImageKey = "web-programming (Custom).png";
+            this.programsTab.Location = new System.Drawing.Point(4, 39);
             this.programsTab.Name = "programsTab";
             this.programsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.programsTab.Size = new System.Drawing.Size(738, 587);
+            this.programsTab.Size = new System.Drawing.Size(738, 573);
             this.programsTab.TabIndex = 3;
             this.programsTab.Text = "Programs";
             this.programsTab.UseVisualStyleBackColor = true;
+            // 
+            // programsUserCtl1
+            // 
+            this.programsUserCtl1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.programsUserCtl1.Location = new System.Drawing.Point(3, 3);
+            this.programsUserCtl1.Name = "programsUserCtl1";
+            this.programsUserCtl1.Size = new System.Drawing.Size(732, 537);
+            this.programsUserCtl1.TabIndex = 0;
+            // 
+            // remoteDesktopTab
+            // 
+            this.remoteDesktopTab.ImageKey = "remote-control (Custom).png";
+            this.remoteDesktopTab.Location = new System.Drawing.Point(4, 39);
+            this.remoteDesktopTab.Name = "remoteDesktopTab";
+            this.remoteDesktopTab.Padding = new System.Windows.Forms.Padding(3);
+            this.remoteDesktopTab.Size = new System.Drawing.Size(738, 573);
+            this.remoteDesktopTab.TabIndex = 4;
+            this.remoteDesktopTab.Text = "Remote Desktop(s)";
+            this.remoteDesktopTab.UseVisualStyleBackColor = true;
+            // 
+            // iconList
+            // 
+            this.iconList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.iconList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("iconList.ImageStream")));
+            this.iconList.TransparentColor = System.Drawing.Color.Transparent;
+            this.iconList.Images.SetKeyName(0, "document (Custom).png");
+            this.iconList.Images.SetKeyName(1, "export (Custom).png");
+            this.iconList.Images.SetKeyName(2, "import (Custom).png");
+            this.iconList.Images.SetKeyName(3, "internet (Custom).png");
+            this.iconList.Images.SetKeyName(4, "remote-control (Custom).png");
+            this.iconList.Images.SetKeyName(5, "settings (Custom).png");
+            this.iconList.Images.SetKeyName(6, "user (Custom).png");
+            this.iconList.Images.SetKeyName(7, "web-programming (Custom).png");
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.button1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 594);
+            this.panel1.Location = new System.Drawing.Point(0, 595);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(746, 45);
             this.panel1.TabIndex = 2;
@@ -397,37 +480,39 @@
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // openConfigurationFileToolStripMenuItem
             // 
             this.openConfigurationFileToolStripMenuItem.Name = "openConfigurationFileToolStripMenuItem";
-            this.openConfigurationFileToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.openConfigurationFileToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.openConfigurationFileToolStripMenuItem.Text = "Open Configuration File...";
             // 
             // saveCurrentConfigurationToolStripMenuItem
             // 
             this.saveCurrentConfigurationToolStripMenuItem.Name = "saveCurrentConfigurationToolStripMenuItem";
-            this.saveCurrentConfigurationToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.saveCurrentConfigurationToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.saveCurrentConfigurationToolStripMenuItem.Text = "Save Current Configuration...";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(224, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(236, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // checkForUpdatesBackground
             // 
@@ -444,14 +529,6 @@
             this.installUpdatesBackground.DoWork += new System.ComponentModel.DoWorkEventHandler(this.installUpdatesBackground_DoWork);
             this.installUpdatesBackground.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.installUpdatesBackground_ProgressChanged);
             this.installUpdatesBackground.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.installUpdatesBackground_RunWorkerCompleted);
-            // 
-            // programsUserCtl1
-            // 
-            this.programsUserCtl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.programsUserCtl1.Location = new System.Drawing.Point(3, 3);
-            this.programsUserCtl1.Name = "programsUserCtl1";
-            this.programsUserCtl1.Size = new System.Drawing.Size(732, 581);
-            this.programsUserCtl1.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -482,6 +559,7 @@
             this.statusStrip2.ResumeLayout(false);
             this.statusStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgWindowsUpdate)).EndInit();
+            this.accountsTab.ResumeLayout(false);
             this.programsTab.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
@@ -530,6 +608,12 @@
         private System.ComponentModel.BackgroundWorker checkForUpdatesBackground;
         private System.ComponentModel.BackgroundWorker installUpdatesBackground;
         private Button btnInstallAllUpdates;
+        private TabPage remoteDesktopTab;
+        private ToolStripStatusLabel toolStripStatusLabel1;
+        private ToolStripStatusLabel toolStripStatusLabel2;
+        private ToolStripStatusLabel lblRamAmount;
+        private userControls.AccountsUserCtl accountsUserCtl1;
         private userControls.ProgramsUserCtl programsUserCtl1;
+        private ImageList iconList;
     }
 }

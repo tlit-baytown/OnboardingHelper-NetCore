@@ -17,7 +17,11 @@ namespace OnboardingHelper_NetCore
             [Description("The application has already been added to the collection.")]
             APPLICATION_ALREADY_EXISTS = 2,
             [Description("The application is not present in the collection.")]
-            APPLICATION_DOES_NOT_EXIST = 4
+            APPLICATION_DOES_NOT_EXIST = 4,
+            [Description("The account has already been added to the collection.")]
+            ACCOUNT_ALREADY_EXISTS = 8,
+            [Description("The account is not present in the collection.")]
+            ACCOUNT_DOES_NOT_EXIST = 16
         }
     }
 

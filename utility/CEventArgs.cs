@@ -17,5 +17,15 @@ namespace OnboardingHelper_NetCore
                 AddedApplication = addedApplication;
             }
         }
+
+        public class AccountAddedEventArgs : EventArgs
+        {
+            public wrappers.Account AddedAccount { get; private set; }
+
+            public AccountAddedEventArgs(wrappers.Account addedAccount)
+            {
+                AddedAccount = addedAccount;
+            }
+        }
     }
 }
