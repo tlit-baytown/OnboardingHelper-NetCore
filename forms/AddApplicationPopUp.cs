@@ -1,4 +1,5 @@
-﻿using OnboardingHelper_NetCore.wrappers;
+﻿using OnboardingHelper_NetCore.settings;
+using OnboardingHelper_NetCore.wrappers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -58,7 +59,7 @@ namespace OnboardingHelper_NetCore
             }
 
             application = new Application(name, description, path, arguments, isWindowsInstaller, isISOImage);
-            EnumHelper.ErrorCodes error = ApplicationWrapper.AddApplication(application);
+            EnumHelper.ErrorCodes error = Configuration.Instance.AddApplication(application);
             return error == EnumHelper.ErrorCodes.NO_ERROR;
         }
 

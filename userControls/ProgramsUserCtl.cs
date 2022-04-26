@@ -1,4 +1,5 @@
-﻿using OnboardingHelper_NetCore.wrappers;
+﻿using OnboardingHelper_NetCore.settings;
+using OnboardingHelper_NetCore.wrappers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -39,14 +40,12 @@ namespace OnboardingHelper_NetCore.userControls
                 return;
 
             foreach (DataGridViewRow row in dgApplications.SelectedRows)
-                ApplicationWrapper.RemoveApplication((wrappers.Application)row.Tag);
+                Configuration.Instance.RemoveApplication((wrappers.Application)row.Tag);
 
             dgApplications.Rows.Clear();
             dgApplications.Update();
-            foreach (wrappers.Application app in ApplicationWrapper.Applications)
-            {
+            foreach (wrappers.Application app in Configuration.Instance.Applications)
                 UpdateGrid(this, new CEventArgs.ApplicationAddedEventArgs(app));
-            }
         }
 
         private void UpdateGrid(object o, EventArgs e)

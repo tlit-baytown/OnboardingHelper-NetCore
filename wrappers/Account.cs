@@ -1,63 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
-using static OnboardingHelper_NetCore.EnumHelper;
 
 namespace OnboardingHelper_NetCore.wrappers
 {
-    public class AccountWrapper
+    public class Account
     {
-        /// <summary>
-        /// Get the collection of accounts to create. This collection is Read-Only and can only be modified using the
-        /// methods in <see cref="AccountWrapper"/>.
-        /// </summary>
-        public static IReadOnlyCollection<Account> Accounts { get { return accounts; } }
+        public string Username { get; set; } = string.Empty;
 
-        private static List<Account> accounts = new List<Account>();
+        public SecureString Password { get; set; } = new NetworkCredential("", string.Empty).SecurePassword;
 
-        public static ErrorCodes AddAccount(Account a)
-        {
-            if (accounts.Any(acct => acct.Username.Equals(a.Username)))
-                return ErrorCodes.ACCOUNT_ALREADY_EXISTS;
-            accounts.Add(a);
-            return ErrorCodes.NO_ERROR;
-        }
+        public string Comment { get; set; } = string.Empty;
 
-        public static ErrorCodes RemoveAccount(Account a)
-        {
-            if (accounts.Contains(a))
-                accounts.Remove(a);
-            else
-                return ErrorCodes.ACCOUNT_DOES_NOT_EXIST;
+        public AccountType AccountType { get; set; } = AccountType.STANDARD_USER;
 
-            return ErrorCodes.NO_ERROR;
-        }
+        public bool DoesPasswordExpire { get; set; } = false;
 
-        public static Account GetAccount(string username)
-        {
-            return accounts.FirstOrDefault(a => a.Username.Equals(username));
-        }
-    }
+        public bool RequirePasswordChange { get; set; } = false;
 
-    public struct Account
-    {
-        public string Username { get; private set; }
-
-        public SecureString Password { get; private set; }
-
-        public string Comment { get; private set; }
-
-        public AccountType AccountType { get; private set; }
-
-        public bool DoesPasswordExpire { get; private set; }
-
-        public bool RequirePasswordChange { get; private set; }
+        public Account() { }
 
         /// <summary>
         /// Create a new account with the specified username, password (<see cref="SecureString"/>), comment, account type, and whether or not password expires and/or requires change.

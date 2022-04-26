@@ -7,6 +7,12 @@
     <Compile Update="forms\AddApplicationPopUp.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="forms\AddVPNPopUp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="forms\AddWiFiPopUp.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="forms\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -17,6 +23,12 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="userControls\ProgramsUserCtl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="userControls\VPNUserCtl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="userControls\WiFiUserCtl.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>

@@ -1,83 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static OnboardingHelper_NetCore.EnumHelper;
-
-namespace OnboardingHelper_NetCore.wrappers
+﻿namespace OnboardingHelper_NetCore.wrappers
 {
-    public static class ApplicationWrapper
-    {
-        /// <summary>
-        /// Get the collection of applications to install. This collection is Read-Only and can only be modified using the
-        /// methods in <see cref="ApplicationWrapper"/>.
-        /// </summary>
-        public static IReadOnlyCollection<Application> Applications { get { return applications; } }
-
-        private static List<Application> applications = new List<Application>();
-
-        public static ErrorCodes AddApplication(Application a)
-        {
-            if (applications.Any(app => app.Name.Equals(a.Name)))
-                return ErrorCodes.APPLICATION_ALREADY_EXISTS;
-
-            applications.Add(a);
-            return ErrorCodes.NO_ERROR;
-        }
-
-        public static ErrorCodes RemoveApplication(Application a)
-        {
-            if (applications.Contains(a))
-                applications.Remove(a);
-            else
-                return ErrorCodes.APPLICATION_DOES_NOT_EXIST;
-
-            return ErrorCodes.NO_ERROR;
-        }
-
-        public static Application GetApplication(string name)
-        {
-            return applications.FirstOrDefault(a => a.Name.Equals(name));
-        }
-
-
-    }
-
     /// <summary>
     /// Structure to represent an Application that is to be installed on the computer.
     /// </summary>
-    public struct Application
+    public class Application
     {
         /// <summary>
         /// The name of the application.
         /// </summary>
-        public string Name { get; private set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
         /// <summary>
         /// An optional description of the application.
         /// </summary>
-        public string Description { get; private set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
 
         /// <summary>
         /// The full path to the application file to be installed.
         /// </summary>
-        public string Path { get; private set; }
+        public string Path { get; set; } = string.Empty;
 
         /// <summary>
         /// The installation arguments needed for installation via command line.
         /// </summary>
-        public string InstallArguments { get; private set; } = string.Empty;
+        public string InstallArguments { get; set; } = string.Empty;
 
         /// <summary>
         /// Is the installer file an .MSI file (windows installer)?
         /// <para>If <c>false</c>, the application is assumed to be an .EXE file.</para>
         /// </summary>
-        public bool IsWindowsInstaller { get; private set; } = false;
+        public bool IsWindowsInstaller { get; set; } = false;
 
         /// <summary>
         /// Is the installer an ISO disk image? (such is the case for Microsoft Office 2019)
         /// </summary>
-        public bool IsISOImage { get; private set; } = false;
+        public bool IsISOImage { get; set; } = false;
 
         /// <summary>
         /// Provides a <see cref="FileStream"/> object that represents this application.
@@ -92,6 +48,8 @@ namespace OnboardingHelper_NetCore.wrappers
                     return null;
             }
         }
+
+        public Application() { }
 
         /// <summary>
         /// Create a new application with the specified name, description, path, and install arguments.

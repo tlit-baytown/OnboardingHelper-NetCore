@@ -1,4 +1,5 @@
-﻿using OnboardingHelper_NetCore.wrappers;
+﻿using OnboardingHelper_NetCore.settings;
+using OnboardingHelper_NetCore.wrappers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -39,11 +40,11 @@ namespace OnboardingHelper_NetCore.userControls
                 return;
 
             foreach (DataGridViewRow row in dgAccounts.SelectedRows)
-                AccountWrapper.RemoveAccount((Account)row.Tag);
+                Configuration.Instance.RemoveAccount((Account)row.Tag);
 
             dgAccounts.Rows.Clear();
             dgAccounts.Update();
-            foreach (Account acct in AccountWrapper.Accounts)
+            foreach (Account acct in Configuration.Instance.Accounts)
             {
                 UpdateGrid(this, new CEventArgs.AccountAddedEventArgs(acct));
             }

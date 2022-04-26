@@ -27,5 +27,15 @@ namespace OnboardingHelper_NetCore
                 AddedAccount = addedAccount;
             }
         }
+
+        public class WiFiAddedEventArgs : EventArgs
+        {
+            public wrappers.WiFi WiFi { get; private set; }
+
+            public WiFiAddedEventArgs(wrappers.WiFi addedWifi)
+            {
+                WiFi = addedWifi;
+            }
+        }
     }
 }

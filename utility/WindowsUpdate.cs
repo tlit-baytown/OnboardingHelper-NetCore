@@ -25,14 +25,14 @@ namespace OnboardingHelper_NetCore
         {
             List<IUpdate> updates = new List<IUpdate>();
 
-            Utility.MainForm.UpdateWindowsUpdateLabel("Searching for updates...");
+            //Utility.MainForm.UpdateWindowsUpdateLabel("Searching for updates...");
             uResult = uSearcher.Search("IsInstalled=0");
-            Utility.MainForm.UpdateWindowsUpdateChecker(20);
+            //Utility.MainForm.UpdateWindowsUpdateChecker(20);
 
             int counter = 0;
             foreach (IUpdate update in uResult.Updates)
             {
-                Utility.MainForm.UpdateWindowsUpdateLabel("Found update: " + update.Title);
+                //Utility.MainForm.UpdateWindowsUpdateLabel("Found update: " + update.Title);
                 //StringBuilder bldr = new StringBuilder();
                 //foreach (string s in update.KBArticleIDs)
                 //{
@@ -47,10 +47,10 @@ namespace OnboardingHelper_NetCore
                 //});
                 updates.Add(update);
                 counter++;
-                Utility.MainForm.UpdateWindowsUpdateChecker((counter * 100) / uResult.Updates.Count);
+                //Utility.MainForm.UpdateWindowsUpdateChecker((counter * 100) / uResult.Updates.Count);
             }
 
-            Utility.MainForm.UpdateWindowsUpdateLabel($"Updates: {updates.Count}");
+            //Utility.MainForm.UpdateWindowsUpdateLabel($"Updates: {updates.Count}");
             return updates;
         }
 

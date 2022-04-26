@@ -21,7 +21,11 @@ namespace OnboardingHelper_NetCore
             [Description("The account has already been added to the collection.")]
             ACCOUNT_ALREADY_EXISTS = 8,
             [Description("The account is not present in the collection.")]
-            ACCOUNT_DOES_NOT_EXIST = 16
+            ACCOUNT_DOES_NOT_EXIST = 16,
+            [Description("The WiFi profile has already been added to the collection.")]
+            WIFI_ALREADY_EXISTS = 32,
+            [Description("The WiFi profile is not present in the collection.")]
+            WIFI_DOES_NOT_EXIST = 64
         }
     }
 

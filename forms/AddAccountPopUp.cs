@@ -1,4 +1,5 @@
-﻿using OnboardingHelper_NetCore.wrappers;
+﻿using OnboardingHelper_NetCore.settings;
+using OnboardingHelper_NetCore.wrappers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -56,7 +57,7 @@ namespace OnboardingHelper_NetCore
                 return false;
 
             account = new Account(username, password, comment, accountType, passwordExpires, requirePasswordChange);
-            EnumHelper.ErrorCodes error = AccountWrapper.AddAccount(account);
+            EnumHelper.ErrorCodes error = Configuration.Instance.AddAccount(account);
             return error == EnumHelper.ErrorCodes.NO_ERROR;
         }
 

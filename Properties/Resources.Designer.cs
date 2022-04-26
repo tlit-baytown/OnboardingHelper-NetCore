@@ -123,6 +123,26 @@ namespace OnboardingHelper_NetCore.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap show__Custom_ {
+            get {
+                object obj = ResourceManager.GetObject("show (Custom)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap show_24x24 {
+            get {
+                object obj = ResourceManager.GetObject("show_24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap user__Custom_ {
             get {
                 object obj = ResourceManager.GetObject("user (Custom)", resourceCulture);
