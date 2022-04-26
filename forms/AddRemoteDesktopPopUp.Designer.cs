@@ -113,7 +113,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(388, 66);
+            this.panel1.Size = new System.Drawing.Size(384, 66);
             this.panel1.TabIndex = 0;
             // 
             // label2
@@ -219,7 +219,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(388, 327);
+            this.tabControl1.Size = new System.Drawing.Size(384, 328);
             this.tabControl1.TabIndex = 2;
             // 
             // tabGeneral
@@ -229,7 +229,7 @@
             this.tabGeneral.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabGeneral.Name = "tabGeneral";
             this.tabGeneral.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tabGeneral.Size = new System.Drawing.Size(380, 299);
+            this.tabGeneral.Size = new System.Drawing.Size(376, 300);
             this.tabGeneral.TabIndex = 0;
             this.tabGeneral.Text = "General";
             this.tabGeneral.UseVisualStyleBackColor = true;
@@ -246,7 +246,7 @@
             this.grpLogonSettings.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.grpLogonSettings.Name = "grpLogonSettings";
             this.grpLogonSettings.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.grpLogonSettings.Size = new System.Drawing.Size(372, 155);
+            this.grpLogonSettings.Size = new System.Drawing.Size(368, 155);
             this.grpLogonSettings.TabIndex = 2;
             this.grpLogonSettings.TabStop = false;
             this.grpLogonSettings.Text = "Logon Settings";
@@ -460,10 +460,10 @@
             this.tabLocalResources.Controls.Add(this.groupBox2);
             this.tabLocalResources.Controls.Add(this.grpKeyboard);
             this.tabLocalResources.Controls.Add(this.grpRemoteAudio);
-            this.tabLocalResources.Location = new System.Drawing.Point(4, 24);
+            this.tabLocalResources.Location = new System.Drawing.Point(4, 25);
             this.tabLocalResources.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabLocalResources.Name = "tabLocalResources";
-            this.tabLocalResources.Size = new System.Drawing.Size(380, 299);
+            this.tabLocalResources.Size = new System.Drawing.Size(380, 298);
             this.tabLocalResources.TabIndex = 2;
             this.tabLocalResources.Text = "Local Resources";
             this.tabLocalResources.UseVisualStyleBackColor = true;
@@ -648,15 +648,15 @@
             this.flowLayoutPanel1.Controls.Add(this.btnCancel);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 393);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 394);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(388, 42);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(384, 42);
             this.flowLayoutPanel1.TabIndex = 3;
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(309, 3);
+            this.btnAdd.Location = new System.Drawing.Point(305, 3);
             this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
@@ -666,7 +666,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(226, 3);
+            this.btnCancel.Location = new System.Drawing.Point(222, 3);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
@@ -679,7 +679,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(388, 435);
+            this.ClientSize = new System.Drawing.Size(384, 436);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.panel1);

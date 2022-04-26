@@ -88,6 +88,9 @@ namespace OnboardingHelper_NetCore.forms
             {
                 remotePlayback = args.playbackOption;
                 remoteRecording = args.recordingOption;
+
+                if (remotePlayback == RDPAudioPlayback.PLAY_ON_REMOTE_COMPUTER)
+                    remoteRecording = RDPAudioRecording.DISABLED;
             }
         }
     }

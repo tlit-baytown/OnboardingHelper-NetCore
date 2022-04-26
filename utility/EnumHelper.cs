@@ -42,7 +42,8 @@ namespace OnboardingHelper_NetCore
         public enum RDPAudioRecording
         {
             RECORD_FROM_THIS_COMPUTER,
-            DO_NOT_RECORD
+            DO_NOT_RECORD,
+            DISABLED
         }
     }
 
