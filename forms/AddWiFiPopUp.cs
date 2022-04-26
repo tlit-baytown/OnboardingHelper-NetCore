@@ -26,6 +26,13 @@ namespace OnboardingHelper_NetCore.forms
             InitializeComponent();
         }
 
+        private void AddWiFiPopUp_Load(object sender, EventArgs e)
+        {
+            cmbAuthenticationType.SelectedIndex = 3; //Set to WPA2: Pre-Shared Key by default
+            cmbConnectionType.SelectedIndex = 0; //Set to ESS by default
+            cmbEncryptionType.SelectedIndex = 3; //Set to AES by default
+        }
+
         private void btnAddAndClear_Click(object sender, EventArgs e)
         {
             if (AddAndClear())
@@ -87,11 +94,17 @@ namespace OnboardingHelper_NetCore.forms
 
         private void Clear()
         {
+            wifi = new WiFi();
+            psk = string.Empty;
+            userpassword = string.Empty;
+
             txtSSID.Text = string.Empty;
             txtPSK.Text = string.Empty;
-            cmbAuthenticationType.SelectedIndex = 0;
-            cmbConnectionType.SelectedIndex = 0;
-            cmbEncryptionType.SelectedIndex = 0;
+
+            cmbAuthenticationType.SelectedIndex = 3; //Set to WPA2: Pre-Shared Key by default
+            cmbConnectionType.SelectedIndex = 0; //Set to ESS by default
+            cmbEncryptionType.SelectedIndex = 3; //Set to AES by default
+
             txtEnterpriseUsername.Text = string.Empty;
             txtEnterprisePassword.Text = string.Empty;
             chkIsHiddenNetwork.Checked = false;

@@ -54,6 +54,9 @@ namespace OnboardingHelper_NetCore.settings
         /// </summary>
         public IReadOnlyCollection<WiFi> WiFiProfiles { get { return wifiProfiles; } }
         private List<WiFi> wifiProfiles = new List<WiFi>();
+
+        public IReadOnlyCollection<VPN> VPNProfiles { get { return vpnProfiles; } }
+        private List<VPN> vpnProfiles = new List<VPN>();
         #endregion
 
         #region Programs
@@ -115,7 +118,7 @@ namespace OnboardingHelper_NetCore.settings
             return ErrorCodes.NO_ERROR;
         }
 
-        public Account GetAccount(string username)
+        public Account? GetAccount(string username)
         {
             return accounts.FirstOrDefault(a => a.Username.Equals(username));
         }
@@ -141,9 +144,33 @@ namespace OnboardingHelper_NetCore.settings
             return ErrorCodes.NO_ERROR;
         }
 
-        public WiFi GetWiFi(string ssid)
+        public WiFi? GetWiFi(string ssid)
         {
             return wifiProfiles.FirstOrDefault(wifi => wifi.SSID.Equals(ssid));
+        }
+
+        public ErrorCodes AddVPN(VPN v)
+        {
+            if (vpnProfiles.Any(vpn => vpn.ConnectionName.Equals(v.ConnectionName)))
+                return ErrorCodes.VPN_ALREADY_EXISTS;
+            vpnProfiles.Add(v);
+
+            return ErrorCodes.NO_ERROR;
+        }
+
+        public ErrorCodes RemoveVPN(VPN v)
+        {
+            if (vpnProfiles.Contains(v))
+                vpnProfiles.Remove(v);
+            else
+                return ErrorCodes.VPN_DOES_NOT_EXIST;
+
+            return ErrorCodes.NO_ERROR;
+        }
+
+        public VPN? GetVPN(string connectionName)
+        {
+            return vpnProfiles.FirstOrDefault(vpn => vpn.ConnectionName.Equals(connectionName));
         }
         #endregion
 

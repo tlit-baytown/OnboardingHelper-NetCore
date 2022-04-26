@@ -69,24 +69,24 @@
             this.tableLayoutPanel1.Controls.Add(this.cmbAuthenticationType, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.txtSSID, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(10, 12);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(10, 13);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 44.73684F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 55.26316F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(476, 173);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(476, 185);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // label7
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 146);
+            this.label7.Location = new System.Drawing.Point(3, 156);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(123, 15);
+            this.label7.Size = new System.Drawing.Size(123, 16);
             this.label7.TabIndex = 17;
             this.label7.Text = "Encryption Type: ";
             // 
@@ -94,9 +94,9 @@
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 108);
+            this.label6.Location = new System.Drawing.Point(3, 116);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(123, 15);
+            this.label6.Size = new System.Drawing.Size(123, 16);
             this.label6.TabIndex = 16;
             this.label6.Text = "Connection Type: ";
             // 
@@ -104,9 +104,9 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 72);
+            this.label5.Location = new System.Drawing.Point(3, 70);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(123, 15);
+            this.label5.Size = new System.Drawing.Size(123, 32);
             this.label5.TabIndex = 15;
             this.label5.Text = "Authentication Type: ";
             // 
@@ -120,16 +120,16 @@
             "WEP",
             "TKIP",
             "AES"});
-            this.cmbEncryptionType.Location = new System.Drawing.Point(132, 142);
+            this.cmbEncryptionType.Location = new System.Drawing.Point(132, 152);
             this.cmbEncryptionType.Name = "cmbEncryptionType";
-            this.cmbEncryptionType.Size = new System.Drawing.Size(341, 23);
+            this.cmbEncryptionType.Size = new System.Drawing.Size(341, 24);
             this.cmbEncryptionType.TabIndex = 14;
             this.cmbEncryptionType.SelectedIndexChanged += new System.EventHandler(this.cmbEncryptionType_SelectedIndexChanged);
             // 
             // txtPSK
             // 
             this.txtPSK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPSK.Location = new System.Drawing.Point(132, 33);
+            this.txtPSK.Location = new System.Drawing.Point(132, 37);
             this.txtPSK.Name = "txtPSK";
             this.txtPSK.Size = new System.Drawing.Size(341, 23);
             this.txtPSK.TabIndex = 3;
@@ -143,9 +143,9 @@
             this.cmbConnectionType.Items.AddRange(new object[] {
             "ESS",
             "IBSS"});
-            this.cmbConnectionType.Location = new System.Drawing.Point(132, 104);
+            this.cmbConnectionType.Location = new System.Drawing.Point(132, 112);
             this.cmbConnectionType.Name = "cmbConnectionType";
-            this.cmbConnectionType.Size = new System.Drawing.Size(341, 23);
+            this.cmbConnectionType.Size = new System.Drawing.Size(341, 24);
             this.cmbConnectionType.TabIndex = 13;
             this.cmbConnectionType.SelectedIndexChanged += new System.EventHandler(this.cmbConnectionType_SelectedIndexChanged);
             // 
@@ -153,9 +153,9 @@
             // 
             this.lblPSK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPSK.AutoSize = true;
-            this.lblPSK.Location = new System.Drawing.Point(3, 37);
+            this.lblPSK.Location = new System.Drawing.Point(3, 40);
             this.lblPSK.Name = "lblPSK";
-            this.lblPSK.Size = new System.Drawing.Size(123, 15);
+            this.lblPSK.Size = new System.Drawing.Size(123, 16);
             this.lblPSK.TabIndex = 2;
             this.lblPSK.Text = "Pre-Shared Key: ";
             // 
@@ -172,9 +172,9 @@
             "WPA2: Enterprise",
             "WPA3: Pre-Shared Key",
             "WPA3: Enterprise"});
-            this.cmbAuthenticationType.Location = new System.Drawing.Point(132, 68);
+            this.cmbAuthenticationType.Location = new System.Drawing.Point(132, 74);
             this.cmbAuthenticationType.Name = "cmbAuthenticationType";
-            this.cmbAuthenticationType.Size = new System.Drawing.Size(341, 23);
+            this.cmbAuthenticationType.Size = new System.Drawing.Size(341, 24);
             this.cmbAuthenticationType.TabIndex = 12;
             this.cmbAuthenticationType.SelectedIndexChanged += new System.EventHandler(this.cmbAuthenticationType_SelectedIndexChanged);
             // 
@@ -182,9 +182,9 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 6);
+            this.label1.Location = new System.Drawing.Point(3, 7);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(123, 15);
+            this.label1.Size = new System.Drawing.Size(123, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "SSID: ";
             // 
@@ -206,21 +206,21 @@
             this.tlpEnterpriseCreds.Controls.Add(this.label4, 0, 0);
             this.tlpEnterpriseCreds.Controls.Add(this.txtEnterpriseUsername, 1, 0);
             this.tlpEnterpriseCreds.Controls.Add(this.txtEnterprisePassword, 1, 1);
-            this.tlpEnterpriseCreds.Location = new System.Drawing.Point(6, 25);
+            this.tlpEnterpriseCreds.Location = new System.Drawing.Point(6, 27);
             this.tlpEnterpriseCreds.Name = "tlpEnterpriseCreds";
             this.tlpEnterpriseCreds.RowCount = 2;
             this.tlpEnterpriseCreds.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.18033F));
             this.tlpEnterpriseCreds.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.81967F));
-            this.tlpEnterpriseCreds.Size = new System.Drawing.Size(322, 61);
+            this.tlpEnterpriseCreds.Size = new System.Drawing.Size(322, 65);
             this.tlpEnterpriseCreds.TabIndex = 6;
             // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 38);
+            this.label3.Location = new System.Drawing.Point(3, 40);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(66, 15);
+            this.label3.Size = new System.Drawing.Size(66, 16);
             this.label3.TabIndex = 2;
             this.label3.Text = "Password: ";
             // 
@@ -228,16 +228,16 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 7);
+            this.label4.Location = new System.Drawing.Point(3, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(66, 15);
+            this.label4.Size = new System.Drawing.Size(66, 31);
             this.label4.TabIndex = 0;
             this.label4.Text = "Username: ";
             // 
             // txtEnterpriseUsername
             // 
             this.txtEnterpriseUsername.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtEnterpriseUsername.Location = new System.Drawing.Point(75, 3);
+            this.txtEnterpriseUsername.Location = new System.Drawing.Point(75, 4);
             this.txtEnterpriseUsername.Name = "txtEnterpriseUsername";
             this.txtEnterpriseUsername.Size = new System.Drawing.Size(244, 23);
             this.txtEnterpriseUsername.TabIndex = 1;
@@ -246,7 +246,7 @@
             // txtEnterprisePassword
             // 
             this.txtEnterprisePassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtEnterprisePassword.Location = new System.Drawing.Point(75, 34);
+            this.txtEnterprisePassword.Location = new System.Drawing.Point(75, 36);
             this.txtEnterprisePassword.Name = "txtEnterprisePassword";
             this.txtEnterprisePassword.Size = new System.Drawing.Size(244, 23);
             this.txtEnterprisePassword.TabIndex = 3;
@@ -256,9 +256,9 @@
             // grpEnterpriseCreds
             // 
             this.grpEnterpriseCreds.Controls.Add(this.tlpEnterpriseCreds);
-            this.grpEnterpriseCreds.Location = new System.Drawing.Point(10, 191);
+            this.grpEnterpriseCreds.Location = new System.Drawing.Point(10, 204);
             this.grpEnterpriseCreds.Name = "grpEnterpriseCreds";
-            this.grpEnterpriseCreds.Size = new System.Drawing.Size(334, 94);
+            this.grpEnterpriseCreds.Size = new System.Drawing.Size(334, 100);
             this.grpEnterpriseCreds.TabIndex = 7;
             this.grpEnterpriseCreds.TabStop = false;
             this.grpEnterpriseCreds.Text = "Enterprise Credentials";
@@ -267,9 +267,9 @@
             // chkIsHiddenNetwork
             // 
             this.chkIsHiddenNetwork.AutoSize = true;
-            this.chkIsHiddenNetwork.Location = new System.Drawing.Point(357, 200);
+            this.chkIsHiddenNetwork.Location = new System.Drawing.Point(357, 213);
             this.chkIsHiddenNetwork.Name = "chkIsHiddenNetwork";
-            this.chkIsHiddenNetwork.Size = new System.Drawing.Size(129, 19);
+            this.chkIsHiddenNetwork.Size = new System.Drawing.Size(134, 20);
             this.chkIsHiddenNetwork.TabIndex = 8;
             this.chkIsHiddenNetwork.Text = "Is Hidden Network?";
             this.chkIsHiddenNetwork.UseVisualStyleBackColor = true;
@@ -277,9 +277,9 @@
             // 
             // btnAddAndClear
             // 
-            this.btnAddAndClear.Location = new System.Drawing.Point(379, 292);
+            this.btnAddAndClear.Location = new System.Drawing.Point(379, 311);
             this.btnAddAndClear.Name = "btnAddAndClear";
-            this.btnAddAndClear.Size = new System.Drawing.Size(107, 23);
+            this.btnAddAndClear.Size = new System.Drawing.Size(107, 25);
             this.btnAddAndClear.TabIndex = 11;
             this.btnAddAndClear.Text = "Add && Clear";
             this.btnAddAndClear.UseVisualStyleBackColor = true;
@@ -287,9 +287,9 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(153, 292);
+            this.btnCancel.Location = new System.Drawing.Point(153, 311);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(107, 23);
+            this.btnCancel.Size = new System.Drawing.Size(107, 25);
             this.btnCancel.TabIndex = 10;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -297,9 +297,9 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(266, 292);
+            this.btnAdd.Location = new System.Drawing.Point(266, 311);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(107, 23);
+            this.btnAdd.Size = new System.Drawing.Size(107, 25);
             this.btnAdd.TabIndex = 9;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -307,10 +307,10 @@
             // 
             // AddWiFiPopUp
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(498, 322);
+            this.ClientSize = new System.Drawing.Size(498, 343);
             this.Controls.Add(this.btnAddAndClear);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAdd);
@@ -326,6 +326,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add Wi-Fi Profile";
             this.TopMost = true;
+            this.Load += new System.EventHandler(this.AddWiFiPopUp_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tlpEnterpriseCreds.ResumeLayout(false);

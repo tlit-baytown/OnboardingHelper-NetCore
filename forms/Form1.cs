@@ -1,3 +1,4 @@
+using OnboardingHelper_NetCore.forms;
 using OnboardingHelper_NetCore.settings;
 using OnboardingHelper_NetCore.wrappers;
 using WUApiLib;
@@ -82,6 +83,12 @@ namespace OnboardingHelper_NetCore
                 grpDomainCredentials.Visible = true;
             else
                 grpDomainCredentials.Visible = false;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AddRemoteDesktopPopUp popUp = new AddRemoteDesktopPopUp();
+            popUp.ShowDialog();
         }
     }
 }

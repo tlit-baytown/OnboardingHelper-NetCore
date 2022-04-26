@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static OnboardingHelper_NetCore.EnumHelper;
 
 namespace OnboardingHelper_NetCore
 {
@@ -35,6 +36,28 @@ namespace OnboardingHelper_NetCore
             public WiFiAddedEventArgs(wrappers.WiFi addedWifi)
             {
                 WiFi = addedWifi;
+            }
+        }
+
+        public class VPNAddedEventArgs : EventArgs
+        {
+            public wrappers.VPN VPN { get; private set; }
+
+            public VPNAddedEventArgs(wrappers.VPN addedVPN)
+            {
+                VPN = addedVPN;
+            }
+        }
+
+        public class RDPAudioEventArgs : EventArgs
+        {
+            public RDPAudioPlayback playbackOption { get; private set; }
+            public RDPAudioRecording recordingOption { get; private set; }
+
+            public RDPAudioEventArgs(RDPAudioPlayback playback, RDPAudioRecording recording)
+            {
+                playbackOption = playback;
+                recordingOption = recording;
             }
         }
     }

@@ -28,5 +28,10 @@ namespace OnboardingHelper_NetCore
             else if (lvPages.FocusedItem.Text.Contains("Accounts"))
                 webView.NavigateToString(File.ReadAllText("helpControls\\Accounts.html"));
         }
+
+        private void HelpBox_Load(object sender, EventArgs e)
+        {
+            
+        }
     }
 }
