@@ -93,9 +93,81 @@ namespace OnboardingHelper_NetCore.settings
         /// </summary>
         /// <param name="path"></param>
         /// <returns>A <see cref="Configuration"/> object containing the configuration present in the XML file.</returns>
-        public static Configuration LoadConfig(string path)
+        public Configuration LoadConfig(string path)
         {
-            return new Configuration();
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(File.ReadAllText(path));
+            XmlTextReader textReader = new XmlTextReader(path);
+            textReader.Read();
+            while (textReader.Read())
+            {
+                textReader.MoveToElement();
+                if (textReader.IsEmptyElement)
+                    continue;
+
+                ReadBasicInfo(textReader);
+                ReadAccountInfo(textReader);
+            }
+            System.Diagnostics.Debug.WriteLine(ComputerName);
+            System.Diagnostics.Debug.WriteLine(TimeZone.DisplayName);
+            System.Diagnostics.Debug.WriteLine(PrimaryNTPServer);
+            System.Diagnostics.Debug.WriteLine(PerformTimeSync);
+            System.Diagnostics.Debug.WriteLine("Accounts: " + accounts.Count);
+
+            return this;
+        }
+
+        private void ReadBasicInfo(XmlTextReader r)
+        {
+            if (r.NodeType == XmlNodeType.Element)
+            {
+                if (r.LocalName.Equals("Computer-Name") && r.HasValue)
+                    ComputerName = r.Value;
+                else if (r.LocalName.Equals("Domain") && r.HasValue)
+                    Domain = r.Value;
+                else if (r.LocalName.Equals("Domain-Username") && r.HasValue)
+                    DomainUsername = r.Value;
+                else if (r.LocalName.Equals("Domain-Password") && r.HasValue)
+                {
+                    DomainPassword = new NetworkCredential("",
+                        Encoding.ASCII.GetString(Convert.FromBase64String(r.Value))).SecurePassword;
+                }
+                else if (r.LocalName.Equals("Time-Zone") && r.HasValue)
+                    TimeZone = TimeZoneInfo.FromSerializedString(r.Value);
+                else if (r.LocalName.Equals("Primary-NTP-Server") && r.HasValue)
+                    PrimaryNTPServer = r.Value;
+                else if (r.LocalName.Equals("Perform-Time-Sync") && r.HasValue)
+                    PerformTimeSync = bool.Parse(r.Value);
+            }
+        }
+
+        private void ReadAccountInfo(XmlTextReader r)
+        {
+            Account a = new Account();
+            if (r.NodeType == XmlNodeType.Attribute)
+            {
+                if (r.LocalName.Equals("Username") && r.HasValue)
+                    a.Username = r.Value;
+            }
+
+            if (r.NodeType == XmlNodeType.Element)
+            {
+                if (r.LocalName.Equals("Password") && r.HasValue)
+                {
+                    a.Password = new NetworkCredential("",
+                        Encoding.ASCII.GetString(Convert.FromBase64String(r.Value))).SecurePassword;
+                }
+                else if (r.LocalName.Equals("Comment") && r.HasValue)
+                    a.Comment = r.Value;
+                else if (r.LocalName.Equals("Account-Type") && r.HasValue)
+                    a.AccountType = (AccountType)Enum.Parse(typeof(AccountType), r.Value);
+                else if (r.LocalName.Equals("Password-Expires") && r.HasValue)
+                    a.DoesPasswordExpire = bool.Parse(r.Value);
+                else if (r.LocalName.Equals("Require-Password-Change") && r.HasValue)
+                    a.RequirePasswordChange = bool.Parse(r.Value);
+            }
+            if (!a.Username.Equals(string.Empty))
+                System.Diagnostics.Debug.WriteLine(AddAccount(a).ToDescriptionString());
         }
 
         /// <summary>
@@ -117,6 +189,7 @@ namespace OnboardingHelper_NetCore.settings
             textWriter.WriteEndElement();
 
             WriteApplicationsInfo(textWriter);
+            WriteRDPInfo(textWriter);
             textWriter.WriteEndElement();
             textWriter.WriteEndDocument();
             textWriter.Close();
@@ -326,6 +399,25 @@ namespace OnboardingHelper_NetCore.settings
                 w.WriteEndElement();
                 w.WriteStartElement("IsISOImage");
                 w.WriteValue(app.IsISOImage);
+                w.WriteEndElement();
+                w.WriteEndElement();
+            }
+            w.WriteEndElement();
+        }
+
+        private void WriteRDPInfo(XmlTextWriter w)
+        {
+            w.WriteComment("RDP Files");
+            w.WriteStartElement("Remote-Desktop");
+            foreach (RDPFile f in RDPFiles)
+            {
+                w.WriteStartElement("RDP");
+                w.WriteAttributeString("Computer", f.ComputerName);
+                w.WriteStartElement("Path");
+                w.WriteString(f.FilePath);
+                w.WriteEndElement();
+                w.WriteStartElement("RDP-File");
+                w.WriteString(f.RDPFileText);
                 w.WriteEndElement();
                 w.WriteEndElement();
             }

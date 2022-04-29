@@ -72,6 +72,7 @@
             this.remoteDesktopTab = new System.Windows.Forms.TabPage();
             this.rdpUserCtl1 = new OnboardingHelper_NetCore.userControls.RDPUserCtl();
             this.tabDriveMaps = new System.Windows.Forms.TabPage();
+            this.tabPrinters = new System.Windows.Forms.TabPage();
             this.iconList = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
@@ -116,9 +117,9 @@
             this.toolStripStatusLabel2,
             this.lblRamAmount});
             this.statusStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
-            this.statusStrip1.Location = new System.Drawing.Point(0, 640);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 524);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(746, 21);
+            this.statusStrip1.Size = new System.Drawing.Size(885, 21);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 0;
             // 
@@ -270,12 +271,13 @@
             this.tabControl.Controls.Add(this.programsTab);
             this.tabControl.Controls.Add(this.remoteDesktopTab);
             this.tabControl.Controls.Add(this.tabDriveMaps);
+            this.tabControl.Controls.Add(this.tabPrinters);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.ImageList = this.iconList;
             this.tabControl.Location = new System.Drawing.Point(0, 24);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(746, 616);
+            this.tabControl.Size = new System.Drawing.Size(885, 500);
             this.tabControl.TabIndex = 3;
             // 
             // basicTab
@@ -288,7 +290,7 @@
             this.basicTab.Location = new System.Drawing.Point(4, 39);
             this.basicTab.Name = "basicTab";
             this.basicTab.Padding = new System.Windows.Forms.Padding(3);
-            this.basicTab.Size = new System.Drawing.Size(738, 573);
+            this.basicTab.Size = new System.Drawing.Size(877, 457);
             this.basicTab.TabIndex = 0;
             this.basicTab.Text = "Basic";
             this.basicTab.UseVisualStyleBackColor = true;
@@ -390,9 +392,9 @@
             this.statusStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblUpdateStatus,
             this.updatesProgressBar});
-            this.statusStrip2.Location = new System.Drawing.Point(3, 548);
+            this.statusStrip2.Location = new System.Drawing.Point(3, 432);
             this.statusStrip2.Name = "statusStrip2";
-            this.statusStrip2.Size = new System.Drawing.Size(732, 22);
+            this.statusStrip2.Size = new System.Drawing.Size(871, 22);
             this.statusStrip2.SizingGrip = false;
             this.statusStrip2.TabIndex = 8;
             this.statusStrip2.Text = "statusStrip2";
@@ -400,7 +402,7 @@
             // lblUpdateStatus
             // 
             this.lblUpdateStatus.Name = "lblUpdateStatus";
-            this.lblUpdateStatus.Size = new System.Drawing.Size(415, 17);
+            this.lblUpdateStatus.Size = new System.Drawing.Size(554, 17);
             this.lblUpdateStatus.Spring = true;
             this.lblUpdateStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -427,7 +429,7 @@
             this.accountsTab.Location = new System.Drawing.Point(4, 39);
             this.accountsTab.Name = "accountsTab";
             this.accountsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.accountsTab.Size = new System.Drawing.Size(738, 573);
+            this.accountsTab.Size = new System.Drawing.Size(877, 457);
             this.accountsTab.TabIndex = 1;
             this.accountsTab.Text = "Accounts";
             this.accountsTab.UseVisualStyleBackColor = true;
@@ -437,7 +439,7 @@
             this.accountsUserCtl2.Dock = System.Windows.Forms.DockStyle.Top;
             this.accountsUserCtl2.Location = new System.Drawing.Point(3, 3);
             this.accountsUserCtl2.Name = "accountsUserCtl2";
-            this.accountsUserCtl2.Size = new System.Drawing.Size(732, 524);
+            this.accountsUserCtl2.Size = new System.Drawing.Size(871, 407);
             this.accountsUserCtl2.TabIndex = 0;
             // 
             // connectionsTab
@@ -447,7 +449,7 @@
             this.connectionsTab.Location = new System.Drawing.Point(4, 39);
             this.connectionsTab.Name = "connectionsTab";
             this.connectionsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.connectionsTab.Size = new System.Drawing.Size(738, 573);
+            this.connectionsTab.Size = new System.Drawing.Size(877, 457);
             this.connectionsTab.TabIndex = 2;
             this.connectionsTab.Text = "Connections";
             this.connectionsTab.UseVisualStyleBackColor = true;
@@ -460,7 +462,7 @@
             this.tabControl1.Location = new System.Drawing.Point(3, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(732, 567);
+            this.tabControl1.Size = new System.Drawing.Size(871, 451);
             this.tabControl1.TabIndex = 1;
             // 
             // tabWiFi
@@ -469,7 +471,7 @@
             this.tabWiFi.Location = new System.Drawing.Point(4, 25);
             this.tabWiFi.Name = "tabWiFi";
             this.tabWiFi.Padding = new System.Windows.Forms.Padding(3);
-            this.tabWiFi.Size = new System.Drawing.Size(724, 538);
+            this.tabWiFi.Size = new System.Drawing.Size(863, 422);
             this.tabWiFi.TabIndex = 0;
             this.tabWiFi.Text = "Wi-Fi Networks";
             this.tabWiFi.UseVisualStyleBackColor = true;
@@ -479,7 +481,7 @@
             this.wiFiUserCtl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.wiFiUserCtl1.Location = new System.Drawing.Point(3, 3);
             this.wiFiUserCtl1.Name = "wiFiUserCtl1";
-            this.wiFiUserCtl1.Size = new System.Drawing.Size(718, 497);
+            this.wiFiUserCtl1.Size = new System.Drawing.Size(857, 384);
             this.wiFiUserCtl1.TabIndex = 0;
             // 
             // tabVPN
@@ -488,7 +490,7 @@
             this.tabVPN.Location = new System.Drawing.Point(4, 25);
             this.tabVPN.Name = "tabVPN";
             this.tabVPN.Padding = new System.Windows.Forms.Padding(3);
-            this.tabVPN.Size = new System.Drawing.Size(724, 538);
+            this.tabVPN.Size = new System.Drawing.Size(863, 422);
             this.tabVPN.TabIndex = 1;
             this.tabVPN.Text = "VPN Connections";
             this.tabVPN.UseVisualStyleBackColor = true;
@@ -498,7 +500,7 @@
             this.vpnUserCtl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.vpnUserCtl1.Location = new System.Drawing.Point(3, 3);
             this.vpnUserCtl1.Name = "vpnUserCtl1";
-            this.vpnUserCtl1.Size = new System.Drawing.Size(718, 495);
+            this.vpnUserCtl1.Size = new System.Drawing.Size(857, 379);
             this.vpnUserCtl1.TabIndex = 0;
             // 
             // programsTab
@@ -508,7 +510,7 @@
             this.programsTab.Location = new System.Drawing.Point(4, 39);
             this.programsTab.Name = "programsTab";
             this.programsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.programsTab.Size = new System.Drawing.Size(738, 573);
+            this.programsTab.Size = new System.Drawing.Size(877, 457);
             this.programsTab.TabIndex = 3;
             this.programsTab.Text = "Programs";
             this.programsTab.UseVisualStyleBackColor = true;
@@ -518,7 +520,7 @@
             this.programsUserCtl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.programsUserCtl1.Location = new System.Drawing.Point(3, 3);
             this.programsUserCtl1.Name = "programsUserCtl1";
-            this.programsUserCtl1.Size = new System.Drawing.Size(732, 524);
+            this.programsUserCtl1.Size = new System.Drawing.Size(871, 407);
             this.programsUserCtl1.TabIndex = 0;
             // 
             // remoteDesktopTab
@@ -528,7 +530,7 @@
             this.remoteDesktopTab.Location = new System.Drawing.Point(4, 39);
             this.remoteDesktopTab.Name = "remoteDesktopTab";
             this.remoteDesktopTab.Padding = new System.Windows.Forms.Padding(3);
-            this.remoteDesktopTab.Size = new System.Drawing.Size(738, 573);
+            this.remoteDesktopTab.Size = new System.Drawing.Size(877, 457);
             this.remoteDesktopTab.TabIndex = 4;
             this.remoteDesktopTab.Text = "Remote Desktop(s)";
             this.remoteDesktopTab.UseVisualStyleBackColor = true;
@@ -538,7 +540,7 @@
             this.rdpUserCtl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.rdpUserCtl1.Location = new System.Drawing.Point(3, 3);
             this.rdpUserCtl1.Name = "rdpUserCtl1";
-            this.rdpUserCtl1.Size = new System.Drawing.Size(732, 523);
+            this.rdpUserCtl1.Size = new System.Drawing.Size(871, 407);
             this.rdpUserCtl1.TabIndex = 0;
             // 
             // tabDriveMaps
@@ -547,10 +549,21 @@
             this.tabDriveMaps.Location = new System.Drawing.Point(4, 39);
             this.tabDriveMaps.Name = "tabDriveMaps";
             this.tabDriveMaps.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDriveMaps.Size = new System.Drawing.Size(738, 573);
+            this.tabDriveMaps.Size = new System.Drawing.Size(877, 457);
             this.tabDriveMaps.TabIndex = 5;
             this.tabDriveMaps.Text = "Drive Mapping(s)";
             this.tabDriveMaps.UseVisualStyleBackColor = true;
+            // 
+            // tabPrinters
+            // 
+            this.tabPrinters.ImageKey = "printer (Custom).png";
+            this.tabPrinters.Location = new System.Drawing.Point(4, 39);
+            this.tabPrinters.Name = "tabPrinters";
+            this.tabPrinters.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPrinters.Size = new System.Drawing.Size(877, 457);
+            this.tabPrinters.TabIndex = 6;
+            this.tabPrinters.Text = "Printer Mapping(s)";
+            this.tabPrinters.UseVisualStyleBackColor = true;
             // 
             // iconList
             // 
@@ -566,14 +579,15 @@
             this.iconList.Images.SetKeyName(6, "user (Custom).png");
             this.iconList.Images.SetKeyName(7, "web-programming (Custom).png");
             this.iconList.Images.SetKeyName(8, "folder-network (Custom).png");
+            this.iconList.Images.SetKeyName(9, "printer (Custom).png");
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.button1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 595);
+            this.panel1.Location = new System.Drawing.Point(0, 479);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(746, 45);
+            this.panel1.Size = new System.Drawing.Size(885, 45);
             this.panel1.TabIndex = 2;
             // 
             // button1
@@ -584,7 +598,7 @@
             this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Location = new System.Drawing.Point(0, 0);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(746, 45);
+            this.button1.Size = new System.Drawing.Size(885, 45);
             this.button1.TabIndex = 3;
             this.button1.Text = "On-Board";
             this.button1.UseVisualStyleBackColor = false;
@@ -597,7 +611,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(746, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(885, 24);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -662,7 +676,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(746, 661);
+            this.ClientSize = new System.Drawing.Size(885, 545);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.statusStrip1);
@@ -763,5 +777,6 @@
         private userControls.VPNUserCtl vpnUserCtl1;
         private userControls.RDPUserCtl rdpUserCtl1;
         private TabPage tabDriveMaps;
+        private TabPage tabPrinters;
     }
 }

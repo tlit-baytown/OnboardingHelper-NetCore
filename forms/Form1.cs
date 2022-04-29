@@ -49,12 +49,12 @@ namespace OnboardingHelper_NetCore
 
         private void openConfigurationFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //if (dlgOpenConfig.ShowDialog() == DialogResult.OK)
-            //{
-            //    if (!Configuration.LoadConfig(dlgOpenConfig.FileName))
-            //        MessageBox.Show(this, "The configuration file could not be read. It may be corrupted. Please try again.", 
-            //            "Error Reading Config", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+            if (dlgOpenConfig.ShowDialog() == DialogResult.OK)
+            {
+                if (Configuration.Instance.LoadConfig(dlgOpenConfig.FileName) == null)
+                    MessageBox.Show(this, "The configuration file could not be read. It may be corrupted. Please try again.",
+                        "Error Reading Config", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void saveCurrentConfigurationToolStripMenuItem_Click(object sender, EventArgs e)

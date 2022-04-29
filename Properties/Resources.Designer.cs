@@ -273,6 +273,16 @@ namespace OnboardingHelper_NetCore.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap printer__Custom_ {
+            get {
+                object obj = ResourceManager.GetObject("printer__Custom_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap remote_control__Custom_ {
             get {
                 object obj = ResourceManager.GetObject("remote-control (Custom)", resourceCulture);
