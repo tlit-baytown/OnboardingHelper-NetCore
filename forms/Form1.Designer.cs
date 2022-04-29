@@ -71,6 +71,7 @@
             this.programsUserCtl1 = new OnboardingHelper_NetCore.userControls.ProgramsUserCtl();
             this.remoteDesktopTab = new System.Windows.Forms.TabPage();
             this.rdpUserCtl1 = new OnboardingHelper_NetCore.userControls.RDPUserCtl();
+            this.tabDriveMaps = new System.Windows.Forms.TabPage();
             this.iconList = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
@@ -85,7 +86,6 @@
             this.installUpdatesBackground = new System.ComponentModel.BackgroundWorker();
             this.dlgSaveConfig = new System.Windows.Forms.SaveFileDialog();
             this.dlgOpenConfig = new System.Windows.Forms.OpenFileDialog();
-            this.tabDriveMaps = new System.Windows.Forms.TabPage();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -541,6 +541,17 @@
             this.rdpUserCtl1.Size = new System.Drawing.Size(732, 523);
             this.rdpUserCtl1.TabIndex = 0;
             // 
+            // tabDriveMaps
+            // 
+            this.tabDriveMaps.ImageKey = "folder-network (Custom).png";
+            this.tabDriveMaps.Location = new System.Drawing.Point(4, 39);
+            this.tabDriveMaps.Name = "tabDriveMaps";
+            this.tabDriveMaps.Padding = new System.Windows.Forms.Padding(3);
+            this.tabDriveMaps.Size = new System.Drawing.Size(738, 573);
+            this.tabDriveMaps.TabIndex = 5;
+            this.tabDriveMaps.Text = "Drive Mapping(s)";
+            this.tabDriveMaps.UseVisualStyleBackColor = true;
+            // 
             // iconList
             // 
             this.iconList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
@@ -644,17 +655,6 @@
             // 
             this.dlgOpenConfig.FileName = "configuration";
             this.dlgOpenConfig.Filter = "XML Config (*.xml)|*.xml";
-            // 
-            // tabDriveMaps
-            // 
-            this.tabDriveMaps.ImageKey = "folder-network (Custom).png";
-            this.tabDriveMaps.Location = new System.Drawing.Point(4, 39);
-            this.tabDriveMaps.Name = "tabDriveMaps";
-            this.tabDriveMaps.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDriveMaps.Size = new System.Drawing.Size(738, 573);
-            this.tabDriveMaps.TabIndex = 5;
-            this.tabDriveMaps.Text = "Drive Mapping(s)";
-            this.tabDriveMaps.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 

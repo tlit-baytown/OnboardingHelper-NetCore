@@ -127,38 +127,40 @@ namespace OnboardingHelper_NetCore.settings
         private void WriteBasicInfo(XmlTextWriter w)
         {
             w.WriteComment("Basic Information");
-            w.WriteStartElement("Basic");
+            w.WriteStartElement("Properties");
 
-                w.WriteStartElement("Computer-Name");
-                    w.WriteString(ComputerName);
-                w.WriteEndElement();
+            w.WriteStartElement("Computer-Name");
+            w.WriteString(ComputerName);
+            w.WriteEndElement();
 
-                w.WriteStartElement("Domain-Info");
+            w.WriteStartElement("Domain-Info");
 
-                    w.WriteStartElement("Domain");
-                        w.WriteString(Domain);
-                    w.WriteEndElement();
-                    NetworkCredential domainCredentials = new(DomainUsername, DomainPasswordString);
-                    w.WriteStartElement("Domain-Username");
-                        w.WriteString(domainCredentials.UserName);
-                    w.WriteEndElement();
-                    w.WriteStartElement("Domain-Password");
-                        w.WriteString(domainCredentials.Password);
-                    w.WriteEndElement();
+            w.WriteStartElement("Domain");
+            w.WriteString(Domain);
+            w.WriteEndElement();
+            NetworkCredential domainCredentials = new(DomainUsername, DomainPasswordString);
+            w.WriteStartElement("Domain-Username");
+            w.WriteString(domainCredentials.UserName);
+            w.WriteEndElement();
 
-                w.WriteEndElement();
+            w.WriteStartElement("Domain-Password");
+            byte[] pwBytes = Encoding.ASCII.GetBytes(domainCredentials.Password);
+            w.WriteBase64(pwBytes, 0, pwBytes.Length);
+            w.WriteEndElement();
 
-                w.WriteStartElement("Time-Zone");
-                    w.WriteString(TimeZone.ToSerializedString());
-                w.WriteEndElement();
+            w.WriteEndElement();
 
-                w.WriteStartElement("Primary-NTP-Server");
-                    w.WriteString(PrimaryNTPServer);
-                w.WriteEndElement();
+            w.WriteStartElement("Time-Zone");
+            w.WriteString(TimeZone.ToSerializedString());
+            w.WriteEndElement();
 
-                w.WriteStartElement("Perform-Time-Sync");
-                    w.WriteValue(PerformTimeSync);
-                w.WriteEndElement();
+            w.WriteStartElement("Primary-NTP-Server");
+            w.WriteString(PrimaryNTPServer);
+            w.WriteEndElement();
+
+            w.WriteStartElement("Perform-Time-Sync");
+            w.WriteValue(PerformTimeSync);
+            w.WriteEndElement();
 
             w.WriteEndElement();
         }
@@ -171,11 +173,22 @@ namespace OnboardingHelper_NetCore.settings
             {
                 w.WriteStartElement("Account");
                 w.WriteAttributeString("Username", a.Username);
-                w.WriteAttributeString("Password", a.ConvertPasswordToUnsecureString());
-                w.WriteAttributeString("Comment", a.Comment);
-                w.WriteAttributeString("Account-Type", a.AccountType.ToString());
-                w.WriteAttributeString("Password-Expires", a.DoesPasswordExpire.ToString());
-                w.WriteAttributeString("Require-Password-Change", a.RequirePasswordChange.ToString());
+                w.WriteStartElement("Password");
+                byte[] pwBytes = Encoding.ASCII.GetBytes(a.ConvertPasswordToUnsecureString());
+                w.WriteBase64(pwBytes, 0, pwBytes.Length);
+                w.WriteEndElement();
+                w.WriteStartElement("Comment");
+                w.WriteString(a.Comment);
+                w.WriteEndElement();
+                w.WriteStartElement("Account-Type");
+                w.WriteString(a.AccountType.ToString());
+                w.WriteEndElement();
+                w.WriteStartElement("Password-Expires");
+                w.WriteValue(a.DoesPasswordExpire);
+                w.WriteEndElement();
+                w.WriteStartElement("Require-Password-Change");
+                w.WriteValue(a.RequirePasswordChange);
+                w.WriteEndElement();
                 w.WriteEndElement();
             }
             w.WriteEndElement();
@@ -201,13 +214,16 @@ namespace OnboardingHelper_NetCore.settings
                         w.WriteStartElement("Username");
                         w.WriteString(wifi.Username);
                         w.WriteEndElement();
+
                         w.WriteStartElement("Password");
-                        w.WriteString(wifi.ConvertKeyToUnsecureString(wifi.UserPassword));
+                        byte[] pwBytes = Encoding.ASCII.GetBytes(wifi.ConvertKeyToUnsecureString(wifi.UserPassword));
+                        w.WriteBase64(pwBytes, 0, pwBytes.Length);
                         w.WriteEndElement();
                         break;
                     default:
                         w.WriteStartElement("PSK");
-                        w.WriteString(wifi.ConvertKeyToUnsecureString(wifi.PreSharedKey));
+                        byte[] pskBytes = Encoding.ASCII.GetBytes(wifi.ConvertKeyToUnsecureString(wifi.PreSharedKey));
+                        w.WriteBase64(pskBytes, 0, pskBytes.Length);
                         w.WriteEndElement();
                         break;
                 }
@@ -250,12 +266,14 @@ namespace OnboardingHelper_NetCore.settings
                         w.WriteString(v.Username);
                         w.WriteEndElement();
                         w.WriteStartElement("Password");
-                        w.WriteString(v.ConvertKeyToUnsecureString(v.Password));
+                        byte[] pwBytes = Encoding.ASCII.GetBytes(v.ConvertKeyToUnsecureString(v.Password));
+                        w.WriteBase64(pwBytes, 0, pwBytes.Length);
                         w.WriteEndElement();
                         break;
                     default:
                         w.WriteStartElement("PSK");
-                        w.WriteString(v.ConvertKeyToUnsecureString(v.PreSharedKey));
+                        byte[] pskBytes = Encoding.ASCII.GetBytes(v.ConvertKeyToUnsecureString(v.PreSharedKey));
+                        w.WriteBase64(pskBytes, 0, pskBytes.Length);
                         w.WriteEndElement();
                         break;
                 }
