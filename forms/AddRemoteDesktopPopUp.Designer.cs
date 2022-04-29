@@ -304,7 +304,7 @@
             this.tabDisplay.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabDisplay.Name = "tabDisplay";
             this.tabDisplay.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tabDisplay.Size = new System.Drawing.Size(380, 298);
+            this.tabDisplay.Size = new System.Drawing.Size(376, 299);
             this.tabDisplay.TabIndex = 1;
             this.tabDisplay.Text = "Display";
             // 
@@ -463,7 +463,7 @@
             this.tabLocalResources.Location = new System.Drawing.Point(4, 25);
             this.tabLocalResources.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabLocalResources.Name = "tabLocalResources";
-            this.tabLocalResources.Size = new System.Drawing.Size(380, 298);
+            this.tabLocalResources.Size = new System.Drawing.Size(376, 299);
             this.tabLocalResources.TabIndex = 2;
             this.tabLocalResources.Text = "Local Resources";
             this.tabLocalResources.UseVisualStyleBackColor = true;
@@ -627,7 +627,7 @@
             this.tabExperience.Location = new System.Drawing.Point(4, 25);
             this.tabExperience.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabExperience.Name = "tabExperience";
-            this.tabExperience.Size = new System.Drawing.Size(380, 298);
+            this.tabExperience.Size = new System.Drawing.Size(376, 299);
             this.tabExperience.TabIndex = 3;
             this.tabExperience.Text = "Experience";
             this.tabExperience.UseVisualStyleBackColor = true;
@@ -637,7 +637,7 @@
             this.tabAdvanced.Location = new System.Drawing.Point(4, 25);
             this.tabAdvanced.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabAdvanced.Name = "tabAdvanced";
-            this.tabAdvanced.Size = new System.Drawing.Size(380, 298);
+            this.tabAdvanced.Size = new System.Drawing.Size(376, 299);
             this.tabAdvanced.TabIndex = 4;
             this.tabAdvanced.Text = "Advanced";
             this.tabAdvanced.UseVisualStyleBackColor = true;

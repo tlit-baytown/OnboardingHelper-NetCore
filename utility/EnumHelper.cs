@@ -29,7 +29,11 @@ namespace OnboardingHelper_NetCore
             [Description("The VPN profile has already been added to the collection.")]
             VPN_ALREADY_EXISTS = 128,
             [Description("The VPN profile is not present in the collection.")]
-            VPN_DOES_NOT_EXIST = 256
+            VPN_DOES_NOT_EXIST = 256,
+            [Description("The RDP file has already been added to the collection.")]
+            RDP_ALREADY_EXISTS = 512,
+            [Description("The RDP file is not present in the collection.")]
+            RDP_DOES_NOT_EXIST = 1024
         }
 
         public enum RDPAudioPlayback

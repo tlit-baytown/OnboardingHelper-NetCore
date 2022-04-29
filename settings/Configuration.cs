@@ -2,8 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using static OnboardingHelper_NetCore.EnumHelper;
 
 namespace OnboardingHelper_NetCore.settings
@@ -35,6 +38,10 @@ namespace OnboardingHelper_NetCore.settings
         public string Domain { get; set; } = string.Empty;
         public TimeZoneInfo TimeZone { get; set; } = TimeZoneInfo.Local;
         public string PrimaryNTPServer { get; set; } = string.Empty;
+        public bool PerformTimeSync { get; set; } = true;
+        public string DomainUsername { get; set; } = string.Empty;
+        public string DomainPasswordString { private get; set; } = string.Empty;
+        public SecureString DomainPassword { get; set; } = new NetworkCredential("", string.Empty).SecurePassword;
         #endregion
 
         #region Accounts
@@ -69,6 +76,8 @@ namespace OnboardingHelper_NetCore.settings
         #endregion
 
         #region Remote Desktop
+        public IReadOnlyCollection<RDPFile> RDPFiles { get { return rdpFiles; } }
+        private List<RDPFile> rdpFiles = new List<RDPFile>();
         #endregion
 
         /// <summary>
@@ -96,7 +105,213 @@ namespace OnboardingHelper_NetCore.settings
         /// <returns><c>True</c> if the file was saved successfully; <c>False</c> otherwise.</returns>
         public bool SaveConfig(string path)
         {
-            return false;
+            XmlTextWriter textWriter = new(path, Encoding.UTF8);
+            textWriter.WriteStartDocument();
+            textWriter.WriteStartElement("root");
+            WriteBasicInfo(textWriter);
+            WriteAccountInfo(textWriter);
+
+            textWriter.WriteStartElement("Connections");
+            WriteWiFiInfo(textWriter);
+            WriteVPNInfo(textWriter);
+            textWriter.WriteEndElement();
+
+            WriteApplicationsInfo(textWriter);
+            textWriter.WriteEndElement();
+            textWriter.WriteEndDocument();
+            textWriter.Close();
+
+            return true;
+        }
+
+        private void WriteBasicInfo(XmlTextWriter w)
+        {
+            w.WriteComment("Basic Information");
+            w.WriteStartElement("Basic");
+
+                w.WriteStartElement("Computer-Name");
+                    w.WriteString(ComputerName);
+                w.WriteEndElement();
+
+                w.WriteStartElement("Domain-Info");
+
+                    w.WriteStartElement("Domain");
+                        w.WriteString(Domain);
+                    w.WriteEndElement();
+                    NetworkCredential domainCredentials = new(DomainUsername, DomainPasswordString);
+                    w.WriteStartElement("Domain-Username");
+                        w.WriteString(domainCredentials.UserName);
+                    w.WriteEndElement();
+                    w.WriteStartElement("Domain-Password");
+                        w.WriteString(domainCredentials.Password);
+                    w.WriteEndElement();
+
+                w.WriteEndElement();
+
+                w.WriteStartElement("Time-Zone");
+                    w.WriteString(TimeZone.ToSerializedString());
+                w.WriteEndElement();
+
+                w.WriteStartElement("Primary-NTP-Server");
+                    w.WriteString(PrimaryNTPServer);
+                w.WriteEndElement();
+
+                w.WriteStartElement("Perform-Time-Sync");
+                    w.WriteValue(PerformTimeSync);
+                w.WriteEndElement();
+
+            w.WriteEndElement();
+        }
+
+        private void WriteAccountInfo(XmlTextWriter w)
+        {
+            w.WriteComment("User accounts");
+            w.WriteStartElement("AccountList");
+            foreach (Account a in Accounts)
+            {
+                w.WriteStartElement("Account");
+                w.WriteAttributeString("Username", a.Username);
+                w.WriteAttributeString("Password", a.ConvertPasswordToUnsecureString());
+                w.WriteAttributeString("Comment", a.Comment);
+                w.WriteAttributeString("Account-Type", a.AccountType.ToString());
+                w.WriteAttributeString("Password-Expires", a.DoesPasswordExpire.ToString());
+                w.WriteAttributeString("Require-Password-Change", a.RequirePasswordChange.ToString());
+                w.WriteEndElement();
+            }
+            w.WriteEndElement();
+        }
+
+        private void WriteWiFiInfo(XmlTextWriter w)
+        {
+            w.WriteComment("Wifi profiles");
+            w.WriteStartElement("WifiList");
+            foreach (WiFi wifi in WiFiProfiles)
+            {
+                w.WriteStartElement("Wifi");
+                w.WriteAttributeString("SSID", wifi.SSID);
+                w.WriteStartElement("WiFi-Type");
+                w.WriteString(wifi.WiFiType.ToString());
+                w.WriteEndElement();
+
+                //check if profile is using enterprise security and write the attribute if it does.
+                switch (wifi.WiFiType)
+                {
+                    case WiFiType.WPA2_ENTERPRISE:
+                    case WiFiType.WPA3_ENTERPRISE:
+                        w.WriteStartElement("Username");
+                        w.WriteString(wifi.Username);
+                        w.WriteEndElement();
+                        w.WriteStartElement("Password");
+                        w.WriteString(wifi.ConvertKeyToUnsecureString(wifi.UserPassword));
+                        w.WriteEndElement();
+                        break;
+                    default:
+                        w.WriteStartElement("PSK");
+                        w.WriteString(wifi.ConvertKeyToUnsecureString(wifi.PreSharedKey));
+                        w.WriteEndElement();
+                        break;
+                }
+                w.WriteStartElement("Is-Hidden");
+                w.WriteValue(wifi.IsHiddenNetwork);
+                w.WriteEndElement();
+
+                w.WriteStartElement("Connection-Type");
+                w.WriteString(wifi.ConnectionType.ToString());
+                w.WriteEndElement();
+
+                w.WriteStartElement("Encryption");
+                w.WriteString(wifi.EncryptionSetting.ToString());
+                w.WriteEndElement();
+
+                w.WriteEndElement();
+            }
+            w.WriteEndElement();
+        }
+
+        private void WriteVPNInfo(XmlTextWriter w)
+        {
+            w.WriteComment("VPN profiles");
+            w.WriteStartElement("VPNList");
+            foreach (VPN v in VPNProfiles)
+            {
+                w.WriteStartElement("VPN");
+                w.WriteAttributeString("Name", v.ConnectionName);
+                w.WriteStartElement("Server");
+                w.WriteString(v.ServerAddress);
+                w.WriteEndElement();
+                w.WriteStartElement("Tunnel-Type");
+                w.WriteString(v.TunnelType.ToString());
+                w.WriteEndElement();
+                switch (v.TunnelType)
+                {
+                    case TunnelType.SSTP:
+                    case TunnelType.PPTP:
+                        w.WriteStartElement("Username");
+                        w.WriteString(v.Username);
+                        w.WriteEndElement();
+                        w.WriteStartElement("Password");
+                        w.WriteString(v.ConvertKeyToUnsecureString(v.Password));
+                        w.WriteEndElement();
+                        break;
+                    default:
+                        w.WriteStartElement("PSK");
+                        w.WriteString(v.ConvertKeyToUnsecureString(v.PreSharedKey));
+                        w.WriteEndElement();
+                        break;
+                }
+
+                w.WriteStartElement("Encryption");
+                w.WriteString(v.EncryptionLevel.ToString());
+                w.WriteEndElement();
+
+                w.WriteStartElement("Authentication");
+                w.WriteString(v.AuthenticationMethod.ToString());
+                w.WriteEndElement();
+                if (v.IdleDisconnectSeconds != 0)
+                {
+                    w.WriteStartElement("Idle-Disconnec");
+                    w.WriteValue(v.IdleDisconnectSeconds);
+                    w.WriteEndElement();
+                }
+                w.WriteStartElement("Remember-Credentials");
+                w.WriteValue(v.RememberCredentials);
+                w.WriteEndElement();
+                w.WriteStartElement("Split-Tunneling-Enabled");
+                w.WriteValue(v.EnableSplitTunneling);
+                w.WriteEndElement();
+                w.WriteStartElement("Auto-Reconnect");
+                w.WriteValue(v.AutoReconnect);
+                w.WriteEndElement();
+
+                w.WriteEndElement();
+            }
+            w.WriteEndElement();
+        }
+
+        private void WriteApplicationsInfo(XmlTextWriter w)
+        {
+            w.WriteComment("Applications to install");
+            w.WriteStartElement("Applications");
+            foreach (wrappers.Application app in Applications)
+            {
+                w.WriteStartElement("App");
+                w.WriteAttributeString("Name", app.Name);
+                w.WriteAttributeString("Description", app.Description);
+                w.WriteStartElement("Path");
+                w.WriteString(app.Path);
+                w.WriteEndElement();
+                w.WriteStartElement("Install-Command");
+                w.WriteString(app.InstallArguments);
+                w.WriteEndElement();
+                w.WriteStartElement("IsWindowsInstaller");
+                w.WriteValue(app.IsWindowsInstaller);
+                w.WriteEndElement();
+                w.WriteStartElement("IsISOImage");
+                w.WriteValue(app.IsISOImage);
+                w.WriteEndElement();
+                w.WriteEndElement();
+            }
+            w.WriteEndElement();
         }
 
         #region Accounts
@@ -197,6 +412,32 @@ namespace OnboardingHelper_NetCore.settings
         public wrappers.Application GetApplication(string name)
         {
             return applications.FirstOrDefault(a => a.Name.Equals(name));
+        }
+        #endregion
+
+        #region RDP Files
+        public ErrorCodes AddRDPFile(RDPFile file)
+        {
+            if (rdpFiles.Any(f => f.ComputerName.Equals(file.ComputerName)))
+                return ErrorCodes.RDP_ALREADY_EXISTS;
+            rdpFiles.Add(file);
+
+            return ErrorCodes.NO_ERROR;
+        }
+
+        public ErrorCodes RemoveRDPFile(RDPFile file)
+        {
+            if (rdpFiles.Contains(file))
+                rdpFiles.Remove(file);
+            else
+                return ErrorCodes.RDP_DOES_NOT_EXIST;
+
+            return ErrorCodes.NO_ERROR;
+        }
+
+        public RDPFile GetRDPFile(string computerName)
+        {
+            return rdpFiles.FirstOrDefault(a => a.ComputerName.Equals(computerName));
         }
         #endregion
     }

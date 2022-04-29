@@ -98,5 +98,19 @@
             IsWindowsInstaller = isWindowsInstaller;
             IsISOImage = isIsoImage;
         }
+
+        public byte[] GetFileData()
+        {
+            using (File)
+            {
+                return System.IO.File.ReadAllBytes(Path);
+            }
+        }
+
+        public string GetBase64String()
+        {
+            byte[] data = GetFileData();
+            return Convert.ToBase64String(data);
+        }
     }
 }

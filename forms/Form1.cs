@@ -59,12 +59,12 @@ namespace OnboardingHelper_NetCore
 
         private void saveCurrentConfigurationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //if (dlgSaveConfig.ShowDialog() == DialogResult.OK)
-            //{
-            //    if (!Configuration.SaveConfig(dlgSaveConfig.FileName))
-            //        MessageBox.Show(this, "The configuration file could not be saved due to an unknown error. Please try again.",
-            //            "Error Saving Config", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+            if (dlgSaveConfig.ShowDialog() == DialogResult.OK)
+            {
+                if (!Configuration.Instance.SaveConfig(dlgSaveConfig.FileName))
+                    MessageBox.Show(this, "The configuration file could not be saved due to an unknown error. Please try again.",
+                        "Error Saving Config", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnShowDomainPassword_MouseEnter(object sender, EventArgs e)
@@ -83,12 +83,43 @@ namespace OnboardingHelper_NetCore
                 grpDomainCredentials.Visible = true;
             else
                 grpDomainCredentials.Visible = false;
+
+            Configuration.Instance.Domain = txtDomain.Text;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void txtComputerName_TextChanged(object sender, EventArgs e)
         {
-            AddRemoteDesktopPopUp popUp = new AddRemoteDesktopPopUp();
-            popUp.ShowDialog();
+            Configuration.Instance.ComputerName = txtComputerName.Text;
+        }
+
+        private void cmbTimeZones_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Configuration.Instance.TimeZone = (TimeZoneInfo)cmbTimeZones.SelectedItem;
+        }
+
+        private void cmbNTPServers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Configuration.Instance.PrimaryNTPServer = (string)cmbNTPServers.SelectedItem;
+        }
+
+        private void cmbNTPServers_TextChanged(object sender, EventArgs e)
+        {
+            Configuration.Instance.PrimaryNTPServer = cmbNTPServers.Text;
+        }
+
+        private void chkPerformTZSync_CheckedChanged(object sender, EventArgs e)
+        {
+            Configuration.Instance.PerformTimeSync = chkPerformTZSync.Checked;
+        }
+
+        private void txtDomainUsername_TextChanged(object sender, EventArgs e)
+        {
+            Configuration.Instance.DomainUsername = txtDomainUsername.Text;
+        }
+
+        private void txtDomainPassword_TextChanged(object sender, EventArgs e)
+        {
+            Configuration.Instance.DomainPasswordString = txtDomainPassword.Text;
         }
     }
 }

@@ -203,6 +203,16 @@ namespace OnboardingHelper_NetCore.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap folder_network__Custom_ {
+            get {
+                object obj = ResourceManager.GetObject("folder_network__Custom_", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap import__Custom_ {
             get {
                 object obj = ResourceManager.GetObject("import (Custom)", resourceCulture);

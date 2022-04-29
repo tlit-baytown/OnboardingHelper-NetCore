@@ -54,7 +54,7 @@
             this.btnShowDomainPassword = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtDomainUsername = new System.Windows.Forms.TextBox();
             this.statusStrip2 = new System.Windows.Forms.StatusStrip();
             this.lblUpdateStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.updatesProgressBar = new System.Windows.Forms.ToolStripProgressBar();
@@ -70,8 +70,7 @@
             this.programsTab = new System.Windows.Forms.TabPage();
             this.programsUserCtl1 = new OnboardingHelper_NetCore.userControls.ProgramsUserCtl();
             this.remoteDesktopTab = new System.Windows.Forms.TabPage();
-            this.button2 = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.rdpUserCtl1 = new OnboardingHelper_NetCore.userControls.RDPUserCtl();
             this.iconList = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
@@ -86,6 +85,7 @@
             this.installUpdatesBackground = new System.ComponentModel.BackgroundWorker();
             this.dlgSaveConfig = new System.Windows.Forms.SaveFileDialog();
             this.dlgOpenConfig = new System.Windows.Forms.OpenFileDialog();
+            this.tabDriveMaps = new System.Windows.Forms.TabPage();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControl.SuspendLayout();
@@ -237,6 +237,7 @@
             this.txtComputerName.Name = "txtComputerName";
             this.txtComputerName.Size = new System.Drawing.Size(582, 23);
             this.txtComputerName.TabIndex = 1;
+            this.txtComputerName.TextChanged += new System.EventHandler(this.txtComputerName_TextChanged);
             // 
             // cmbTimeZones
             // 
@@ -248,6 +249,7 @@
             this.cmbTimeZones.Name = "cmbTimeZones";
             this.cmbTimeZones.Size = new System.Drawing.Size(582, 24);
             this.cmbTimeZones.TabIndex = 5;
+            this.cmbTimeZones.SelectedIndexChanged += new System.EventHandler(this.cmbTimeZones_SelectedIndexChanged);
             // 
             // cmbNTPServers
             // 
@@ -257,6 +259,8 @@
             this.cmbNTPServers.Name = "cmbNTPServers";
             this.cmbNTPServers.Size = new System.Drawing.Size(582, 24);
             this.cmbNTPServers.TabIndex = 7;
+            this.cmbNTPServers.SelectedIndexChanged += new System.EventHandler(this.cmbNTPServers_SelectedIndexChanged);
+            this.cmbNTPServers.TextChanged += new System.EventHandler(this.cmbNTPServers_TextChanged);
             // 
             // tabControl
             // 
@@ -265,6 +269,7 @@
             this.tabControl.Controls.Add(this.connectionsTab);
             this.tabControl.Controls.Add(this.programsTab);
             this.tabControl.Controls.Add(this.remoteDesktopTab);
+            this.tabControl.Controls.Add(this.tabDriveMaps);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl.ImageList = this.iconList;
             this.tabControl.Location = new System.Drawing.Point(0, 24);
@@ -302,12 +307,12 @@
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.45946F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80.54054F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.27027F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.72973F));
             this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel1, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.label6, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.label5, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.textBox1, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.txtDomainUsername, 1, 0);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(6, 20);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
@@ -321,9 +326,9 @@
             this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel1.Controls.Add(this.txtDomainPassword);
             this.flowLayoutPanel1.Controls.Add(this.btnShowDomainPassword);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(75, 37);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(77, 37);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(292, 33);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(290, 33);
             this.flowLayoutPanel1.TabIndex = 10;
             // 
             // txtDomainPassword
@@ -331,9 +336,11 @@
             this.txtDomainPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.txtDomainPassword.Location = new System.Drawing.Point(3, 3);
             this.txtDomainPassword.Name = "txtDomainPassword";
+            this.txtDomainPassword.PlaceholderText = "Password for domain administrator";
             this.txtDomainPassword.Size = new System.Drawing.Size(253, 23);
             this.txtDomainPassword.TabIndex = 3;
             this.txtDomainPassword.UseSystemPasswordChar = true;
+            this.txtDomainPassword.TextChanged += new System.EventHandler(this.txtDomainPassword_TextChanged);
             // 
             // btnShowDomainPassword
             // 
@@ -354,7 +361,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(3, 45);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(66, 16);
+            this.label6.Size = new System.Drawing.Size(68, 16);
             this.label6.TabIndex = 2;
             this.label6.Text = "Password: ";
             // 
@@ -362,19 +369,21 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 1);
+            this.label5.Location = new System.Drawing.Point(3, 9);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(66, 32);
+            this.label5.Size = new System.Drawing.Size(68, 16);
             this.label5.TabIndex = 0;
             this.label5.Text = "Username: ";
             // 
-            // textBox1
+            // txtDomainUsername
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(75, 5);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(292, 23);
-            this.textBox1.TabIndex = 1;
+            this.txtDomainUsername.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDomainUsername.Location = new System.Drawing.Point(77, 5);
+            this.txtDomainUsername.Name = "txtDomainUsername";
+            this.txtDomainUsername.PlaceholderText = "Username of domain administrator";
+            this.txtDomainUsername.Size = new System.Drawing.Size(290, 23);
+            this.txtDomainUsername.TabIndex = 1;
+            this.txtDomainUsername.TextChanged += new System.EventHandler(this.txtDomainUsername_TextChanged);
             // 
             // statusStrip2
             // 
@@ -409,6 +418,7 @@
             this.chkPerformTZSync.TabIndex = 1;
             this.chkPerformTZSync.Text = "Perform Time Server Sync?";
             this.chkPerformTZSync.UseVisualStyleBackColor = true;
+            this.chkPerformTZSync.CheckedChanged += new System.EventHandler(this.chkPerformTZSync_CheckedChanged);
             // 
             // accountsTab
             // 
@@ -513,8 +523,7 @@
             // 
             // remoteDesktopTab
             // 
-            this.remoteDesktopTab.Controls.Add(this.button2);
-            this.remoteDesktopTab.Controls.Add(this.listView1);
+            this.remoteDesktopTab.Controls.Add(this.rdpUserCtl1);
             this.remoteDesktopTab.ImageKey = "remote-control (Custom).png";
             this.remoteDesktopTab.Location = new System.Drawing.Point(4, 39);
             this.remoteDesktopTab.Name = "remoteDesktopTab";
@@ -524,23 +533,13 @@
             this.remoteDesktopTab.Text = "Remote Desktop(s)";
             this.remoteDesktopTab.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // rdpUserCtl1
             // 
-            this.button2.Location = new System.Drawing.Point(6, 199);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(139, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Open RDP...";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // listView1
-            // 
-            this.listView1.Location = new System.Drawing.Point(6, 6);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(726, 187);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.rdpUserCtl1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.rdpUserCtl1.Location = new System.Drawing.Point(3, 3);
+            this.rdpUserCtl1.Name = "rdpUserCtl1";
+            this.rdpUserCtl1.Size = new System.Drawing.Size(732, 523);
+            this.rdpUserCtl1.TabIndex = 0;
             // 
             // iconList
             // 
@@ -555,6 +554,7 @@
             this.iconList.Images.SetKeyName(5, "settings (Custom).png");
             this.iconList.Images.SetKeyName(6, "user (Custom).png");
             this.iconList.Images.SetKeyName(7, "web-programming (Custom).png");
+            this.iconList.Images.SetKeyName(8, "folder-network (Custom).png");
             // 
             // panel1
             // 
@@ -635,9 +635,26 @@
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
+            // dlgSaveConfig
+            // 
+            this.dlgSaveConfig.FileName = "configuration";
+            this.dlgSaveConfig.Filter = "XML Config (*.xml)|*.xml";
+            // 
             // dlgOpenConfig
             // 
-            this.dlgOpenConfig.Filter = "XML Configuration (*.xml)|*.xml";
+            this.dlgOpenConfig.FileName = "configuration";
+            this.dlgOpenConfig.Filter = "XML Config (*.xml)|*.xml";
+            // 
+            // tabDriveMaps
+            // 
+            this.tabDriveMaps.ImageKey = "folder-network (Custom).png";
+            this.tabDriveMaps.Location = new System.Drawing.Point(4, 39);
+            this.tabDriveMaps.Name = "tabDriveMaps";
+            this.tabDriveMaps.Padding = new System.Windows.Forms.Padding(3);
+            this.tabDriveMaps.Size = new System.Drawing.Size(738, 573);
+            this.tabDriveMaps.TabIndex = 5;
+            this.tabDriveMaps.Text = "Drive Mapping(s)";
+            this.tabDriveMaps.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -739,12 +756,12 @@
         private TableLayoutPanel tableLayoutPanel2;
         private Label label6;
         private Label label5;
-        private TextBox textBox1;
+        private TextBox txtDomainUsername;
         private TabControl tabControl1;
         private TabPage tabWiFi;
         private TabPage tabVPN;
         private userControls.VPNUserCtl vpnUserCtl1;
-        private ListView listView1;
-        private Button button2;
+        private userControls.RDPUserCtl rdpUserCtl1;
+        private TabPage tabDriveMaps;
     }
 }
