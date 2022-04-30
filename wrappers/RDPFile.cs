@@ -1,18 +1,26 @@
-﻿using System;
+﻿using OnboardingHelper_NetCore.settings;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace OnboardingHelper_NetCore.wrappers
 {
+    [XmlType("rdp-file")]
     public class RDPFile
     {
+        [XmlElement("path")]
         public string FilePath { get; set; } = string.Empty;
 
-        public string RDPFileText { get; private set; } = string.Empty;
+        [XmlElement("file-text")]
+        public string RDPFileText { get; set; } = string.Empty;
 
+        [XmlAttribute("computer-name")]
         public string ComputerName { get; set; } = string.Empty;
+
+        public RDPFile() { }
 
         public RDPFile(string filePath)
         {

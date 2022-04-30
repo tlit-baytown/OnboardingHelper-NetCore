@@ -74,6 +74,7 @@ namespace OnboardingHelper_NetCore.forms
                 }
             }
 
+            vpn.SetBase64Passwords();
             EnumHelper.ErrorCodes error = Configuration.Instance.AddVPN(vpn);
             return error == EnumHelper.ErrorCodes.NO_ERROR;
         }

@@ -56,7 +56,7 @@ namespace OnboardingHelper_NetCore
             if (password.Length <= 0)
                 return false;
 
-            account = new Account(username, password, comment, accountType, passwordExpires, requirePasswordChange);
+            account = new Account(username, Convert.ToBase64String(Encoding.UTF8.GetBytes(password)), comment, accountType, passwordExpires, requirePasswordChange);
             EnumHelper.ErrorCodes error = Configuration.Instance.AddAccount(account);
             return error == EnumHelper.ErrorCodes.NO_ERROR;
         }

@@ -2,24 +2,47 @@
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Security;
+using System.Text;
+using System.Xml.Serialization;
 
 namespace OnboardingHelper_NetCore.wrappers
 {
+    [XmlType("account")]
     public class Account
     {
+        [XmlAttribute("username")]
         public string Username { get; set; } = string.Empty;
 
+        [XmlIgnore()]
         public SecureString Password { get; set; } = new NetworkCredential("", string.Empty).SecurePassword;
 
+        [XmlElement("password")]
+        public string Base64Password { get; set; } = string.Empty;
+
+        [XmlElement("comment")]
         public string Comment { get; set; } = string.Empty;
 
+        [XmlElement("account-type")]
         public AccountType AccountType { get; set; } = AccountType.STANDARD_USER;
 
+        [XmlElement("password-expires")]
         public bool DoesPasswordExpire { get; set; } = false;
 
+        [XmlElement("require-password-change")]
         public bool RequirePasswordChange { get; set; } = false;
 
         public Account() { }
+
+        public Account(string username, SecureString password, string base64Password, string comment, AccountType accountType, bool doesPasswordExpire, bool requirePasswordChange)
+        {
+            Username = username;
+            Password = password;
+            Base64Password = base64Password;
+            Comment = comment;
+            AccountType = accountType;
+            DoesPasswordExpire = doesPasswordExpire;
+            RequirePasswordChange = requirePasswordChange;
+        }
 
         /// <summary>
         /// Create a new account with the specified username, password (<see cref="SecureString"/>), comment, account type, and whether or not password expires and/or requires change.
@@ -34,6 +57,7 @@ namespace OnboardingHelper_NetCore.wrappers
         {
             Username = username;
             Password = password;
+            Base64Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(ConvertPasswordToUnsecureString(password)));
             Comment = comment;
             AccountType = accountType;
             DoesPasswordExpire = passwordExpires;
@@ -44,15 +68,16 @@ namespace OnboardingHelper_NetCore.wrappers
         /// Create a new account with the specified username, password (<see cref="string"/>), comment, account type, and whether or not password expires and/or requires change.
         /// </summary>
         /// <param name="username"></param>
-        /// <param name="password"></param>
+        /// <param name="base64Password"></param>
         /// <param name="comment"></param>
         /// <param name="accountType"></param>
         /// <param name="passwordExpires"></param>
         /// <param name="requirePasswordChange"></param>
-        public Account(string username, string password, string comment, AccountType accountType, bool passwordExpires, bool requirePasswordChange)
+        public Account(string username, string base64Password, string comment, AccountType accountType, bool passwordExpires, bool requirePasswordChange)
         {
             Username = username;
-            Password = new NetworkCredential("", password).SecurePassword;
+            Password = new NetworkCredential("", Encoding.UTF8.GetString(Convert.FromBase64String(base64Password))).SecurePassword;
+            Base64Password = base64Password;
             Comment = comment;
             AccountType = accountType;
             DoesPasswordExpire = passwordExpires;
@@ -71,6 +96,7 @@ namespace OnboardingHelper_NetCore.wrappers
         {
             Username = username;
             Password = password;
+            Base64Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(ConvertPasswordToUnsecureString(password)));
             Comment = string.Empty;
             AccountType = accountType;
             DoesPasswordExpire = passwordExpires;
@@ -89,6 +115,7 @@ namespace OnboardingHelper_NetCore.wrappers
         {
             Username = username;
             Password = new NetworkCredential("", password).SecurePassword;
+            Base64Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(password));
             Comment = string.Empty;
             AccountType = accountType;
             DoesPasswordExpire = passwordExpires;

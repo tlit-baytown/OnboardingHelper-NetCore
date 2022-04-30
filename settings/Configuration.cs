@@ -7,19 +7,30 @@ using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Serialization;
+using static OnboardingHelper_NetCore.CEventArgs;
 using static OnboardingHelper_NetCore.EnumHelper;
 
 namespace OnboardingHelper_NetCore.settings
 {
+
     /// <summary>
     /// This class represents an entire Configuration for a new computer. It is responsible for adding and removing configuration options and
-    /// loading/saving a configuration file. This class cannot be instantiated. It must be accessed through its <see cref="Instance"/> property.
+    /// loading/saving a configuration file. Using the <see cref="Instance"/> property ensures that an up-to-date configuration
+    /// is returned as this single instance is read and set throughout the application.
     /// </summary>
+    [XmlType("configuration")]
     public sealed class Configuration
     {
+        public static EventHandler? ConfigLoaded;
+        public static EventHandler? ConfigSaved;
+        public static EventHandler? ConfigReset;
+        public static EventHandler? ConfigError;
+
         private static Configuration? instance = null;
         private static object instanceLock = new object();
 
+        [XmlIgnore()]
         public static Configuration Instance
         {
             get
@@ -34,394 +45,122 @@ namespace OnboardingHelper_NetCore.settings
         }
 
         #region Basic Options
+        [XmlElement("computer-name")]
         public string ComputerName { get; set; } = string.Empty;
+
+        [XmlElement("domain")]
         public string Domain { get; set; } = string.Empty;
+
+        [XmlIgnore()]
         public TimeZoneInfo TimeZone { get; set; } = TimeZoneInfo.Local;
+
+        [XmlElement("timezone")]
+        public string TimeZoneString { get; set; } = string.Empty;
+
+        [XmlElement("primary-ntp-server")]
         public string PrimaryNTPServer { get; set; } = string.Empty;
+
+        [XmlElement("should-perform-time-sync", typeof(bool))]
         public bool PerformTimeSync { get; set; } = true;
+
+        [XmlElement("domain-username")]
         public string DomainUsername { get; set; } = string.Empty;
-        public string DomainPasswordString { private get; set; } = string.Empty;
+
+        [XmlElement("domain-password")]
+        public string DomainPasswordString { get; set; } = string.Empty;
+
+        [XmlIgnore()]
         public SecureString DomainPassword { get; set; } = new NetworkCredential("", string.Empty).SecurePassword;
         #endregion
 
         #region Accounts
-
-        /// <summary>
-        /// Get the collection of accounts to create. This collection is Read-Only and can only be modified using the
-        /// methods in <see cref="Configuration"/>.
-        /// </summary>
-        public IReadOnlyCollection<Account> Accounts { get { return accounts; } }
+        [XmlElement("accounts")]
+        public List<Account> Accounts { get { return accounts; } set { accounts = value; } }
         private List<Account> accounts = new List<Account>();
         #endregion
 
         #region Connections
-        /// <summary>
-        /// Get the collection of WiFi profiles to create. This collection is Read-Only and can only be modified using the
-        /// methods in <see cref="Configuration"/>.
-        /// </summary>
-        public IReadOnlyCollection<WiFi> WiFiProfiles { get { return wifiProfiles; } }
+        [XmlElement("wifi-profiles")]
+        public List<WiFi> WiFiProfiles { get { return wifiProfiles; } set { wifiProfiles = value; } }
         private List<WiFi> wifiProfiles = new List<WiFi>();
 
-        public IReadOnlyCollection<VPN> VPNProfiles { get { return vpnProfiles; } }
+        [XmlElement("vpn-profiles")]
+        public List<VPN> VPNProfiles { get { return vpnProfiles; } set { vpnProfiles = value; } }
         private List<VPN> vpnProfiles = new List<VPN>();
         #endregion
 
         #region Programs
-        /// <summary>
-        /// Get the collection of applications to install. This collection is Read-Only and can only be modified using the
-        /// methods in <see cref="Configuration"/>.
-        /// </summary>
-        public IReadOnlyCollection<wrappers.Application> Applications { get { return applications; } }
+        [XmlElement("applications")]
+        public List<wrappers.Application> Applications { get { return applications; } set { applications = value; } }
         private List<wrappers.Application> applications = new List<wrappers.Application>();
         #endregion
 
         #region Remote Desktop
-        public IReadOnlyCollection<RDPFile> RDPFiles { get { return rdpFiles; } }
+        [XmlElement("rdp-files")]
+        public List<RDPFile> RDPFiles { get { return rdpFiles; } set { rdpFiles = value; } }
         private List<RDPFile> rdpFiles = new List<RDPFile>();
         #endregion
 
         /// <summary>
         /// Create a new blank configuration.
         /// </summary>
-        public Configuration()
-        {
+        public Configuration() {  }
 
+        public void ResetConfig()
+        {
+            instance = new Configuration();
+            ConfigReset?.Invoke(this, new EventArgs());
         }
 
         /// <summary>
-        /// Load a configuration <c>XML</c> file from the specified <paramref name="path"/>.
+        /// Load a config <c>XML</c> file from the specified <paramref name="path"/> into the current
+        /// configuration <see cref="Instance"/>.
         /// </summary>
         /// <param name="path"></param>
         /// <returns>A <see cref="Configuration"/> object containing the configuration present in the XML file.</returns>
-        public Configuration LoadConfig(string path)
+        public static Configuration LoadConfig(string path)
         {
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(File.ReadAllText(path));
-            XmlTextReader textReader = new XmlTextReader(path);
-            textReader.Read();
-            while (textReader.Read())
+            try
             {
-                textReader.MoveToElement();
-                if (textReader.IsEmptyElement)
-                    continue;
-
-                ReadBasicInfo(textReader);
-                ReadAccountInfo(textReader);
-            }
-            System.Diagnostics.Debug.WriteLine(ComputerName);
-            System.Diagnostics.Debug.WriteLine(TimeZone.DisplayName);
-            System.Diagnostics.Debug.WriteLine(PrimaryNTPServer);
-            System.Diagnostics.Debug.WriteLine(PerformTimeSync);
-            System.Diagnostics.Debug.WriteLine("Accounts: " + accounts.Count);
-
-            return this;
-        }
-
-        private void ReadBasicInfo(XmlTextReader r)
-        {
-            if (r.NodeType == XmlNodeType.Element)
+                XmlSerializer serializer = new(typeof(Configuration));
+                StreamReader reader = new StreamReader(path);
+                instance = (Configuration)serializer.Deserialize(reader);
+                reader.Close();
+                ConfigLoaded?.Invoke(Instance, new EventArgs());
+            } catch (Exception ex)
             {
-                if (r.LocalName.Equals("Computer-Name") && r.HasValue)
-                    ComputerName = r.Value;
-                else if (r.LocalName.Equals("Domain") && r.HasValue)
-                    Domain = r.Value;
-                else if (r.LocalName.Equals("Domain-Username") && r.HasValue)
-                    DomainUsername = r.Value;
-                else if (r.LocalName.Equals("Domain-Password") && r.HasValue)
-                {
-                    DomainPassword = new NetworkCredential("",
-                        Encoding.ASCII.GetString(Convert.FromBase64String(r.Value))).SecurePassword;
-                }
-                else if (r.LocalName.Equals("Time-Zone") && r.HasValue)
-                    TimeZone = TimeZoneInfo.FromSerializedString(r.Value);
-                else if (r.LocalName.Equals("Primary-NTP-Server") && r.HasValue)
-                    PrimaryNTPServer = r.Value;
-                else if (r.LocalName.Equals("Perform-Time-Sync") && r.HasValue)
-                    PerformTimeSync = bool.Parse(r.Value);
+                System.Diagnostics.EventLog.WriteEntry("Application",
+                    $"An error occured loading a configuration file: {ex.Message}", System.Diagnostics.EventLogEntryType.Error);
+                ConfigError?.Invoke(Instance, new EventArgs());
             }
-        }
-
-        private void ReadAccountInfo(XmlTextReader r)
-        {
-            Account a = new Account();
-            if (r.NodeType == XmlNodeType.Attribute)
-            {
-                if (r.LocalName.Equals("Username") && r.HasValue)
-                    a.Username = r.Value;
-            }
-
-            if (r.NodeType == XmlNodeType.Element)
-            {
-                if (r.LocalName.Equals("Password") && r.HasValue)
-                {
-                    a.Password = new NetworkCredential("",
-                        Encoding.ASCII.GetString(Convert.FromBase64String(r.Value))).SecurePassword;
-                }
-                else if (r.LocalName.Equals("Comment") && r.HasValue)
-                    a.Comment = r.Value;
-                else if (r.LocalName.Equals("Account-Type") && r.HasValue)
-                    a.AccountType = (AccountType)Enum.Parse(typeof(AccountType), r.Value);
-                else if (r.LocalName.Equals("Password-Expires") && r.HasValue)
-                    a.DoesPasswordExpire = bool.Parse(r.Value);
-                else if (r.LocalName.Equals("Require-Password-Change") && r.HasValue)
-                    a.RequirePasswordChange = bool.Parse(r.Value);
-            }
-            if (!a.Username.Equals(string.Empty))
-                System.Diagnostics.Debug.WriteLine(AddAccount(a).ToDescriptionString());
+            return Instance;
         }
 
         /// <summary>
-        /// Save the current configuration to a <c>XML</c> file.
+        /// Save the current configuration to an <c>XML</c> file.
         /// </summary>
         /// <param name="path"></param>
         /// <returns><c>True</c> if the file was saved successfully; <c>False</c> otherwise.</returns>
         public bool SaveConfig(string path)
         {
-            XmlTextWriter textWriter = new(path, Encoding.UTF8);
-            textWriter.WriteStartDocument();
-            textWriter.WriteStartElement("root");
-            WriteBasicInfo(textWriter);
-            WriteAccountInfo(textWriter);
-
-            textWriter.WriteStartElement("Connections");
-            WriteWiFiInfo(textWriter);
-            WriteVPNInfo(textWriter);
-            textWriter.WriteEndElement();
-
-            WriteApplicationsInfo(textWriter);
-            WriteRDPInfo(textWriter);
-            textWriter.WriteEndElement();
-            textWriter.WriteEndDocument();
-            textWriter.Close();
-
+            try
+            {
+                var serializer = new XmlSerializer(typeof(Configuration));
+                using (var stream = new StringWriter())
+                {
+                    serializer.Serialize(stream, this);
+                    File.WriteAllText(path, stream.ToString());
+                }
+                ConfigSaved?.Invoke(Instance, new ConfigSavedEventArgs(path));
+            } catch (Exception ex)
+            {
+                System.Diagnostics.EventLog.WriteEntry("Application",
+                    $"An error occured loading a configuration file: {ex.Message}", System.Diagnostics.EventLogEntryType.Error);
+                ConfigError?.Invoke(Instance, new EventArgs());
+                return false;
+            }
+            
             return true;
-        }
-
-        private void WriteBasicInfo(XmlTextWriter w)
-        {
-            w.WriteComment("Basic Information");
-            w.WriteStartElement("Properties");
-
-            w.WriteStartElement("Computer-Name");
-            w.WriteString(ComputerName);
-            w.WriteEndElement();
-
-            w.WriteStartElement("Domain-Info");
-
-            w.WriteStartElement("Domain");
-            w.WriteString(Domain);
-            w.WriteEndElement();
-            NetworkCredential domainCredentials = new(DomainUsername, DomainPasswordString);
-            w.WriteStartElement("Domain-Username");
-            w.WriteString(domainCredentials.UserName);
-            w.WriteEndElement();
-
-            w.WriteStartElement("Domain-Password");
-            byte[] pwBytes = Encoding.ASCII.GetBytes(domainCredentials.Password);
-            w.WriteBase64(pwBytes, 0, pwBytes.Length);
-            w.WriteEndElement();
-
-            w.WriteEndElement();
-
-            w.WriteStartElement("Time-Zone");
-            w.WriteString(TimeZone.ToSerializedString());
-            w.WriteEndElement();
-
-            w.WriteStartElement("Primary-NTP-Server");
-            w.WriteString(PrimaryNTPServer);
-            w.WriteEndElement();
-
-            w.WriteStartElement("Perform-Time-Sync");
-            w.WriteValue(PerformTimeSync);
-            w.WriteEndElement();
-
-            w.WriteEndElement();
-        }
-
-        private void WriteAccountInfo(XmlTextWriter w)
-        {
-            w.WriteComment("User accounts");
-            w.WriteStartElement("AccountList");
-            foreach (Account a in Accounts)
-            {
-                w.WriteStartElement("Account");
-                w.WriteAttributeString("Username", a.Username);
-                w.WriteStartElement("Password");
-                byte[] pwBytes = Encoding.ASCII.GetBytes(a.ConvertPasswordToUnsecureString());
-                w.WriteBase64(pwBytes, 0, pwBytes.Length);
-                w.WriteEndElement();
-                w.WriteStartElement("Comment");
-                w.WriteString(a.Comment);
-                w.WriteEndElement();
-                w.WriteStartElement("Account-Type");
-                w.WriteString(a.AccountType.ToString());
-                w.WriteEndElement();
-                w.WriteStartElement("Password-Expires");
-                w.WriteValue(a.DoesPasswordExpire);
-                w.WriteEndElement();
-                w.WriteStartElement("Require-Password-Change");
-                w.WriteValue(a.RequirePasswordChange);
-                w.WriteEndElement();
-                w.WriteEndElement();
-            }
-            w.WriteEndElement();
-        }
-
-        private void WriteWiFiInfo(XmlTextWriter w)
-        {
-            w.WriteComment("Wifi profiles");
-            w.WriteStartElement("WifiList");
-            foreach (WiFi wifi in WiFiProfiles)
-            {
-                w.WriteStartElement("Wifi");
-                w.WriteAttributeString("SSID", wifi.SSID);
-                w.WriteStartElement("WiFi-Type");
-                w.WriteString(wifi.WiFiType.ToString());
-                w.WriteEndElement();
-
-                //check if profile is using enterprise security and write the attribute if it does.
-                switch (wifi.WiFiType)
-                {
-                    case WiFiType.WPA2_ENTERPRISE:
-                    case WiFiType.WPA3_ENTERPRISE:
-                        w.WriteStartElement("Username");
-                        w.WriteString(wifi.Username);
-                        w.WriteEndElement();
-
-                        w.WriteStartElement("Password");
-                        byte[] pwBytes = Encoding.ASCII.GetBytes(wifi.ConvertKeyToUnsecureString(wifi.UserPassword));
-                        w.WriteBase64(pwBytes, 0, pwBytes.Length);
-                        w.WriteEndElement();
-                        break;
-                    default:
-                        w.WriteStartElement("PSK");
-                        byte[] pskBytes = Encoding.ASCII.GetBytes(wifi.ConvertKeyToUnsecureString(wifi.PreSharedKey));
-                        w.WriteBase64(pskBytes, 0, pskBytes.Length);
-                        w.WriteEndElement();
-                        break;
-                }
-                w.WriteStartElement("Is-Hidden");
-                w.WriteValue(wifi.IsHiddenNetwork);
-                w.WriteEndElement();
-
-                w.WriteStartElement("Connection-Type");
-                w.WriteString(wifi.ConnectionType.ToString());
-                w.WriteEndElement();
-
-                w.WriteStartElement("Encryption");
-                w.WriteString(wifi.EncryptionSetting.ToString());
-                w.WriteEndElement();
-
-                w.WriteEndElement();
-            }
-            w.WriteEndElement();
-        }
-
-        private void WriteVPNInfo(XmlTextWriter w)
-        {
-            w.WriteComment("VPN profiles");
-            w.WriteStartElement("VPNList");
-            foreach (VPN v in VPNProfiles)
-            {
-                w.WriteStartElement("VPN");
-                w.WriteAttributeString("Name", v.ConnectionName);
-                w.WriteStartElement("Server");
-                w.WriteString(v.ServerAddress);
-                w.WriteEndElement();
-                w.WriteStartElement("Tunnel-Type");
-                w.WriteString(v.TunnelType.ToString());
-                w.WriteEndElement();
-                switch (v.TunnelType)
-                {
-                    case TunnelType.SSTP:
-                    case TunnelType.PPTP:
-                        w.WriteStartElement("Username");
-                        w.WriteString(v.Username);
-                        w.WriteEndElement();
-                        w.WriteStartElement("Password");
-                        byte[] pwBytes = Encoding.ASCII.GetBytes(v.ConvertKeyToUnsecureString(v.Password));
-                        w.WriteBase64(pwBytes, 0, pwBytes.Length);
-                        w.WriteEndElement();
-                        break;
-                    default:
-                        w.WriteStartElement("PSK");
-                        byte[] pskBytes = Encoding.ASCII.GetBytes(v.ConvertKeyToUnsecureString(v.PreSharedKey));
-                        w.WriteBase64(pskBytes, 0, pskBytes.Length);
-                        w.WriteEndElement();
-                        break;
-                }
-
-                w.WriteStartElement("Encryption");
-                w.WriteString(v.EncryptionLevel.ToString());
-                w.WriteEndElement();
-
-                w.WriteStartElement("Authentication");
-                w.WriteString(v.AuthenticationMethod.ToString());
-                w.WriteEndElement();
-                if (v.IdleDisconnectSeconds != 0)
-                {
-                    w.WriteStartElement("Idle-Disconnec");
-                    w.WriteValue(v.IdleDisconnectSeconds);
-                    w.WriteEndElement();
-                }
-                w.WriteStartElement("Remember-Credentials");
-                w.WriteValue(v.RememberCredentials);
-                w.WriteEndElement();
-                w.WriteStartElement("Split-Tunneling-Enabled");
-                w.WriteValue(v.EnableSplitTunneling);
-                w.WriteEndElement();
-                w.WriteStartElement("Auto-Reconnect");
-                w.WriteValue(v.AutoReconnect);
-                w.WriteEndElement();
-
-                w.WriteEndElement();
-            }
-            w.WriteEndElement();
-        }
-
-        private void WriteApplicationsInfo(XmlTextWriter w)
-        {
-            w.WriteComment("Applications to install");
-            w.WriteStartElement("Applications");
-            foreach (wrappers.Application app in Applications)
-            {
-                w.WriteStartElement("App");
-                w.WriteAttributeString("Name", app.Name);
-                w.WriteAttributeString("Description", app.Description);
-                w.WriteStartElement("Path");
-                w.WriteString(app.Path);
-                w.WriteEndElement();
-                w.WriteStartElement("Install-Command");
-                w.WriteString(app.InstallArguments);
-                w.WriteEndElement();
-                w.WriteStartElement("IsWindowsInstaller");
-                w.WriteValue(app.IsWindowsInstaller);
-                w.WriteEndElement();
-                w.WriteStartElement("IsISOImage");
-                w.WriteValue(app.IsISOImage);
-                w.WriteEndElement();
-                w.WriteEndElement();
-            }
-            w.WriteEndElement();
-        }
-
-        private void WriteRDPInfo(XmlTextWriter w)
-        {
-            w.WriteComment("RDP Files");
-            w.WriteStartElement("Remote-Desktop");
-            foreach (RDPFile f in RDPFiles)
-            {
-                w.WriteStartElement("RDP");
-                w.WriteAttributeString("Computer", f.ComputerName);
-                w.WriteStartElement("Path");
-                w.WriteString(f.FilePath);
-                w.WriteEndElement();
-                w.WriteStartElement("RDP-File");
-                w.WriteString(f.RDPFileText);
-                w.WriteEndElement();
-                w.WriteEndElement();
-            }
-            w.WriteEndElement();
         }
 
         #region Accounts

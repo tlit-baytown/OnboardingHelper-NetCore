@@ -300,11 +300,11 @@
             this.tabDisplay.Controls.Add(this.chkDisplayConnectionBar);
             this.tabDisplay.Controls.Add(this.grpColors);
             this.tabDisplay.Controls.Add(this.groupBox1);
-            this.tabDisplay.Location = new System.Drawing.Point(4, 25);
+            this.tabDisplay.Location = new System.Drawing.Point(4, 24);
             this.tabDisplay.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabDisplay.Name = "tabDisplay";
             this.tabDisplay.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tabDisplay.Size = new System.Drawing.Size(376, 299);
+            this.tabDisplay.Size = new System.Drawing.Size(376, 300);
             this.tabDisplay.TabIndex = 1;
             this.tabDisplay.Text = "Display";
             // 
@@ -460,10 +460,10 @@
             this.tabLocalResources.Controls.Add(this.groupBox2);
             this.tabLocalResources.Controls.Add(this.grpKeyboard);
             this.tabLocalResources.Controls.Add(this.grpRemoteAudio);
-            this.tabLocalResources.Location = new System.Drawing.Point(4, 25);
+            this.tabLocalResources.Location = new System.Drawing.Point(4, 24);
             this.tabLocalResources.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabLocalResources.Name = "tabLocalResources";
-            this.tabLocalResources.Size = new System.Drawing.Size(376, 299);
+            this.tabLocalResources.Size = new System.Drawing.Size(376, 300);
             this.tabLocalResources.TabIndex = 2;
             this.tabLocalResources.Text = "Local Resources";
             this.tabLocalResources.UseVisualStyleBackColor = true;
@@ -624,20 +624,20 @@
             // 
             // tabExperience
             // 
-            this.tabExperience.Location = new System.Drawing.Point(4, 25);
+            this.tabExperience.Location = new System.Drawing.Point(4, 24);
             this.tabExperience.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabExperience.Name = "tabExperience";
-            this.tabExperience.Size = new System.Drawing.Size(376, 299);
+            this.tabExperience.Size = new System.Drawing.Size(376, 300);
             this.tabExperience.TabIndex = 3;
             this.tabExperience.Text = "Experience";
             this.tabExperience.UseVisualStyleBackColor = true;
             // 
             // tabAdvanced
             // 
-            this.tabAdvanced.Location = new System.Drawing.Point(4, 25);
+            this.tabAdvanced.Location = new System.Drawing.Point(4, 24);
             this.tabAdvanced.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tabAdvanced.Name = "tabAdvanced";
-            this.tabAdvanced.Size = new System.Drawing.Size(376, 299);
+            this.tabAdvanced.Size = new System.Drawing.Size(376, 300);
             this.tabAdvanced.TabIndex = 4;
             this.tabAdvanced.Text = "Advanced";
             this.tabAdvanced.UseVisualStyleBackColor = true;

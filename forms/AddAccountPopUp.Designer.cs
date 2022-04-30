@@ -61,7 +61,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.txtUsername, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.cmbAccountType, 1, 3);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 11);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
@@ -69,7 +69,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(486, 275);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(486, 258);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // flowLayoutPanel1
@@ -77,9 +77,9 @@
             this.flowLayoutPanel1.Controls.Add(this.chkPasswordExpires);
             this.flowLayoutPanel1.Controls.Add(this.chkRequirePasswordChange);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(113, 236);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(113, 220);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(370, 36);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(370, 35);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
             // chkPasswordExpires
@@ -87,8 +87,8 @@
             this.chkPasswordExpires.AutoSize = true;
             this.chkPasswordExpires.Location = new System.Drawing.Point(3, 3);
             this.chkPasswordExpires.Name = "chkPasswordExpires";
-            this.chkPasswordExpires.Size = new System.Drawing.Size(128, 20);
-            this.chkPasswordExpires.TabIndex = 11;
+            this.chkPasswordExpires.Size = new System.Drawing.Size(121, 19);
+            this.chkPasswordExpires.TabIndex = 5;
             this.chkPasswordExpires.Text = "Password Expires?";
             this.chkPasswordExpires.UseVisualStyleBackColor = true;
             this.chkPasswordExpires.CheckedChanged += new System.EventHandler(this.chkPasswordExpires_CheckedChanged);
@@ -96,10 +96,10 @@
             // chkRequirePasswordChange
             // 
             this.chkRequirePasswordChange.AutoSize = true;
-            this.chkRequirePasswordChange.Location = new System.Drawing.Point(137, 3);
+            this.chkRequirePasswordChange.Location = new System.Drawing.Point(130, 3);
             this.chkRequirePasswordChange.Name = "chkRequirePasswordChange";
-            this.chkRequirePasswordChange.Size = new System.Drawing.Size(176, 20);
-            this.chkRequirePasswordChange.TabIndex = 12;
+            this.chkRequirePasswordChange.Size = new System.Drawing.Size(168, 19);
+            this.chkRequirePasswordChange.TabIndex = 6;
             this.chkRequirePasswordChange.Text = "Require Password Change?";
             this.chkRequirePasswordChange.UseVisualStyleBackColor = true;
             this.chkRequirePasswordChange.CheckedChanged += new System.EventHandler(this.chkRequirePasswordChange_CheckedChanged);
@@ -107,20 +107,20 @@
             // txtComment
             // 
             this.txtComment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtComment.Location = new System.Drawing.Point(113, 116);
+            this.txtComment.Location = new System.Drawing.Point(113, 108);
             this.txtComment.Multiline = true;
             this.txtComment.Name = "txtComment";
-            this.txtComment.Size = new System.Drawing.Size(370, 55);
-            this.txtComment.TabIndex = 8;
+            this.txtComment.Size = new System.Drawing.Size(370, 52);
+            this.txtComment.TabIndex = 3;
             this.txtComment.TextChanged += new System.EventHandler(this.txtComment_TextChanged);
             // 
             // txtPassword
             // 
             this.txtPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPassword.Location = new System.Drawing.Point(113, 71);
+            this.txtPassword.Location = new System.Drawing.Point(113, 65);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(370, 23);
-            this.txtPassword.TabIndex = 7;
+            this.txtPassword.TabIndex = 2;
             this.txtPassword.UseSystemPasswordChar = true;
             this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
             // 
@@ -128,9 +128,9 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 197);
+            this.label4.Location = new System.Drawing.Point(3, 184);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(104, 16);
+            this.label4.Size = new System.Drawing.Size(104, 15);
             this.label4.TabIndex = 5;
             this.label4.Text = "Account Type: ";
             // 
@@ -138,9 +138,9 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 136);
+            this.label3.Location = new System.Drawing.Point(3, 126);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(104, 16);
+            this.label3.Size = new System.Drawing.Size(104, 15);
             this.label3.TabIndex = 4;
             this.label3.Text = "Comment: ";
             // 
@@ -148,9 +148,9 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 74);
+            this.label2.Location = new System.Drawing.Point(3, 69);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(104, 16);
+            this.label2.Size = new System.Drawing.Size(104, 15);
             this.label2.TabIndex = 2;
             this.label2.Text = "Password: ";
             // 
@@ -158,16 +158,16 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 19);
+            this.label1.Location = new System.Drawing.Point(3, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(104, 16);
+            this.label1.Size = new System.Drawing.Size(104, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "Username:";
             // 
             // txtUsername
             // 
             this.txtUsername.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtUsername.Location = new System.Drawing.Point(113, 16);
+            this.txtUsername.Location = new System.Drawing.Point(113, 14);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(370, 23);
             this.txtUsername.TabIndex = 1;
@@ -181,49 +181,49 @@
             this.cmbAccountType.Items.AddRange(new object[] {
             "Standard User",
             "Administrator"});
-            this.cmbAccountType.Location = new System.Drawing.Point(113, 193);
+            this.cmbAccountType.Location = new System.Drawing.Point(113, 180);
             this.cmbAccountType.MaxDropDownItems = 2;
             this.cmbAccountType.Name = "cmbAccountType";
-            this.cmbAccountType.Size = new System.Drawing.Size(370, 24);
-            this.cmbAccountType.TabIndex = 9;
+            this.cmbAccountType.Size = new System.Drawing.Size(370, 23);
+            this.cmbAccountType.TabIndex = 4;
             this.cmbAccountType.SelectedIndexChanged += new System.EventHandler(this.cmbAccountType_SelectedIndexChanged);
             // 
             // btnAddAndClear
             // 
-            this.btnAddAndClear.Location = new System.Drawing.Point(391, 290);
+            this.btnAddAndClear.Location = new System.Drawing.Point(391, 272);
             this.btnAddAndClear.Name = "btnAddAndClear";
-            this.btnAddAndClear.Size = new System.Drawing.Size(107, 25);
-            this.btnAddAndClear.TabIndex = 6;
+            this.btnAddAndClear.Size = new System.Drawing.Size(107, 23);
+            this.btnAddAndClear.TabIndex = 9;
             this.btnAddAndClear.Text = "Add && Clear";
             this.btnAddAndClear.UseVisualStyleBackColor = true;
             this.btnAddAndClear.Click += new System.EventHandler(this.btnAddAndClear_Click);
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(165, 290);
+            this.btnCancel.Location = new System.Drawing.Point(165, 272);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(107, 25);
-            this.btnCancel.TabIndex = 5;
+            this.btnCancel.Size = new System.Drawing.Size(107, 23);
+            this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(278, 290);
+            this.btnAdd.Location = new System.Drawing.Point(278, 272);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(107, 25);
-            this.btnAdd.TabIndex = 4;
+            this.btnAdd.Size = new System.Drawing.Size(107, 23);
+            this.btnAdd.TabIndex = 8;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // AddAccountPopUp
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(510, 327);
+            this.ClientSize = new System.Drawing.Size(510, 307);
             this.Controls.Add(this.btnAddAndClear);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAdd);

@@ -92,7 +92,7 @@
             this.txtServerAddress.Location = new System.Drawing.Point(164, 48);
             this.txtServerAddress.Name = "txtServerAddress";
             this.txtServerAddress.Size = new System.Drawing.Size(330, 23);
-            this.txtServerAddress.TabIndex = 3;
+            this.txtServerAddress.TabIndex = 2;
             this.txtServerAddress.TextChanged += new System.EventHandler(this.txtServerAddress_TextChanged);
             // 
             // label2
@@ -101,7 +101,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(3, 52);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(155, 16);
+            this.label2.Size = new System.Drawing.Size(155, 15);
             this.label2.TabIndex = 2;
             this.label2.Text = "Server Address: ";
             // 
@@ -109,9 +109,9 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 12);
+            this.label1.Location = new System.Drawing.Point(3, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(155, 16);
+            this.label1.Size = new System.Drawing.Size(155, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "Connection Name: ";
             // 
@@ -128,9 +128,9 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 88);
+            this.label3.Location = new System.Drawing.Point(3, 89);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(155, 16);
+            this.label3.Size = new System.Drawing.Size(155, 15);
             this.label3.TabIndex = 4;
             this.label3.Text = "Tunnel Type: ";
             // 
@@ -145,19 +145,19 @@
             "L2TP/IPsec with certificate",
             "L2TP/IPsec with pre-shared key",
             "PPTP (Point to Point Tunneling Protocol)"});
-            this.cmbTunnelType.Location = new System.Drawing.Point(164, 84);
+            this.cmbTunnelType.Location = new System.Drawing.Point(164, 85);
             this.cmbTunnelType.Name = "cmbTunnelType";
-            this.cmbTunnelType.Size = new System.Drawing.Size(330, 24);
-            this.cmbTunnelType.TabIndex = 5;
+            this.cmbTunnelType.Size = new System.Drawing.Size(330, 23);
+            this.cmbTunnelType.TabIndex = 3;
             this.cmbTunnelType.SelectedIndexChanged += new System.EventHandler(this.cmbTunnelType_SelectedIndexChanged);
             // 
             // label4
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 123);
+            this.label4.Location = new System.Drawing.Point(3, 124);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(155, 16);
+            this.label4.Size = new System.Drawing.Size(155, 15);
             this.label4.TabIndex = 6;
             this.label4.Text = "Encryption Level: ";
             // 
@@ -172,10 +172,10 @@
             "Required",
             "Maximum",
             "Custom"});
-            this.cmbEncryptionLevel.Location = new System.Drawing.Point(164, 119);
+            this.cmbEncryptionLevel.Location = new System.Drawing.Point(164, 120);
             this.cmbEncryptionLevel.Name = "cmbEncryptionLevel";
-            this.cmbEncryptionLevel.Size = new System.Drawing.Size(330, 24);
-            this.cmbEncryptionLevel.TabIndex = 7;
+            this.cmbEncryptionLevel.Size = new System.Drawing.Size(330, 23);
+            this.cmbEncryptionLevel.TabIndex = 4;
             this.cmbEncryptionLevel.SelectedIndexChanged += new System.EventHandler(this.cmbEncryptionLevel_SelectedIndexChanged);
             // 
             // cmbAuthMethod
@@ -189,19 +189,19 @@
             "MSChapv2",
             "EAP",
             "Machine Certificate"});
-            this.cmbAuthMethod.Location = new System.Drawing.Point(164, 154);
+            this.cmbAuthMethod.Location = new System.Drawing.Point(164, 155);
             this.cmbAuthMethod.Name = "cmbAuthMethod";
-            this.cmbAuthMethod.Size = new System.Drawing.Size(330, 24);
-            this.cmbAuthMethod.TabIndex = 8;
+            this.cmbAuthMethod.Size = new System.Drawing.Size(330, 23);
+            this.cmbAuthMethod.TabIndex = 5;
             this.cmbAuthMethod.SelectedIndexChanged += new System.EventHandler(this.cmbAuthMethod_SelectedIndexChanged);
             // 
             // label5
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 158);
+            this.label5.Location = new System.Drawing.Point(3, 159);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(155, 16);
+            this.label5.Size = new System.Drawing.Size(155, 15);
             this.label5.TabIndex = 9;
             this.label5.Text = "Authentication Method: ";
             // 
@@ -210,8 +210,8 @@
             this.chkRememberCredentials.AutoSize = true;
             this.chkRememberCredentials.Location = new System.Drawing.Point(12, 202);
             this.chkRememberCredentials.Name = "chkRememberCredentials";
-            this.chkRememberCredentials.Size = new System.Drawing.Size(162, 20);
-            this.chkRememberCredentials.TabIndex = 1;
+            this.chkRememberCredentials.Size = new System.Drawing.Size(151, 19);
+            this.chkRememberCredentials.TabIndex = 6;
             this.chkRememberCredentials.Text = "Remember Credentials?";
             this.chkRememberCredentials.UseVisualStyleBackColor = true;
             this.chkRememberCredentials.CheckedChanged += new System.EventHandler(this.chkRememberCredentials_CheckedChanged);
@@ -221,8 +221,8 @@
             this.chkSplitTunneling.AutoSize = true;
             this.chkSplitTunneling.Location = new System.Drawing.Point(180, 202);
             this.chkSplitTunneling.Name = "chkSplitTunneling";
-            this.chkSplitTunneling.Size = new System.Drawing.Size(154, 20);
-            this.chkSplitTunneling.TabIndex = 2;
+            this.chkSplitTunneling.Size = new System.Drawing.Size(148, 19);
+            this.chkSplitTunneling.TabIndex = 7;
             this.chkSplitTunneling.Text = "Enable Split Tunneling?";
             this.chkSplitTunneling.UseVisualStyleBackColor = true;
             this.chkSplitTunneling.CheckedChanged += new System.EventHandler(this.chkSplitTunneling_CheckedChanged);
@@ -232,8 +232,8 @@
             this.chkAutoReconnect.AutoSize = true;
             this.chkAutoReconnect.Location = new System.Drawing.Point(340, 202);
             this.chkAutoReconnect.Name = "chkAutoReconnect";
-            this.chkAutoReconnect.Size = new System.Drawing.Size(124, 20);
-            this.chkAutoReconnect.TabIndex = 3;
+            this.chkAutoReconnect.Size = new System.Drawing.Size(116, 19);
+            this.chkAutoReconnect.TabIndex = 8;
             this.chkAutoReconnect.Text = "Auto Reconnect?";
             this.chkAutoReconnect.UseVisualStyleBackColor = true;
             this.chkAutoReconnect.CheckedChanged += new System.EventHandler(this.chkAutoReconnect_CheckedChanged);
@@ -299,9 +299,9 @@
             // 
             this.lblPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(3, 38);
+            this.lblPassword.Location = new System.Drawing.Point(3, 39);
             this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(145, 16);
+            this.lblPassword.Size = new System.Drawing.Size(145, 15);
             this.lblPassword.TabIndex = 2;
             this.lblPassword.Text = "Password (optional): ";
             // 
@@ -309,9 +309,9 @@
             // 
             this.lblUsername.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblUsername.AutoSize = true;
-            this.lblUsername.Location = new System.Drawing.Point(3, 7);
+            this.lblUsername.Location = new System.Drawing.Point(3, 8);
             this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(145, 16);
+            this.lblUsername.Size = new System.Drawing.Size(145, 15);
             this.lblUsername.TabIndex = 1;
             this.lblUsername.Text = "Username (optional): ";
             // 
@@ -321,7 +321,7 @@
             this.txtUsername.Location = new System.Drawing.Point(154, 4);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(324, 23);
-            this.txtUsername.TabIndex = 3;
+            this.txtUsername.TabIndex = 11;
             this.txtUsername.TextChanged += new System.EventHandler(this.txtUsername_TextChanged);
             // 
             // txtPassword
@@ -330,7 +330,7 @@
             this.txtPassword.Location = new System.Drawing.Point(154, 35);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(324, 23);
-            this.txtPassword.TabIndex = 4;
+            this.txtPassword.TabIndex = 12;
             this.txtPassword.UseSystemPasswordChar = true;
             this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
             // 
@@ -339,7 +339,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(12, 234);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(160, 16);
+            this.label6.Size = new System.Drawing.Size(148, 15);
             this.label6.TabIndex = 16;
             this.label6.Text = "Idle Disconnect (seconds): ";
             // 
@@ -353,7 +353,7 @@
             0});
             this.nudIdleDisconnect.Name = "nudIdleDisconnect";
             this.nudIdleDisconnect.Size = new System.Drawing.Size(92, 23);
-            this.nudIdleDisconnect.TabIndex = 17;
+            this.nudIdleDisconnect.TabIndex = 9;
             this.nudIdleDisconnect.ValueChanged += new System.EventHandler(this.nudIdleDisconnect_ValueChanged);
             // 
             // btnSetDisconnectToZero
@@ -362,7 +362,7 @@
             this.btnSetDisconnectToZero.Location = new System.Drawing.Point(274, 231);
             this.btnSetDisconnectToZero.Name = "btnSetDisconnectToZero";
             this.btnSetDisconnectToZero.Size = new System.Drawing.Size(75, 24);
-            this.btnSetDisconnectToZero.TabIndex = 18;
+            this.btnSetDisconnectToZero.TabIndex = 10;
             this.btnSetDisconnectToZero.Text = "Set to \'0\'";
             this.btnSetDisconnectToZero.UseVisualStyleBackColor = true;
             this.btnSetDisconnectToZero.Click += new System.EventHandler(this.btnSetDisconnectToZero_Click);

@@ -2,6 +2,7 @@ using OnboardingHelper_NetCore.forms;
 using OnboardingHelper_NetCore.settings;
 using OnboardingHelper_NetCore.wrappers;
 using WUApiLib;
+using static OnboardingHelper_NetCore.CEventArgs;
 
 namespace OnboardingHelper_NetCore
 {
@@ -31,6 +32,39 @@ namespace OnboardingHelper_NetCore
                 txtDomain.Enabled = false;
                 txtDomain.PlaceholderText = "Domain not available in 'Home' versions of Windows!";
             }
+
+            Configuration.ConfigError += HandleConfigError;
+            Configuration.ConfigLoaded += HandleConfigLoaded;
+            Configuration.ConfigSaved += HandleConfigSaved;
+            Configuration.ConfigReset += HandleConfigReset;
+        }
+
+        private void HandleConfigError(object sender, EventArgs e)
+        {
+            MessageBox.Show(this, "An error occured reading the XML configuration. " +
+                "Ensure it is a valid configuration file and try again.", "Error", 
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void HandleConfigLoaded(object sender, EventArgs e)
+        {
+            MessageBox.Show(this, "Successfully loaded the configuration!", "Success",
+                MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //TODO: set GUI based on Configuration
+        }
+
+        private void HandleConfigSaved(object sender, EventArgs e)
+        {
+            if (e is ConfigSavedEventArgs args)
+            {
+                MessageBox.Show(this, $"Configuration file saved: {args.ConfigPath}", "Success",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void HandleConfigReset(object sender, EventArgs e)
+        {
+            MessageBox.Show(this, "Configuration Cleared", "Info", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -51,7 +85,7 @@ namespace OnboardingHelper_NetCore
         {
             if (dlgOpenConfig.ShowDialog() == DialogResult.OK)
             {
-                if (Configuration.Instance.LoadConfig(dlgOpenConfig.FileName) == null)
+                if (Configuration.LoadConfig(dlgOpenConfig.FileName) == null)
                     MessageBox.Show(this, "The configuration file could not be read. It may be corrupted. Please try again.",
                         "Error Reading Config", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -95,6 +129,7 @@ namespace OnboardingHelper_NetCore
         private void cmbTimeZones_SelectedIndexChanged(object sender, EventArgs e)
         {
             Configuration.Instance.TimeZone = (TimeZoneInfo)cmbTimeZones.SelectedItem;
+            Configuration.Instance.TimeZoneString = Configuration.Instance.TimeZone.ToSerializedString();
         }
 
         private void cmbNTPServers_SelectedIndexChanged(object sender, EventArgs e)

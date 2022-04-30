@@ -86,7 +86,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(3, 156);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(123, 16);
+            this.label7.Size = new System.Drawing.Size(123, 15);
             this.label7.TabIndex = 17;
             this.label7.Text = "Encryption Type: ";
             // 
@@ -96,7 +96,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(3, 116);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(123, 16);
+            this.label6.Size = new System.Drawing.Size(123, 15);
             this.label6.TabIndex = 16;
             this.label6.Text = "Connection Type: ";
             // 
@@ -104,9 +104,9 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 70);
+            this.label5.Location = new System.Drawing.Point(3, 78);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(123, 32);
+            this.label5.Size = new System.Drawing.Size(123, 15);
             this.label5.TabIndex = 15;
             this.label5.Text = "Authentication Type: ";
             // 
@@ -122,8 +122,8 @@
             "AES"});
             this.cmbEncryptionType.Location = new System.Drawing.Point(132, 152);
             this.cmbEncryptionType.Name = "cmbEncryptionType";
-            this.cmbEncryptionType.Size = new System.Drawing.Size(341, 24);
-            this.cmbEncryptionType.TabIndex = 14;
+            this.cmbEncryptionType.Size = new System.Drawing.Size(341, 23);
+            this.cmbEncryptionType.TabIndex = 5;
             this.cmbEncryptionType.SelectedIndexChanged += new System.EventHandler(this.cmbEncryptionType_SelectedIndexChanged);
             // 
             // txtPSK
@@ -132,7 +132,7 @@
             this.txtPSK.Location = new System.Drawing.Point(132, 37);
             this.txtPSK.Name = "txtPSK";
             this.txtPSK.Size = new System.Drawing.Size(341, 23);
-            this.txtPSK.TabIndex = 3;
+            this.txtPSK.TabIndex = 2;
             this.txtPSK.TextChanged += new System.EventHandler(this.txtPSK_TextChanged);
             // 
             // cmbConnectionType
@@ -145,17 +145,17 @@
             "IBSS"});
             this.cmbConnectionType.Location = new System.Drawing.Point(132, 112);
             this.cmbConnectionType.Name = "cmbConnectionType";
-            this.cmbConnectionType.Size = new System.Drawing.Size(341, 24);
-            this.cmbConnectionType.TabIndex = 13;
+            this.cmbConnectionType.Size = new System.Drawing.Size(341, 23);
+            this.cmbConnectionType.TabIndex = 4;
             this.cmbConnectionType.SelectedIndexChanged += new System.EventHandler(this.cmbConnectionType_SelectedIndexChanged);
             // 
             // lblPSK
             // 
             this.lblPSK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPSK.AutoSize = true;
-            this.lblPSK.Location = new System.Drawing.Point(3, 40);
+            this.lblPSK.Location = new System.Drawing.Point(3, 41);
             this.lblPSK.Name = "lblPSK";
-            this.lblPSK.Size = new System.Drawing.Size(123, 16);
+            this.lblPSK.Size = new System.Drawing.Size(123, 15);
             this.lblPSK.TabIndex = 2;
             this.lblPSK.Text = "Pre-Shared Key: ";
             // 
@@ -174,8 +174,8 @@
             "WPA3: Enterprise"});
             this.cmbAuthenticationType.Location = new System.Drawing.Point(132, 74);
             this.cmbAuthenticationType.Name = "cmbAuthenticationType";
-            this.cmbAuthenticationType.Size = new System.Drawing.Size(341, 24);
-            this.cmbAuthenticationType.TabIndex = 12;
+            this.cmbAuthenticationType.Size = new System.Drawing.Size(341, 23);
+            this.cmbAuthenticationType.TabIndex = 3;
             this.cmbAuthenticationType.SelectedIndexChanged += new System.EventHandler(this.cmbAuthenticationType_SelectedIndexChanged);
             // 
             // label1
@@ -184,7 +184,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 7);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(123, 16);
+            this.label1.Size = new System.Drawing.Size(123, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "SSID: ";
             // 
@@ -220,7 +220,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(3, 40);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(66, 16);
+            this.label3.Size = new System.Drawing.Size(66, 15);
             this.label3.TabIndex = 2;
             this.label3.Text = "Password: ";
             // 
@@ -228,9 +228,9 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 0);
+            this.label4.Location = new System.Drawing.Point(3, 8);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(66, 31);
+            this.label4.Size = new System.Drawing.Size(66, 15);
             this.label4.TabIndex = 0;
             this.label4.Text = "Username: ";
             // 
@@ -240,7 +240,7 @@
             this.txtEnterpriseUsername.Location = new System.Drawing.Point(75, 4);
             this.txtEnterpriseUsername.Name = "txtEnterpriseUsername";
             this.txtEnterpriseUsername.Size = new System.Drawing.Size(244, 23);
-            this.txtEnterpriseUsername.TabIndex = 1;
+            this.txtEnterpriseUsername.TabIndex = 7;
             this.txtEnterpriseUsername.TextChanged += new System.EventHandler(this.txtEnterpriseUsername_TextChanged);
             // 
             // txtEnterprisePassword
@@ -249,7 +249,7 @@
             this.txtEnterprisePassword.Location = new System.Drawing.Point(75, 36);
             this.txtEnterprisePassword.Name = "txtEnterprisePassword";
             this.txtEnterprisePassword.Size = new System.Drawing.Size(244, 23);
-            this.txtEnterprisePassword.TabIndex = 3;
+            this.txtEnterprisePassword.TabIndex = 8;
             this.txtEnterprisePassword.UseSystemPasswordChar = true;
             this.txtEnterprisePassword.TextChanged += new System.EventHandler(this.txtEnterprisePassword_TextChanged);
             // 
@@ -269,8 +269,8 @@
             this.chkIsHiddenNetwork.AutoSize = true;
             this.chkIsHiddenNetwork.Location = new System.Drawing.Point(357, 213);
             this.chkIsHiddenNetwork.Name = "chkIsHiddenNetwork";
-            this.chkIsHiddenNetwork.Size = new System.Drawing.Size(134, 20);
-            this.chkIsHiddenNetwork.TabIndex = 8;
+            this.chkIsHiddenNetwork.Size = new System.Drawing.Size(129, 19);
+            this.chkIsHiddenNetwork.TabIndex = 6;
             this.chkIsHiddenNetwork.Text = "Is Hidden Network?";
             this.chkIsHiddenNetwork.UseVisualStyleBackColor = true;
             this.chkIsHiddenNetwork.CheckedChanged += new System.EventHandler(this.chkIsHiddenNetwork_CheckedChanged);
@@ -290,7 +290,7 @@
             this.btnCancel.Location = new System.Drawing.Point(153, 311);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(107, 25);
-            this.btnCancel.TabIndex = 10;
+            this.btnCancel.TabIndex = 9;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -300,7 +300,7 @@
             this.btnAdd.Location = new System.Drawing.Point(266, 311);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(107, 25);
-            this.btnAdd.TabIndex = 9;
+            this.btnAdd.TabIndex = 10;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);

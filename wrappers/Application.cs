@@ -1,40 +1,51 @@
-﻿namespace OnboardingHelper_NetCore.wrappers
+﻿using System.Xml.Serialization;
+
+namespace OnboardingHelper_NetCore.wrappers
 {
+    [XmlType("application")]
     /// <summary>
     /// Structure to represent an Application that is to be installed on the computer.
     /// </summary>
     public class Application
     {
+        [XmlAttribute("name")]
         /// <summary>
         /// The name of the application.
         /// </summary>
         public string Name { get; set; } = string.Empty;
+
+        [XmlElement("description")]
         /// <summary>
         /// An optional description of the application.
         /// </summary>
         public string Description { get; set; } = string.Empty;
 
+        [XmlElement("path")]
         /// <summary>
         /// The full path to the application file to be installed.
         /// </summary>
         public string Path { get; set; } = string.Empty;
 
+        [XmlElement("install-arguments")]
         /// <summary>
         /// The installation arguments needed for installation via command line.
         /// </summary>
         public string InstallArguments { get; set; } = string.Empty;
 
+        [XmlElement("is-msi")]
         /// <summary>
         /// Is the installer file an .MSI file (windows installer)?
         /// <para>If <c>false</c>, the application is assumed to be an .EXE file.</para>
         /// </summary>
         public bool IsWindowsInstaller { get; set; } = false;
 
+        [XmlElement("is-iso-image")]
         /// <summary>
         /// Is the installer an ISO disk image? (such is the case for Microsoft Office 2019)
         /// </summary>
         public bool IsISOImage { get; set; } = false;
 
+        [XmlIgnore()]
         /// <summary>
         /// Provides a <see cref="FileStream"/> object that represents this application.
         /// </summary>

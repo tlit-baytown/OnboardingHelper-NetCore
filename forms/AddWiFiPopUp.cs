@@ -78,6 +78,7 @@ namespace OnboardingHelper_NetCore.forms
                 userpassword = string.Empty;
             }
 
+            wifi.SetBase64Passwords();
             EnumHelper.ErrorCodes error = Configuration.Instance.AddWiFi(wifi);
             return error == EnumHelper.ErrorCodes.NO_ERROR;
         }
@@ -94,7 +95,6 @@ namespace OnboardingHelper_NetCore.forms
 
         private void Clear()
         {
-            wifi = new WiFi();
             psk = string.Empty;
             userpassword = string.Empty;
 

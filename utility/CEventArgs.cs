@@ -60,5 +60,15 @@ namespace OnboardingHelper_NetCore
                 recordingOption = recording;
             }
         }
+
+        public class ConfigSavedEventArgs : EventArgs
+        {
+            public string ConfigPath { get; private set; }
+
+            public ConfigSavedEventArgs(string path)
+            {
+                ConfigPath = path;
+            }
+        }
     }
 }
