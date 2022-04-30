@@ -1,5 +1,6 @@
 using OnboardingHelper_NetCore.forms;
 using OnboardingHelper_NetCore.settings;
+using OnboardingHelper_NetCore.utility;
 using OnboardingHelper_NetCore.wrappers;
 using WUApiLib;
 using static OnboardingHelper_NetCore.CEventArgs;
@@ -8,48 +9,51 @@ namespace OnboardingHelper_NetCore
 {
     public partial class MainForm : Form
     {
-        private List<IUpdate> updates = new List<IUpdate>();
-        private WindowsUpdate updateTool = new WindowsUpdate();
+        private TabControlHelper tabHelper;
 
         public MainForm()
         {
             InitializeComponent();
+
+            tabHelper = new TabControlHelper(mainTabs);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             Utility.SetMainForm(this);
 
-            cmbTimeZones.DataSource = Utility.GetTimezones();
-            cmbNTPServers.DataSource = Utility.GetPossibleNTPServers();
-
             lblOsVersion.Text = SystemInfo.Instance.OSName + "\t" + SystemInfo.Instance.CSDVersion;
             lblProcessorInfo.Text = SystemInfo.Instance.ProcessorName;
             lblRamAmount.Text = SystemInfo.Instance.RAMAmount;
 
-            if (SystemInfo.Instance.OSName.Contains("Home"))
-            {
-                txtDomain.Enabled = false;
-                txtDomain.PlaceholderText = "Domain not available in 'Home' versions of Windows!";
-            }
-
-            Configuration.ConfigError += HandleConfigError;
+            Configuration.ConfigLoadError += HandleConfigLoadError;
+            Configuration.ConfigSaveError += HandleConfigSaveError;
             Configuration.ConfigLoaded += HandleConfigLoaded;
             Configuration.ConfigSaved += HandleConfigSaved;
             Configuration.ConfigReset += HandleConfigReset;
         }
 
-        private void HandleConfigError(object sender, EventArgs e)
+        private void HandleConfigLoadError(object sender, EventArgs e)
         {
             MessageBox.Show(this, "An error occured reading the XML configuration. " +
                 "Ensure it is a valid configuration file and try again.", "Error", 
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
+            lblStatusText.Text = "Error loading configuration!";
+        }
+
+        private void HandleConfigSaveError(object sender, EventArgs e)
+        {
+            MessageBox.Show(this, "An error occured saving the XML configuration. " +
+                "Ensure the file path is accessible and writable to the application.", "Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            lblStatusText.Text = "Error saving configuration!";
         }
 
         private void HandleConfigLoaded(object sender, EventArgs e)
         {
             MessageBox.Show(this, "Successfully loaded the configuration!", "Success",
                 MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            lblStatusText.Text = "Config loaded successfully.";
             //TODO: set GUI based on Configuration
         }
 
@@ -57,28 +61,30 @@ namespace OnboardingHelper_NetCore
         {
             if (e is ConfigSavedEventArgs args)
             {
-                MessageBox.Show(this, $"Configuration file saved: {args.ConfigPath}", "Success",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                lblStatusText.Text = $"Config saved: {args.ConfigPath}";
             }
         }
 
         private void HandleConfigReset(object sender, EventArgs e)
         {
-            MessageBox.Show(this, "Configuration Cleared", "Info", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            lblStatusText.Text = "Configuration Cleared!";
         }
 
-        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        #region File Menu
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new HelpBox().ShowDialog();
-        }
-
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show(this, "Are you sure you want to exit?\nThe configuration is NOT automatically saved.", "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+            DialogResult result = MessageBox.Show(this, "Are you sure you want to reset all configuration values?",
+                "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             if (result == DialogResult.No || result == DialogResult.Cancel)
                 return;
 
-            System.Windows.Forms.Application.Exit();
+            Configuration.Instance.ResetConfig();
+        }
+
+        private void newWindowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var info = new System.Diagnostics.ProcessStartInfo(System.Windows.Forms.Application.ExecutablePath);
+            System.Diagnostics.Process.Start(info);
         }
 
         private void openConfigurationFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -101,60 +107,99 @@ namespace OnboardingHelper_NetCore
             }
         }
 
-        private void btnShowDomainPassword_MouseEnter(object sender, EventArgs e)
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            txtDomainPassword.UseSystemPasswordChar = false;
+            DialogResult result = MessageBox.Show(this, "Are you sure you want to exit?\nThe configuration is NOT automatically saved.", "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            if (result == DialogResult.No || result == DialogResult.Cancel)
+                return;
+
+            System.Windows.Forms.Application.Exit();
         }
 
-        private void btnShowDomainPassword_MouseLeave(object sender, EventArgs e)
+        private void printToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            txtDomainPassword.UseSystemPasswordChar = true;
+
+        }
+        #endregion
+
+
+        #region View Menu
+        private void HideTab(string tabKey)
+        {
+            tabHelper.HidePage(tabHelper.GetPage(tabKey));
         }
 
-        private void txtDomain_TextChanged(object sender, EventArgs e)
+        private void ShowTab(string tabKey)
         {
-            if (txtDomain.Text.Length > 0)
-                grpDomainCredentials.Visible = true;
+            tabHelper.ShowPage(tabHelper.GetPage(tabKey));
+        }
+
+        private void chkShowConnectionsTab_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkShowConnectionsTab.Checked)
+                ShowTab("connectionsTab");
             else
-                grpDomainCredentials.Visible = false;
-
-            Configuration.Instance.Domain = txtDomain.Text;
+                HideTab("connectionsTab");
         }
 
-        private void txtComputerName_TextChanged(object sender, EventArgs e)
+        private void chkProgramsTab_CheckedChanged(object sender, EventArgs e)
         {
-            Configuration.Instance.ComputerName = txtComputerName.Text;
+            if (chkProgramsTab.Checked)
+                ShowTab("programsTab");
+            else
+                HideTab("programsTab");
         }
 
-        private void cmbTimeZones_SelectedIndexChanged(object sender, EventArgs e)
+        private void chkRemoteDesktops_CheckedChanged(object sender, EventArgs e)
         {
-            Configuration.Instance.TimeZone = (TimeZoneInfo)cmbTimeZones.SelectedItem;
-            Configuration.Instance.TimeZoneString = Configuration.Instance.TimeZone.ToSerializedString();
+            if (chkRemoteDesktops.Checked)
+                ShowTab("remoteDesktopTab");
+            else
+                HideTab("remoteDesktopTab");
         }
 
-        private void cmbNTPServers_SelectedIndexChanged(object sender, EventArgs e)
+        private void chkDriveMappings_CheckedChanged(object sender, EventArgs e)
         {
-            Configuration.Instance.PrimaryNTPServer = (string)cmbNTPServers.SelectedItem;
+            if (chkDriveMappings.Checked)
+                ShowTab("tabDriveMaps");
+            else
+                HideTab("tabDriveMaps");
         }
 
-        private void cmbNTPServers_TextChanged(object sender, EventArgs e)
+        private void chkPrinterMappings_CheckedChanged(object sender, EventArgs e)
         {
-            Configuration.Instance.PrimaryNTPServer = cmbNTPServers.Text;
+            if (chkPrinterMappings.Checked)
+                ShowTab("tabPrinters");
+            else
+                HideTab("tabPrinters");
         }
 
-        private void chkPerformTZSync_CheckedChanged(object sender, EventArgs e)
+        private void btnHideAllTabs_Click(object sender, EventArgs e)
         {
-            Configuration.Instance.PerformTimeSync = chkPerformTZSync.Checked;
+            tabHelper.HideAllPages();
         }
 
-        private void txtDomainUsername_TextChanged(object sender, EventArgs e)
+        private void btnShowAllTabs_Click(object sender, EventArgs e)
         {
-            Configuration.Instance.DomainUsername = txtDomainUsername.Text;
+            tabHelper.ShowAllPages();
         }
 
-        private void txtDomainPassword_TextChanged(object sender, EventArgs e)
+        private void chkStatusBarShow_CheckedChanged(object sender, EventArgs e)
         {
-            Configuration.Instance.DomainPasswordString = txtDomainPassword.Text;
+            mainStatusBar.Visible = chkStatusBarShow.Checked;
         }
+        #endregion
+
+        #region Help Menu
+        private void btnViewHelp_Click(object sender, EventArgs e)
+        {
+            new HelpBox().ShowDialog();
+        }
+
+        private void btnAbout_Click(object sender, EventArgs e)
+        {
+
+        }
+        #endregion
     }
 }

@@ -22,10 +22,26 @@ namespace OnboardingHelper_NetCore.settings
     [XmlType("configuration")]
     public sealed class Configuration
     {
+        /// <summary>
+        /// Occurs when a configuration file is loaded successfully.
+        /// </summary>
         public static EventHandler? ConfigLoaded;
+        /// <summary>
+        /// Occurs when a configuration file is saved successfully.
+        /// </summary>
         public static EventHandler? ConfigSaved;
+        /// <summary>
+        /// Occurs when the active configuration is reset to defaults.
+        /// </summary>
         public static EventHandler? ConfigReset;
-        public static EventHandler? ConfigError;
+        /// <summary>
+        /// Occurs when an error occurs while saving the configuration.
+        /// </summary>
+        public static EventHandler? ConfigSaveError;
+        /// <summary>
+        /// Occurs when an error occurs while loading the configuration.
+        /// </summary>
+        public static EventHandler? ConfigLoadError;
 
         private static Configuration? instance = null;
         private static object instanceLock = new object();
@@ -67,7 +83,7 @@ namespace OnboardingHelper_NetCore.settings
         public string DomainUsername { get; set; } = string.Empty;
 
         [XmlElement("domain-password")]
-        public string DomainPasswordString { get; set; } = string.Empty;
+        public string Base64DomainPassword { get; set; } = string.Empty;
 
         [XmlIgnore()]
         public SecureString DomainPassword { get; set; } = new NetworkCredential("", string.Empty).SecurePassword;
@@ -106,6 +122,9 @@ namespace OnboardingHelper_NetCore.settings
         /// </summary>
         public Configuration() {  }
 
+        /// <summary>
+        /// Reset the current configuration to defaults (blank config).
+        /// </summary>
         public void ResetConfig()
         {
             instance = new Configuration();
@@ -131,7 +150,7 @@ namespace OnboardingHelper_NetCore.settings
             {
                 System.Diagnostics.EventLog.WriteEntry("Application",
                     $"An error occured loading a configuration file: {ex.Message}", System.Diagnostics.EventLogEntryType.Error);
-                ConfigError?.Invoke(Instance, new EventArgs());
+                ConfigLoadError?.Invoke(Instance, new EventArgs());
             }
             return Instance;
         }
@@ -156,7 +175,7 @@ namespace OnboardingHelper_NetCore.settings
             {
                 System.Diagnostics.EventLog.WriteEntry("Application",
                     $"An error occured loading a configuration file: {ex.Message}", System.Diagnostics.EventLogEntryType.Error);
-                ConfigError?.Invoke(Instance, new EventArgs());
+                ConfigSaveError?.Invoke(Instance, new EventArgs());
                 return false;
             }
             

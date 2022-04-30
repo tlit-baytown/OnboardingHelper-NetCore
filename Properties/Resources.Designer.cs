@@ -63,9 +63,9 @@ namespace OnboardingHelper_NetCore.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _13000 {
+        internal static System.Drawing.Bitmap document_24x24 {
             get {
-                object obj = ResourceManager.GetObject("_13000", resourceCulture);
+                object obj = ResourceManager.GetObject("document_24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace OnboardingHelper_NetCore.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _13001 {
+        internal static System.Drawing.Bitmap document_32x32 {
             get {
-                object obj = ResourceManager.GetObject("_13001", resourceCulture);
+                object obj = ResourceManager.GetObject("document_32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace OnboardingHelper_NetCore.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _13002 {
+        internal static System.Drawing.Bitmap exit_24x24 {
             get {
-                object obj = ResourceManager.GetObject("_13002", resourceCulture);
+                object obj = ResourceManager.GetObject("exit_24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace OnboardingHelper_NetCore.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _13003 {
+        internal static System.Drawing.Bitmap export_24x24 {
             get {
-                object obj = ResourceManager.GetObject("_13003", resourceCulture);
+                object obj = ResourceManager.GetObject("export_24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +103,9 @@ namespace OnboardingHelper_NetCore.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _13004 {
+        internal static System.Drawing.Bitmap export_32x32 {
             get {
-                object obj = ResourceManager.GetObject("_13004", resourceCulture);
+                object obj = ResourceManager.GetObject("export_32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +113,9 @@ namespace OnboardingHelper_NetCore.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _13005 {
+        internal static System.Drawing.Bitmap folder_network_24x24 {
             get {
-                object obj = ResourceManager.GetObject("_13005", resourceCulture);
+                object obj = ResourceManager.GetObject("folder_network_24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,9 +123,9 @@ namespace OnboardingHelper_NetCore.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _13006 {
+        internal static System.Drawing.Bitmap folder_network_32x32 {
             get {
-                object obj = ResourceManager.GetObject("_13006", resourceCulture);
+                object obj = ResourceManager.GetObject("folder_network_32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -133,9 +133,9 @@ namespace OnboardingHelper_NetCore.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _13007 {
+        internal static System.Drawing.Bitmap import_24x24 {
             get {
-                object obj = ResourceManager.GetObject("13007", resourceCulture);
+                object obj = ResourceManager.GetObject("import_24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,9 +143,9 @@ namespace OnboardingHelper_NetCore.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _13008 {
+        internal static System.Drawing.Bitmap import_32x32 {
             get {
-                object obj = ResourceManager.GetObject("_13008", resourceCulture);
+                object obj = ResourceManager.GetObject("import_32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -153,9 +153,9 @@ namespace OnboardingHelper_NetCore.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _13009 {
+        internal static System.Drawing.Bitmap internet_24x24 {
             get {
-                object obj = ResourceManager.GetObject("_13009", resourceCulture);
+                object obj = ResourceManager.GetObject("internet_24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -163,9 +163,9 @@ namespace OnboardingHelper_NetCore.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _13013 {
+        internal static System.Drawing.Bitmap internet_32x32 {
             get {
-                object obj = ResourceManager.GetObject("_13013", resourceCulture);
+                object obj = ResourceManager.GetObject("internet_32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -173,9 +173,9 @@ namespace OnboardingHelper_NetCore.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _383 {
+        internal static System.Drawing.Bitmap printer_24x24 {
             get {
-                object obj = ResourceManager.GetObject("_383", resourceCulture);
+                object obj = ResourceManager.GetObject("printer_24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -183,9 +183,9 @@ namespace OnboardingHelper_NetCore.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap document__Custom_ {
+        internal static System.Drawing.Bitmap printer_32x32 {
             get {
-                object obj = ResourceManager.GetObject("document (Custom)", resourceCulture);
+                object obj = ResourceManager.GetObject("printer_32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -193,9 +193,9 @@ namespace OnboardingHelper_NetCore.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap export__Custom_ {
+        internal static System.Drawing.Bitmap remote_control_24x24 {
             get {
-                object obj = ResourceManager.GetObject("export (Custom)", resourceCulture);
+                object obj = ResourceManager.GetObject("remote_control_24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -203,9 +203,9 @@ namespace OnboardingHelper_NetCore.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap folder_network__Custom_ {
+        internal static System.Drawing.Bitmap remote_control_32x32 {
             get {
-                object obj = ResourceManager.GetObject("folder_network__Custom_", resourceCulture);
+                object obj = ResourceManager.GetObject("remote_control_32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -213,9 +213,9 @@ namespace OnboardingHelper_NetCore.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap import__Custom_ {
+        internal static System.Drawing.Bitmap reset_24x24 {
             get {
-                object obj = ResourceManager.GetObject("import (Custom)", resourceCulture);
+                object obj = ResourceManager.GetObject("reset_24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -223,29 +223,9 @@ namespace OnboardingHelper_NetCore.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap internet__Custom_ {
+        internal static System.Drawing.Bitmap settings_24x24 {
             get {
-                object obj = ResourceManager.GetObject("internet (Custom)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon mstsc {
-            get {
-                object obj = ResourceManager.GetObject("mstsc", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap mstsc_32x32 {
-            get {
-                object obj = ResourceManager.GetObject("mstsc_32x32", resourceCulture);
+                object obj = ResourceManager.GetObject("settings_24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -253,59 +233,9 @@ namespace OnboardingHelper_NetCore.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap mstsc_48x48 {
+        internal static System.Drawing.Bitmap settings_32x32 {
             get {
-                object obj = ResourceManager.GetObject("mstsc_48x48", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap mstsc1 {
-            get {
-                object obj = ResourceManager.GetObject("mstsc1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap printer__Custom_ {
-            get {
-                object obj = ResourceManager.GetObject("printer__Custom_", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap remote_control__Custom_ {
-            get {
-                object obj = ResourceManager.GetObject("remote-control (Custom)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap settings__Custom_ {
-            get {
-                object obj = ResourceManager.GetObject("settings (Custom)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap show__Custom_ {
-            get {
-                object obj = ResourceManager.GetObject("show (Custom)", resourceCulture);
+                object obj = ResourceManager.GetObject("settings_32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -323,9 +253,9 @@ namespace OnboardingHelper_NetCore.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap user__Custom_ {
+        internal static System.Drawing.Bitmap show_32x32 {
             get {
-                object obj = ResourceManager.GetObject("user (Custom)", resourceCulture);
+                object obj = ResourceManager.GetObject("show_32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -333,9 +263,39 @@ namespace OnboardingHelper_NetCore.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap web_programming__Custom_ {
+        internal static System.Drawing.Bitmap user_24x24 {
             get {
-                object obj = ResourceManager.GetObject("web-programming (Custom)", resourceCulture);
+                object obj = ResourceManager.GetObject("user_24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap user_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("user_32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap web_programming_24x24 {
+            get {
+                object obj = ResourceManager.GetObject("web_programming_24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap web_programming_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("web_programming_32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

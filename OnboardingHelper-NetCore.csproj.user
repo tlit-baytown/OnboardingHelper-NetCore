@@ -7,9 +7,6 @@
     <Compile Update="forms\AddApplicationPopUp.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="forms\AddRemoteDesktopPopUp.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="forms\AddVPNPopUp.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -20,12 +17,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="forms\HelpBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="forms\RDPAudioSettings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="forms\RDPResourcesSettings.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="userControls\AccountsUserCtl.cs">
@@ -43,5 +34,10 @@
     <Compile Update="userControls\WiFiUserCtl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
