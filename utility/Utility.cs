@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -87,6 +89,25 @@ namespace OnboardingHelper_NetCore
                 counter++;
             }
             return string.Format("{0:n" + 2 + "} {1}", number, suffixes[counter]);
+        }
+
+        /// <summary>
+        /// Get an unsecure version of the <see cref="SecureString"/>.
+        /// </summary>
+        /// <param name="psk"></param>
+        /// <returns>A decrypted <see cref="string"/> version of the <see cref="SecureString"/> string.</returns>
+        public static string ConvertToUnsecureString(SecureString pw)
+        {
+            IntPtr unmanagedString = IntPtr.Zero;
+            try
+            {
+                unmanagedString = Marshal.SecureStringToGlobalAllocUnicode(pw);
+                return Marshal.PtrToStringUni(unmanagedString);
+            }
+            finally
+            {
+                Marshal.ZeroFreeGlobalAllocUnicode(unmanagedString);
+            }
         }
     }
 }

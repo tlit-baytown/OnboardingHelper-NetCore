@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnboardingHelper_NetCore.wrappers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,7 +22,7 @@ namespace OnboardingHelper_NetCore
 
         public class AccountAddedEventArgs : EventArgs
         {
-            public wrappers.Account AddedAccount { get; private set; }
+            public Account AddedAccount { get; private set; }
 
             public AccountAddedEventArgs(wrappers.Account addedAccount)
             {
@@ -31,7 +32,7 @@ namespace OnboardingHelper_NetCore
 
         public class WiFiAddedEventArgs : EventArgs
         {
-            public wrappers.WiFi WiFi { get; private set; }
+            public WiFi WiFi { get; private set; }
 
             public WiFiAddedEventArgs(wrappers.WiFi addedWifi)
             {
@@ -41,7 +42,7 @@ namespace OnboardingHelper_NetCore
 
         public class VPNAddedEventArgs : EventArgs
         {
-            public wrappers.VPN VPN { get; private set; }
+            public VPN VPN { get; private set; }
 
             public VPNAddedEventArgs(wrappers.VPN addedVPN)
             {
@@ -68,6 +69,16 @@ namespace OnboardingHelper_NetCore
             public ConfigSavedEventArgs(string path)
             {
                 ConfigPath = path;
+            }
+        }
+
+        public class MappedDriveAdddedEventArgs : EventArgs
+        {
+            public MappedDrive Drive { get; private set; }
+
+            public MappedDriveAdddedEventArgs(MappedDrive d)
+            {
+                Drive = d;
             }
         }
     }

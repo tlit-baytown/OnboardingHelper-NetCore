@@ -21,9 +21,11 @@ namespace OnboardingHelper_NetCore.userControls
 
         public bool UpdateValues()
         {
+            dgAccounts.Rows.Clear();
+            dgAccounts.Update();
             foreach (Account a in Configuration.Instance.Accounts)
             {
-                a.UpdatePassword();
+                a.SetPasswordFromBase64();
                 UpdateGrid(this, new CEventArgs.AccountAddedEventArgs(a));
             }
             return true;
@@ -77,7 +79,7 @@ namespace OnboardingHelper_NetCore.userControls
                 row.Tag = account;
 
                 row.Cells[0].Value = account.Username;
-                row.Cells[1].Value = account.ConvertPasswordToUnsecureString();
+                row.Cells[1].Value = Utility.ConvertToUnsecureString(account.Password);
                 row.Cells[2].Value = account.Comment;
                 row.Cells[3].Value = account.AccountType.ToString();
                 row.Cells[4].Value = account.DoesPasswordExpire;

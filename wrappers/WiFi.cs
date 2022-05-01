@@ -75,10 +75,10 @@ namespace OnboardingHelper_NetCore.wrappers
         /// </summary>
         public void SetBase64Passwords()
         {
-            if (!PreSharedKey.Equals(string.Empty))
-                Base64PSK = Convert.ToBase64String(Encoding.UTF8.GetBytes(ConvertKeyToUnsecureString(PreSharedKey)));
-            if (!UserPassword.Equals(string.Empty))
-                Base64UserPassword = Convert.ToBase64String(Encoding.UTF8.GetBytes(ConvertKeyToUnsecureString(UserPassword)));
+            if (PreSharedKey.Length != 0)
+                Base64PSK = Convert.ToBase64String(Encoding.UTF8.GetBytes(Utility.ConvertToUnsecureString(PreSharedKey)));
+            if (UserPassword.Length != 0)
+                Base64UserPassword = Convert.ToBase64String(Encoding.UTF8.GetBytes(Utility.ConvertToUnsecureString(UserPassword)));
         }
 
         public void SetPasswordFromBase64()
@@ -92,15 +92,6 @@ namespace OnboardingHelper_NetCore.wrappers
                     Encoding.UTF8.GetString(Convert.FromBase64String(Base64UserPassword))).SecurePassword;
         }
 
-        /// <summary>
-        /// Create a new WiFi network with the specified options.
-        /// </summary>
-        /// <param name="ssid"></param>
-        /// <param name="psk"></param>
-        /// <param name="isHidden"></param>
-        /// <param name="type"></param>
-        /// <param name="connectionType"></param>
-        /// <param name="encryption"></param>
         public WiFi(string ssid, string psk, bool isHidden, WiFiType type, ConnectionType connectionType, EncryptionSetting encryption)
             : this(ssid, new NetworkCredential("", psk).SecurePassword, isHidden, type, connectionType, encryption) { }
 
@@ -122,30 +113,11 @@ namespace OnboardingHelper_NetCore.wrappers
         {
             SSID = ssid;
             PreSharedKey = psk;
-            Base64PSK = Convert.ToBase64String(Encoding.UTF8.GetBytes(ConvertKeyToUnsecureString(psk)));
+            Base64PSK = Convert.ToBase64String(Encoding.UTF8.GetBytes(Utility.ConvertToUnsecureString(psk)));
             IsHiddenNetwork = isHidden;
             WiFiType = type;
             ConnectionType = connectionType;
             EncryptionSetting = encryption;
-        }
-
-        /// <summary>
-        /// Gets an unsecure version of the encrypted key string.
-        /// </summary>
-        /// <param name="psk"></param>
-        /// <returns>A decrypted <see cref="string"/> version of the encrypted <see cref="SecureString"/> key.</returns>
-        public string ConvertKeyToUnsecureString(SecureString psk)
-        {
-            IntPtr unmanagedString = IntPtr.Zero;
-            try
-            {
-                unmanagedString = Marshal.SecureStringToGlobalAllocUnicode(psk);
-                return Marshal.PtrToStringUni(unmanagedString);
-            }
-            finally
-            {
-                Marshal.ZeroFreeGlobalAllocUnicode(unmanagedString);
-            }
         }
     }
 

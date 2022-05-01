@@ -22,6 +22,9 @@ namespace OnboardingHelper_NetCore.userControls
 
         public bool UpdateValues()
         {
+            dgVpns.Rows.Clear();
+            dgVpns.Update();
+
             foreach (VPN v in Configuration.Instance.VPNProfiles)
             {
                 v.SetPasswords();

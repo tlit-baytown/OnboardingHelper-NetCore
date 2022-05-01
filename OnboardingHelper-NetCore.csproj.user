@@ -7,6 +7,9 @@
     <Compile Update="forms\AddApplicationPopUp.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="forms\AddMappedDrivePopUp.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="forms\AddVPNPopUp.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -23,6 +26,9 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="userControls\BasicInfoUserCtl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="userControls\DriveUserCtl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="userControls\ProgramsUserCtl.cs">

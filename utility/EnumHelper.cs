@@ -33,7 +33,11 @@ namespace OnboardingHelper_NetCore
             [Description("The RDP file has already been added to the collection.")]
             RDP_ALREADY_EXISTS = 512,
             [Description("The RDP file is not present in the collection.")]
-            RDP_DOES_NOT_EXIST = 1024
+            RDP_DOES_NOT_EXIST = 1024,
+            [Description("The drive mapping has already been added to the collection.")]
+            MAPPED_DRIVE_ALREADY_EXISTS = 2048,
+            [Description("The drive mapping is not present in the collection.")]
+            MAPPED_DRIVE_DOES_NOT_EXIST = 4096
         }
 
         public enum RDPAudioPlayback

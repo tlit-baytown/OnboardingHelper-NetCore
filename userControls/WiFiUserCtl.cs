@@ -22,6 +22,9 @@ namespace OnboardingHelper_NetCore.userControls
 
         public bool UpdateValues()
         {
+            dgWifis.Rows.Clear();
+            dgWifis.Update();
+
             foreach (WiFi w in Configuration.Instance.WiFiProfiles)
             {
                 w.SetPasswordFromBase64();
@@ -79,7 +82,7 @@ namespace OnboardingHelper_NetCore.userControls
                 row.Cells[0].Value = wifi.SSID;
                 row.Cells[1].Value =
                     (wifi.WiFiType == WiFiType.WPA2_ENTERPRISE || wifi.WiFiType == WiFiType.WPA3_ENTERPRISE) ?
-                    "<WPA Enterprise Selected; No PSK" : wifi.ConvertKeyToUnsecureString(wifi.PreSharedKey);
+                    "<WPA Enterprise Selected; No PSK" : Utility.ConvertToUnsecureString(wifi.PreSharedKey);
                 row.Cells[2].Value = wifi.WiFiType;
                 row.Cells[3].Value = wifi.ConnectionType;
                 row.Cells[4].Value = wifi.EncryptionSetting;

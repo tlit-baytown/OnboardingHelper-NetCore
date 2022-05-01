@@ -33,7 +33,7 @@ namespace OnboardingHelper_NetCore.wrappers
 
         public Account() { }
 
-        public void UpdatePassword()
+        public void SetPasswordFromBase64()
         {
             Password = new NetworkCredential(Username,
                 Encoding.UTF8.GetString(Convert.FromBase64String(Base64Password))).SecurePassword;
@@ -63,7 +63,7 @@ namespace OnboardingHelper_NetCore.wrappers
         {
             Username = username;
             Password = password;
-            Base64Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(ConvertPasswordToUnsecureString(password)));
+            Base64Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(Utility.ConvertToUnsecureString(password)));
             Comment = comment;
             AccountType = accountType;
             DoesPasswordExpire = passwordExpires;
@@ -102,7 +102,7 @@ namespace OnboardingHelper_NetCore.wrappers
         {
             Username = username;
             Password = password;
-            Base64Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(ConvertPasswordToUnsecureString(password)));
+            Base64Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(Utility.ConvertToUnsecureString(password)));
             Comment = string.Empty;
             AccountType = accountType;
             DoesPasswordExpire = passwordExpires;
@@ -136,44 +136,6 @@ namespace OnboardingHelper_NetCore.wrappers
         /// <param name="password"></param>
         /// <param name="accountType"></param>
         public Account(string username, SecureString password, AccountType accountType) : this(username, password, accountType, false, false) { }
-
-        /// <summary>
-        /// Gets an unsecure version of the encrypted password string.
-        /// </summary>
-        /// <param name="password"></param>
-        /// <returns>A decrypted <see cref="string"/> version of the encrypted <see cref="SecureString"/> password.</returns>
-        public string ConvertPasswordToUnsecureString(SecureString password)
-        {
-            IntPtr unmanagedString = IntPtr.Zero;
-            try
-            {
-                unmanagedString = Marshal.SecureStringToGlobalAllocUnicode(password);
-                return Marshal.PtrToStringUni(unmanagedString);
-            }
-            finally
-            {
-                Marshal.ZeroFreeGlobalAllocUnicode(unmanagedString);
-            }
-        }
-
-        /// <summary>
-        /// Gets an unsecure version of the encrypted password string.
-        /// </summary>
-        /// <param name="password"></param>
-        /// <returns>A decrypted <see cref="string"/> version of the encrypted <see cref="SecureString"/> password.</returns>
-        public string ConvertPasswordToUnsecureString()
-        {
-            IntPtr unmanagedString = IntPtr.Zero;
-            try
-            {
-                unmanagedString = Marshal.SecureStringToGlobalAllocUnicode(Password);
-                return Marshal.PtrToStringUni(unmanagedString);
-            }
-            finally
-            {
-                Marshal.ZeroFreeGlobalAllocUnicode(unmanagedString);
-            }
-        }
 
     }
 

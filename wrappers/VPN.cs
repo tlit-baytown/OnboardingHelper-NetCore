@@ -106,9 +106,9 @@ namespace OnboardingHelper_NetCore.wrappers
         public void SetBase64Passwords()
         {
             if (PreSharedKey.Length != 0)
-                Base64PSK = Convert.ToBase64String(Encoding.UTF8.GetBytes(ConvertKeyToUnsecureString(PreSharedKey)));
+                Base64PSK = Convert.ToBase64String(Encoding.UTF8.GetBytes(Utility.ConvertToUnsecureString(PreSharedKey)));
             if (Password.Length != 0)
-                Base64Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(ConvertKeyToUnsecureString(Password)));
+                Base64Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(Utility.ConvertToUnsecureString(Password)));
         }
 
         public void SetPasswords()
@@ -128,7 +128,7 @@ namespace OnboardingHelper_NetCore.wrappers
             ServerAddress = serverAddress;
             Username = username;
             Password = password;
-            Base64Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(ConvertKeyToUnsecureString(password)));
+            Base64Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(Utility.ConvertToUnsecureString(password)));
             TunnelType = tunnelType;
             PreSharedKey = preSharedKey;
             IdleDisconnectSeconds = idleDisconnectSeconds;
@@ -147,17 +147,17 @@ namespace OnboardingHelper_NetCore.wrappers
         {
             Username = username;
             Password = password;
-            Base64Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(ConvertKeyToUnsecureString(password)));
+            Base64Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(Utility.ConvertToUnsecureString(password)));
             TunnelType = tunnelType;
             PreSharedKey = preSharedKey;
-            Base64PSK = Convert.ToBase64String(Encoding.UTF8.GetBytes(ConvertKeyToUnsecureString(preSharedKey)));
+            Base64PSK = Convert.ToBase64String(Encoding.UTF8.GetBytes(Utility.ConvertToUnsecureString(preSharedKey)));
         }
 
         public VPN(string connectionName, string serverAddress, TunnelType tunnelType, SecureString preSharedKey) : this(connectionName, serverAddress)
         {
             TunnelType = tunnelType;
             PreSharedKey = preSharedKey;
-            Base64PSK = Convert.ToBase64String(Encoding.UTF8.GetBytes(ConvertKeyToUnsecureString(preSharedKey)));
+            Base64PSK = Convert.ToBase64String(Encoding.UTF8.GetBytes(Utility.ConvertToUnsecureString(preSharedKey)));
         }
 
         public VPN(string connectionName, string serverAddress, TunnelType tunnelType, SecureString preSharedKey, int idleDisconnectSeconds, bool rememberCredentials, bool enableSplitTunneling, bool autoReconnect) : this(connectionName, serverAddress, tunnelType, preSharedKey)
@@ -172,12 +172,12 @@ namespace OnboardingHelper_NetCore.wrappers
         {
             Username = username;
             Password = password;
-            Base64Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(ConvertKeyToUnsecureString(password)));
+            Base64Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(Utility.ConvertToUnsecureString(password)));
             TunnelType = tunnelType;
             EncryptionLevel = encryptionLevel;
             AuthenticationMethod = authenticationMethod;
             PreSharedKey = preSharedKey;
-            Base64PSK = Convert.ToBase64String(Encoding.UTF8.GetBytes(ConvertKeyToUnsecureString(preSharedKey)));
+            Base64PSK = Convert.ToBase64String(Encoding.UTF8.GetBytes(Utility.ConvertToUnsecureString(preSharedKey)));
             IdleDisconnectSeconds = idleDisconnectSeconds;
             RememberCredentials = rememberCredentials;
             EnableSplitTunneling = enableSplitTunneling;
@@ -187,29 +187,10 @@ namespace OnboardingHelper_NetCore.wrappers
         public VPN(string serverAddress, string username, SecureString password, TunnelType tunnelType, EncryptionLevel encryptionLevel, AuthenticationMethod authenticationMethod) : this(serverAddress, username)
         {
             Password = password;
-            Base64Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(ConvertKeyToUnsecureString(password)));
+            Base64Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(Utility.ConvertToUnsecureString(password)));
             TunnelType = tunnelType;
             EncryptionLevel = encryptionLevel;
             AuthenticationMethod = authenticationMethod;
-        }
-
-        /// <summary>
-        /// Gets an unsecure version of the encrypted key string.
-        /// </summary>
-        /// <param name="psk"></param>
-        /// <returns>A decrypted <see cref="string"/> version of the encrypted <see cref="SecureString"/> key.</returns>
-        public string ConvertKeyToUnsecureString(SecureString psk)
-        {
-            IntPtr unmanagedString = IntPtr.Zero;
-            try
-            {
-                unmanagedString = Marshal.SecureStringToGlobalAllocUnicode(psk);
-                return Marshal.PtrToStringUni(unmanagedString);
-            }
-            finally
-            {
-                Marshal.ZeroFreeGlobalAllocUnicode(unmanagedString);
-            }
         }
     }
 

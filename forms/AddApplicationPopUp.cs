@@ -15,14 +15,9 @@ namespace OnboardingHelper_NetCore
 {
     public partial class AddApplicationPopUp : Form
     {
-        public EventHandler ApplicationAdded;
+        public EventHandler? ApplicationAdded;
 
         private Application application = new Application();
-        private string path = "";
-        private string name = "";
-        private string description = "";
-        private string arguments = "";
-
 
         public AddApplicationPopUp()
         {
@@ -40,25 +35,21 @@ namespace OnboardingHelper_NetCore
 
         private bool Add()
         {
-            if (name.Length <= 0)
+            if (application.Name.Length <= 0)
                 return false;
-            if (path.Length <= 0)
+            if (application.Path.Length <= 0)
                 return false;
 
-            bool isWindowsInstaller = false;
-            bool isISOImage = false;
-
-            if (path.EndsWith(".msi"))
-                isWindowsInstaller = true;
-            else if (path.EndsWith(".exe"))
-                isWindowsInstaller = false;
-            else if (path.EndsWith(".iso"))
+            if (application.Path.EndsWith(".msi"))
+                application.IsWindowsInstaller = true;
+            else if (application.Path.EndsWith(".exe"))
+                application.IsWindowsInstaller = false;
+            else if (application.Path.EndsWith(".iso"))
             {
-                isWindowsInstaller = false;
-                isISOImage = true;
+                application.IsWindowsInstaller = false;
+                application.IsISOImage = true;
             }
 
-            application = new Application(name, description, path, arguments, isWindowsInstaller, isISOImage);
             EnumHelper.ErrorCodes error = Configuration.Instance.AddApplication(application);
             return error == EnumHelper.ErrorCodes.NO_ERROR;
         }
@@ -93,8 +84,8 @@ namespace OnboardingHelper_NetCore
         {
             if (dlgOpenFile.ShowDialog() == DialogResult.OK)
             {
-                path = dlgOpenFile.FileName;
-                lblFilePath.Text = path;
+                application.Path = dlgOpenFile.FileName;
+                lblFilePath.Text = application.Path;
                 lblFilePath.ForeColor = Color.Green;
             }
         }
@@ -107,17 +98,17 @@ namespace OnboardingHelper_NetCore
 
         private void txtName_TextChanged(object sender, EventArgs e)
         {
-            name = txtName.Text;
+            application.Name = txtName.Text;
         }
 
         private void txtDescription_TextChanged(object sender, EventArgs e)
         {
-            description = txtDescription.Text;
+            application.Description = txtDescription.Text;
         }
 
         private void txtArguments_TextChanged(object sender, EventArgs e)
         {
-            arguments = txtArguments.Text;
+            application.InstallArguments = txtArguments.Text;
         }
     }
 }

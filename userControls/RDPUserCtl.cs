@@ -23,6 +23,10 @@ namespace OnboardingHelper_NetCore.userControls
 
         public bool UpdateValues()
         {
+            lvRDPPaths.BeginUpdate();
+            lvRDPPaths.Items.Clear();
+            lvRDPPaths.EndUpdate();
+
             int filesCreated = 0;
             foreach (RDPFile f in Configuration.Instance.RDPFiles)
                 if (f.CreateIfNotExists())

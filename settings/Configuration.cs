@@ -117,6 +117,12 @@ namespace OnboardingHelper_NetCore.settings
         private List<RDPFile> rdpFiles = new List<RDPFile>();
         #endregion
 
+        #region Mapped Drive
+        [XmlElement("mapped-drives")]
+        public List<MappedDrive> MappedDrives { get { return mappedDrives; } set { mappedDrives = value; } }
+        private List<MappedDrive> mappedDrives = new List<MappedDrive>();
+        #endregion
+
         /// <summary>
         /// Create a new blank configuration.
         /// </summary>
@@ -125,7 +131,8 @@ namespace OnboardingHelper_NetCore.settings
         /// <summary>
         /// Reset the current configuration to defaults (blank config).
         /// </summary>
-        public void ResetConfig()
+        /// <param name="fireEvent">Whether to fire the <see cref="ConfigReset"/> event.</param>
+        public void ResetConfig(bool fireEvent = false)
         {
             instance = new Configuration();
             ConfigReset?.Invoke(this, new EventArgs());
@@ -306,6 +313,32 @@ namespace OnboardingHelper_NetCore.settings
         public RDPFile GetRDPFile(string computerName)
         {
             return rdpFiles.FirstOrDefault(a => a.ComputerName.Equals(computerName));
+        }
+        #endregion
+
+        #region Mapped Drives
+        public ErrorCodes AddMappedDrive(MappedDrive d)
+        {
+            if (mappedDrives.Any(f => f.DriveLetter == d.DriveLetter))
+                return ErrorCodes.MAPPED_DRIVE_ALREADY_EXISTS;
+            mappedDrives.Add(d);
+
+            return ErrorCodes.NO_ERROR;
+        }
+
+        public ErrorCodes RemoveMappedDrive(MappedDrive d)
+        {
+            if (mappedDrives.Contains(d))
+                mappedDrives.Remove(d);
+            else
+                return ErrorCodes.MAPPED_DRIVE_DOES_NOT_EXIST;
+
+            return ErrorCodes.NO_ERROR;
+        }
+
+        public MappedDrive GetMappedDrive(DriveLetter letter)
+        {
+            return mappedDrives.FirstOrDefault(d => d.DriveLetter == letter);
         }
         #endregion
     }

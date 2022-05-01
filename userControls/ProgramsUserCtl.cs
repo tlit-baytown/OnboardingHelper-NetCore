@@ -22,6 +22,8 @@ namespace OnboardingHelper_NetCore.userControls
 
         public bool UpdateValues()
         {
+            dgApplications.Rows.Clear();
+            dgApplications.Update();
             foreach (Application a in Configuration.Instance.Applications)
                 UpdateGrid(this, new CEventArgs.ApplicationAddedEventArgs(a));
             return true;
