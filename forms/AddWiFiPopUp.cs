@@ -1,15 +1,6 @@
 ﻿using OnboardingHelper_NetCore.settings;
 using OnboardingHelper_NetCore.wrappers;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace OnboardingHelper_NetCore.forms
 {
@@ -59,7 +50,7 @@ namespace OnboardingHelper_NetCore.forms
             }
             if (txtPSK.Visible && txtPSK.Text.Length <= 0)
             {
-                if (wifi.WiFiType == WiFiType.WPA || wifi.WiFiType == WiFiType.WPA2PSK || 
+                if (wifi.WiFiType == WiFiType.WPA || wifi.WiFiType == WiFiType.WPA2PSK ||
                     wifi.WiFiType == WiFiType.WPA3PSK)
                 {
                     Utility.ShowToolTip("Pre-Shared Key cannot be empty.", txtPSK, toolTip);
@@ -203,7 +194,7 @@ namespace OnboardingHelper_NetCore.forms
 
         private void cmbConnectionType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch ( cmbConnectionType.SelectedIndex)
+            switch (cmbConnectionType.SelectedIndex)
             {
                 case 0:
                     wifi.ConnectionType = ConnectionType.ESS;

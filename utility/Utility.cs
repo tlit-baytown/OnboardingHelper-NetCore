@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnboardingHelper_NetCore
 {
@@ -25,8 +20,8 @@ namespace OnboardingHelper_NetCore
 
         public static ReadOnlyCollection<string> GetPossibleNTPServers()
         {
-            return new ReadOnlyCollection<string>(new List<string> { 
-                "time.google.com", 
+            return new ReadOnlyCollection<string>(new List<string> {
+                "time.google.com",
                 "time1.google.com",
                 "time2.google.com",
                 "time3.google.com",

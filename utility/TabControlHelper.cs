@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OnboardingHelper_NetCore.utility
+﻿namespace OnboardingHelper_NetCore.utility
 {
     /// <summary>
     /// Class copied from StackOverflow: https://stackoverflow.com/questions/552579/how-to-hide-tabpage-from-tabcontrol

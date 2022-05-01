@@ -1,15 +1,6 @@
 ﻿using OnboardingHelper_NetCore.settings;
 using OnboardingHelper_NetCore.wrappers;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace OnboardingHelper_NetCore
 {
@@ -48,7 +39,7 @@ namespace OnboardingHelper_NetCore
 
             if (pw.Length <= 0)
             {
-                DialogResult r = MessageBox.Show(this, "Password is empty. Continue anyway?", "Confirm", 
+                DialogResult r = MessageBox.Show(this, "Password is empty. Continue anyway?", "Confirm",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (r == DialogResult.No)

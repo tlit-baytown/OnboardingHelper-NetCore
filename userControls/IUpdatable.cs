@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OnboardingHelper_NetCore.userControls
+﻿namespace OnboardingHelper_NetCore.userControls
 {
     /// <summary>
     /// This interface should be used when a user control allows its values to be updated by

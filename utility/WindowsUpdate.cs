@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WUApiLib;
-using System.Management;
-using OnboardingHelper_NetCore.wrappers;
+﻿using WUApiLib;
 
 namespace OnboardingHelper_NetCore
 {
@@ -70,7 +63,7 @@ namespace OnboardingHelper_NetCore
         //{
         //    if (updates == null)
         //        return null;
-            
+
         //    UpdateCollection updatesToInstall = new UpdateCollection();
         //    List<IUpdate> updateList = new List<IUpdate>();
 

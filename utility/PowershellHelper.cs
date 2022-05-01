@@ -1,12 +1,7 @@
 ﻿using Microsoft.Management.Infrastructure;
 using OnboardingHelper_NetCore.wrappers;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Management.Automation;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnboardingHelper_NetCore
 {
@@ -30,7 +25,8 @@ namespace OnboardingHelper_NetCore
                     try
                     {
                         instance.AddScript(File.ReadAllText(path));
-                    } catch (Exception ex)
+                    }
+                    catch (Exception ex)
                     {
                         System.Diagnostics.Debug.WriteLine(ex.Message);
                         return drivers;
@@ -50,7 +46,7 @@ namespace OnboardingHelper_NetCore
                 {
                     foreach (PSObject obj in result)
                     {
-                        CimInstance i = (CimInstance) obj.BaseObject; //convert base object to CimInstance
+                        CimInstance i = (CimInstance)obj.BaseObject; //convert base object to CimInstance
                         object val = i.CimInstanceProperties["Name"].Value; //Get the 'Name' property of the printer driver
                         if (val != null)
                         {
@@ -93,7 +89,7 @@ namespace OnboardingHelper_NetCore
                     string script = File.ReadAllText(path);
                     instance.AddScript(script);
                 }
-                
+
                 Collection<PSObject> PSOutput = instance.Invoke();
 
                 foreach (PSObject obj in PSOutput)
@@ -109,7 +105,7 @@ namespace OnboardingHelper_NetCore
                     }
                 }
             }
-            
+
             return updates;
         }
     }

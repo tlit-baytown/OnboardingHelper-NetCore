@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace OnboardingHelper_NetCore.wrappers
 {
@@ -72,7 +67,7 @@ namespace OnboardingHelper_NetCore.wrappers
         /// <para>This should be false if <see cref="INFPath"/> is <c>empty</c>, a non-existent path, or already exists on the system.</para>
         /// </summary>
         [XmlElement("create-driver")]
-        public bool ShouldCreateDriver { get; set;} = false;
+        public bool ShouldCreateDriver { get; set; } = false;
 
         public Printer() { }
 

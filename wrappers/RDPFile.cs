@@ -1,10 +1,4 @@
-﻿using OnboardingHelper_NetCore.settings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace OnboardingHelper_NetCore.wrappers
 {
@@ -77,7 +71,8 @@ namespace OnboardingHelper_NetCore.wrappers
                 ComputerName = line[(line.LastIndexOf("s:") + 2)..];
 
                 return true;
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return false;

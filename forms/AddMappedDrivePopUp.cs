@@ -1,15 +1,6 @@
 ﻿using OnboardingHelper_NetCore.settings;
 using OnboardingHelper_NetCore.wrappers;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace OnboardingHelper_NetCore.forms
 {
@@ -91,7 +82,7 @@ namespace OnboardingHelper_NetCore.forms
 
         private void cmbDriveLetters_SelectedIndexChanged(object sender, EventArgs e)
         {
-            drive.DriveLetter = (DriveLetter) cmbDriveLetters.SelectedItem;
+            drive.DriveLetter = (DriveLetter)cmbDriveLetters.SelectedItem;
         }
 
         private void txtPath_TextChanged(object sender, EventArgs e)

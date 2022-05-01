@@ -1,11 +1,6 @@
 ﻿using OnboardingHelper_NetCore.wrappers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 using static OnboardingHelper_NetCore.CEventArgs;
@@ -51,7 +46,7 @@ namespace OnboardingHelper_NetCore.settings
         {
             get
             {
-                lock(instanceLock)
+                lock (instanceLock)
                 {
                     if (instance == null)
                         instance = new Configuration();
@@ -132,7 +127,7 @@ namespace OnboardingHelper_NetCore.settings
         /// <summary>
         /// Create a new blank configuration.
         /// </summary>
-        public Configuration() {  }
+        public Configuration() { }
 
         /// <summary>
         /// Reset the current configuration to defaults (blank config).
@@ -159,7 +154,8 @@ namespace OnboardingHelper_NetCore.settings
                 instance = (Configuration)serializer.Deserialize(reader);
                 reader.Close();
                 ConfigLoaded?.Invoke(Instance, new EventArgs());
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 System.Diagnostics.EventLog.WriteEntry("Application",
                     $"An error occured loading a configuration file: {ex.Message}", System.Diagnostics.EventLogEntryType.Error);
@@ -184,14 +180,15 @@ namespace OnboardingHelper_NetCore.settings
                     File.WriteAllText(path, stream.ToString());
                 }
                 ConfigSaved?.Invoke(Instance, new ConfigSavedEventArgs(path));
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 System.Diagnostics.EventLog.WriteEntry("Application",
                     $"An error occured loading a configuration file: {ex.Message}", System.Diagnostics.EventLogEntryType.Error);
                 ConfigSaveError?.Invoke(Instance, new EventArgs());
                 return false;
             }
-            
+
             return true;
         }
 

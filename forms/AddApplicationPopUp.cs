@@ -1,14 +1,4 @@
 ﻿using OnboardingHelper_NetCore.settings;
-using OnboardingHelper_NetCore.wrappers;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using Application = OnboardingHelper_NetCore.wrappers.Application;
 
 namespace OnboardingHelper_NetCore
@@ -76,7 +66,7 @@ namespace OnboardingHelper_NetCore
         {
             txtName.Text = string.Empty;
             txtDescription.Text = string.Empty;
-            
+
             lblFilePath.Text = "No File Selected";
             lblFilePath.ForeColor = Color.Red;
 

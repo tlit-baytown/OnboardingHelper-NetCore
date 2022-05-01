@@ -1,5 +1,3 @@
-using OnboardingHelper_NetCore.forms;
-
 namespace OnboardingHelper_NetCore
 {
     internal static class Program

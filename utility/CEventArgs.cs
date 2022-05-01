@@ -1,10 +1,4 @@
 ﻿using OnboardingHelper_NetCore.wrappers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static OnboardingHelper_NetCore.EnumHelper;
 
 namespace OnboardingHelper_NetCore
 {

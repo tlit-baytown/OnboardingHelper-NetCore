@@ -2,8 +2,6 @@ using OnboardingHelper_NetCore.forms;
 using OnboardingHelper_NetCore.settings;
 using OnboardingHelper_NetCore.userControls;
 using OnboardingHelper_NetCore.utility;
-using OnboardingHelper_NetCore.wrappers;
-using WUApiLib;
 using static OnboardingHelper_NetCore.CEventArgs;
 
 namespace OnboardingHelper_NetCore
@@ -37,7 +35,7 @@ namespace OnboardingHelper_NetCore
         private void HandleConfigLoadError(object sender, EventArgs e)
         {
             MessageBox.Show(this, "An error occured reading the XML configuration. " +
-                "Ensure it is a valid configuration file and try again.", "Error", 
+                "Ensure it is a valid configuration file and try again.", "Error",
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             lblStatusText.Text = "Error loading configuration!";
         }

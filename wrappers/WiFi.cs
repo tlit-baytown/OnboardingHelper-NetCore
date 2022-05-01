@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Net;
-using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 using System.Xml.Serialization;
@@ -84,11 +83,11 @@ namespace OnboardingHelper_NetCore.wrappers
         public void SetPasswordFromBase64()
         {
             if (!Base64PSK.Equals(string.Empty))
-                PreSharedKey = new NetworkCredential("", 
+                PreSharedKey = new NetworkCredential("",
                     Encoding.UTF8.GetString(Convert.FromBase64String(Base64PSK))).SecurePassword;
 
             if (!Base64UserPassword.Equals(string.Empty))
-                UserPassword = new NetworkCredential("", 
+                UserPassword = new NetworkCredential("",
                     Encoding.UTF8.GetString(Convert.FromBase64String(Base64UserPassword))).SecurePassword;
         }
 

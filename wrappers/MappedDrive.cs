@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Security;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace OnboardingHelper_NetCore.wrappers
@@ -23,7 +19,7 @@ namespace OnboardingHelper_NetCore.wrappers
 
         [XmlIgnore()]
         public SecureString Password { get; set; } = new NetworkCredential("", string.Empty).SecurePassword;
-        
+
         [XmlElement("password")]
         public string Base64Password { get; set; } = string.Empty;
 
@@ -48,7 +44,7 @@ namespace OnboardingHelper_NetCore.wrappers
         public void SetPasswordFromBase64()
         {
             if (!Base64Password.Equals(string.Empty))
-                Password = new NetworkCredential("", 
+                Password = new NetworkCredential("",
                     Encoding.UTF8.GetString(Convert.FromBase64String(Base64Password))).SecurePassword;
         }
 
@@ -110,9 +106,9 @@ namespace OnboardingHelper_NetCore.wrappers
     /// </summary>
     public enum DriveLetter
     {
-        A,B,C,D,E,F,G,H,
-        I,J,K,L,M,N,O,P,
-        Q,R,S,T,U,V,W,X,
-        Y,Z
+        A, B, C, D, E, F, G, H,
+        I, J, K, L, M, N, O, P,
+        Q, R, S, T, U, V, W, X,
+        Y, Z
     }
 }
