@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,13 +17,7 @@ namespace OnboardingHelper_NetCore
     {
         public EventHandler AccountAdded;
 
-        private Account account = new Account();
-        private string username = "";
-        private string password = "";
-        private string comment = "";
-        private AccountType accountType = AccountType.STANDARD_USER;
-        private bool passwordExpires = false;
-        private bool requirePasswordChange = false;
+        private readonly Account account = new Account();
 
         public AddAccountPopUp()
         {
@@ -41,22 +36,28 @@ namespace OnboardingHelper_NetCore
                 AccountAdded?.Invoke(this, new CEventArgs.AccountAddedEventArgs(account));
                 Close();
             }
-            else
-            {
-                MessageBox.Show(this, "There was a problem with your input. Please make sure all required fields are filled and try again. Also, ensure the account doesn't already exists.",
-                    "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
         }
 
         private bool Add()
         {
-            if (username.Length <= 0)
+            if (account.Username.Length <= 0)
+            {
+                Utility.ShowToolTip("Username cannot be empty!", txtUsername, toolTip);
                 return false;
-            if (password.Length <= 0)
-                return false;
+            }
 
-            account = new Account(username, Convert.ToBase64String(Encoding.UTF8.GetBytes(password)), comment, accountType, passwordExpires, requirePasswordChange);
+            if (pw.Length <= 0)
+            {
+                DialogResult r = MessageBox.Show(this, "Password is empty. Continue anyway?", "Confirm", 
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (r == DialogResult.No)
+                    return false;
+            }
+
+            account.Password = new NetworkCredential("", pw).SecurePassword;
+            account.SetBase64FromPassword();
+
             EnumHelper.ErrorCodes error = Configuration.Instance.AddAccount(account);
             return error == EnumHelper.ErrorCodes.NO_ERROR;
         }
@@ -65,6 +66,7 @@ namespace OnboardingHelper_NetCore
         {
             if (Add())
             {
+                AccountAdded?.Invoke(this, new CEventArgs.AccountAddedEventArgs(account));
                 Clear();
                 return true;
             }
@@ -79,24 +81,22 @@ namespace OnboardingHelper_NetCore
             cmbAccountType.SelectedIndex = 0;
             chkPasswordExpires.Checked = false;
             chkRequirePasswordChange.Checked = false;
+            pw = string.Empty;
         }
 
         private void btnAddAndClear_Click(object sender, EventArgs e)
         {
-            if (AddAndClear())
-            {
-                AccountAdded?.Invoke(this, new CEventArgs.AccountAddedEventArgs(account));
-            }
+            AddAndClear();
         }
 
         private void chkPasswordExpires_CheckedChanged(object sender, EventArgs e)
         {
-            passwordExpires = chkPasswordExpires.Checked;
+            account.DoesPasswordExpire = chkPasswordExpires.Checked;
         }
 
         private void chkRequirePasswordChange_CheckedChanged(object sender, EventArgs e)
         {
-            requirePasswordChange = chkRequirePasswordChange.Checked;
+            account.RequirePasswordChange = chkRequirePasswordChange.Checked;
         }
 
         private void cmbAccountType_SelectedIndexChanged(object sender, EventArgs e)
@@ -105,25 +105,26 @@ namespace OnboardingHelper_NetCore
             if (selected != null)
             {
                 if (selected.Equals("Standard User"))
-                    accountType = AccountType.STANDARD_USER;
+                    account.AccountType = AccountType.STANDARD_USER;
                 else if (selected.Equals("Administrator"))
-                    accountType = AccountType.ADMINISTRATOR;
+                    account.AccountType = AccountType.ADMINISTRATOR;
             }
         }
 
         private void txtUsername_TextChanged(object sender, EventArgs e)
         {
-            username = txtUsername.Text;
+            account.Username = txtUsername.Text;
         }
 
+        string pw = string.Empty;
         private void txtPassword_TextChanged(object sender, EventArgs e)
         {
-            password = txtPassword.Text;
+            pw = txtPassword.Text;
         }
 
         private void txtComment_TextChanged(object sender, EventArgs e)
         {
-            comment = txtComment.Text;
+            account.Comment = txtComment.Text;
         }
 
         private void AddAccountPopUp_Load(object sender, EventArgs e)

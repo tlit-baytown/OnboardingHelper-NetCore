@@ -49,7 +49,7 @@
             this.lvRDPPaths.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.rdpComputer,
             this.rdpFilePath});
-            this.lvRDPPaths.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lvRDPPaths.Dock = System.Windows.Forms.DockStyle.Fill;
             listViewGroup1.Header = "Default";
             listViewGroup1.Name = "default";
             this.lvRDPPaths.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
@@ -58,7 +58,7 @@
             listViewItem1});
             this.lvRDPPaths.Location = new System.Drawing.Point(0, 0);
             this.lvRDPPaths.Name = "lvRDPPaths";
-            this.lvRDPPaths.Size = new System.Drawing.Size(765, 341);
+            this.lvRDPPaths.Size = new System.Drawing.Size(765, 316);
             this.lvRDPPaths.TabIndex = 3;
             this.lvRDPPaths.UseCompatibleStateImageBehavior = false;
             this.lvRDPPaths.View = System.Windows.Forms.View.Details;
@@ -125,11 +125,11 @@
             this.tableLayoutPanel2.Controls.Add(this.btnAddRDPFile, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnDeleteSelected, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 337);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 316);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(765, 43);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(765, 40);
             this.tableLayoutPanel2.TabIndex = 9;
             // 
             // btnAddRDPFile
@@ -137,9 +137,9 @@
             this.btnAddRDPFile.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.btnAddRDPFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btnAddRDPFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddRDPFile.Location = new System.Drawing.Point(3, 9);
+            this.btnAddRDPFile.Location = new System.Drawing.Point(3, 8);
             this.btnAddRDPFile.Name = "btnAddRDPFile";
-            this.btnAddRDPFile.Size = new System.Drawing.Size(142, 25);
+            this.btnAddRDPFile.Size = new System.Drawing.Size(142, 23);
             this.btnAddRDPFile.TabIndex = 6;
             this.btnAddRDPFile.Text = "Add RDP...";
             this.btnAddRDPFile.UseVisualStyleBackColor = false;
@@ -151,9 +151,9 @@
             this.btnDeleteSelected.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnDeleteSelected.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDeleteSelected.ForeColor = System.Drawing.Color.Black;
-            this.btnDeleteSelected.Location = new System.Drawing.Point(620, 9);
+            this.btnDeleteSelected.Location = new System.Drawing.Point(620, 8);
             this.btnDeleteSelected.Name = "btnDeleteSelected";
-            this.btnDeleteSelected.Size = new System.Drawing.Size(142, 25);
+            this.btnDeleteSelected.Size = new System.Drawing.Size(142, 23);
             this.btnDeleteSelected.TabIndex = 7;
             this.btnDeleteSelected.Text = "Delete Selected";
             this.btnDeleteSelected.UseVisualStyleBackColor = false;
@@ -161,12 +161,12 @@
             // 
             // RDPUserCtl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.lvRDPPaths);
+            this.Controls.Add(this.tableLayoutPanel2);
             this.Name = "RDPUserCtl";
-            this.Size = new System.Drawing.Size(765, 380);
+            this.Size = new System.Drawing.Size(765, 356);
             this.Load += new System.EventHandler(this.RDPUserCtl_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);

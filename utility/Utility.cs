@@ -109,5 +109,14 @@ namespace OnboardingHelper_NetCore
                 Marshal.ZeroFreeGlobalAllocUnicode(unmanagedString);
             }
         }
+
+        public static void ShowToolTip(string text, Control parent, ToolTip toolTip, int duration = 4000)
+        {
+            if (parent == null || toolTip == null || text == null)
+                return;
+
+            toolTip.IsBalloon = true;
+            toolTip.Show(text, parent, 0, 0 - parent.Size.Height - 20, duration);
+        }
     }
 }

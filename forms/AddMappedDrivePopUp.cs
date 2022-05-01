@@ -17,7 +17,7 @@ namespace OnboardingHelper_NetCore.forms
     {
         public EventHandler? MappedDriveAdded;
 
-        private MappedDrive drive = new MappedDrive();
+        private readonly MappedDrive drive = new MappedDrive();
 
         public AddMappedDrivePopUp()
         {
@@ -40,8 +40,7 @@ namespace OnboardingHelper_NetCore.forms
 
         private void btnAddAndClear_Click(object sender, EventArgs e)
         {
-            if (AddAndClear())
-                MappedDriveAdded?.Invoke(this, new CEventArgs.MappedDriveAdddedEventArgs(drive));
+            AddAndClear();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -52,7 +51,11 @@ namespace OnboardingHelper_NetCore.forms
         private bool Add()
         {
             if (!drive.Path.StartsWith("\\\\"))
+            {
+                Utility.ShowToolTip("The folder path must be a valid path starting with: \\\\", txtPath, toolTip);
                 return false;
+            }
+
             if (drive.ConnectUsingDifferentCredentials)
             {
                 drive.Password = new NetworkCredential("", pw).SecurePassword;
@@ -67,6 +70,7 @@ namespace OnboardingHelper_NetCore.forms
         {
             if (Add())
             {
+                MappedDriveAdded?.Invoke(this, new CEventArgs.MappedDriveAdddedEventArgs(drive));
                 Clear();
                 return true;
             }

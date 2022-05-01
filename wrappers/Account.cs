@@ -35,8 +35,16 @@ namespace OnboardingHelper_NetCore.wrappers
 
         public void SetPasswordFromBase64()
         {
-            Password = new NetworkCredential(Username,
-                Encoding.UTF8.GetString(Convert.FromBase64String(Base64Password))).SecurePassword;
+            if (!Base64Password.Equals(string.Empty))
+                Password = new NetworkCredential(Username,
+                    Encoding.UTF8.GetString(Convert.FromBase64String(Base64Password))).SecurePassword;
+        }
+
+        public void SetBase64FromPassword()
+        {
+            if (Password.Length != 0)
+                Base64Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(
+                    Utility.ConvertToUnsecureString(Password)));
         }
 
         public Account(string username, SecureString password, string base64Password, string comment, AccountType accountType, bool doesPasswordExpire, bool requirePasswordChange)

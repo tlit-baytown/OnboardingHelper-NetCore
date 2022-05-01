@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.txtServerAddress = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -54,6 +55,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.nudIdleDisconnect = new System.Windows.Forms.NumericUpDown();
             this.btnSetDisconnectToZero = new System.Windows.Forms.Button();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.grpCredentials.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -433,5 +435,6 @@
         private Label label6;
         private NumericUpDown nudIdleDisconnect;
         private Button btnSetDisconnectToZero;
+        private ToolTip toolTip;
     }
 }

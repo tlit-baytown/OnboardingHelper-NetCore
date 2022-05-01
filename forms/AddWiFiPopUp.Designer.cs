@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -49,6 +50,7 @@
             this.btnAddAndClear = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.tlpEnterpriseCreds.SuspendLayout();
             this.grpEnterpriseCreds.SuspendLayout();
@@ -360,5 +362,6 @@
         private ComboBox cmbEncryptionType;
         private ComboBox cmbConnectionType;
         private ComboBox cmbAuthenticationType;
+        private ToolTip toolTip;
     }
 }

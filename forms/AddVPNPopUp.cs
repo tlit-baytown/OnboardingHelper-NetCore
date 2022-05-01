@@ -17,9 +17,7 @@ namespace OnboardingHelper_NetCore.forms
     {
         public EventHandler VPNAdded;
 
-        private VPN vpn = new VPN();
-        private string password = string.Empty;
-        private string psk = string.Empty;
+        private readonly VPN vpn = new VPN();
         private bool isUsingPSK = false;
 
         public AddVPNPopUp()
@@ -36,8 +34,7 @@ namespace OnboardingHelper_NetCore.forms
 
         private void btnAddAndClear_Click(object sender, EventArgs e)
         {
-            if (AddAndClear())
-                VPNAdded?.Invoke(this, new CEventArgs.VPNAddedEventArgs(vpn));
+            AddAndClear();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -57,20 +54,30 @@ namespace OnboardingHelper_NetCore.forms
         private bool Add()
         {
             if (txtConnectionName.Text.Length <= 0 || txtConnectionName.Text.Length >= 256)
+            {
+                Utility.ShowToolTip("Connection name cannot be empty.", txtConnectionName, toolTip);
                 return false;
+            }
             if (txtServerAddress.Text.Length <= 0)
+            {
+                Utility.ShowToolTip("Server address cannot be empty.", txtServerAddress, toolTip);
                 return false;
+            }
             if (grpCredentials.Visible)
             {
                 if (isUsingPSK)
                 {
                     if (txtUsername.Text.Length <= 0)
+                    {
+                        Utility.ShowToolTip("Pre-Shared Key cannot be empty.", txtUsername, toolTip);
                         return false;
-                    vpn.PreSharedKey = new NetworkCredential("", psk).SecurePassword;
+                    }
+
+                    vpn.PreSharedKey = new NetworkCredential("", pw).SecurePassword;
                 }
                 else
                 {
-                    vpn.Password = new NetworkCredential("", password).SecurePassword;
+                    vpn.Password = new NetworkCredential("", pw).SecurePassword;
                 }
             }
 
@@ -83,6 +90,7 @@ namespace OnboardingHelper_NetCore.forms
         {
             if (Add())
             {
+                VPNAdded?.Invoke(this, new CEventArgs.VPNAddedEventArgs(vpn));
                 Clear();
                 return true;
             }
@@ -91,10 +99,6 @@ namespace OnboardingHelper_NetCore.forms
 
         private void Clear()
         {
-            vpn = new VPN();
-            psk = string.Empty;
-            password = string.Empty;
-
             txtConnectionName.Text = string.Empty;
             txtServerAddress.Text = string.Empty;
 
@@ -108,6 +112,8 @@ namespace OnboardingHelper_NetCore.forms
 
             txtUsername.Text = string.Empty;
             txtPassword.Text = string.Empty;
+
+            pw = string.Empty;
         }
 
         private void cmbTunnelType_SelectedIndexChanged(object sender, EventArgs e)
@@ -206,18 +212,18 @@ namespace OnboardingHelper_NetCore.forms
             vpn.AutoReconnect = chkAutoReconnect.Checked;
         }
 
+        string pw = string.Empty;
         private void txtUsername_TextChanged(object sender, EventArgs e)
         {
             if (isUsingPSK)
-                psk = txtUsername.Text;
+                pw = txtUsername.Text;
             else
                 vpn.Username = txtUsername.Text;
         }
 
         private void txtPassword_TextChanged(object sender, EventArgs e)
         {
-            if (!isUsingPSK)
-                password = txtPassword.Text;
+            pw = txtPassword.Text;
         }
 
         private void txtConnectionName_TextChanged(object sender, EventArgs e)

@@ -17,9 +17,7 @@ namespace OnboardingHelper_NetCore.forms
     {
         public EventHandler WiFiAdded;
 
-        private WiFi wifi = new WiFi();
-        private string psk = string.Empty;
-        private string userpassword = string.Empty;
+        private readonly WiFi wifi = new WiFi();
 
         public AddWiFiPopUp()
         {
@@ -35,8 +33,7 @@ namespace OnboardingHelper_NetCore.forms
 
         private void btnAddAndClear_Click(object sender, EventArgs e)
         {
-            if (AddAndClear())
-                WiFiAdded?.Invoke(this, new CEventArgs.WiFiAddedEventArgs(wifi));
+            AddAndClear();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -56,26 +53,43 @@ namespace OnboardingHelper_NetCore.forms
         private bool Add()
         {
             if (txtSSID.Text.Length <= 0)
+            {
+                Utility.ShowToolTip("SSID cannot be empty.", txtSSID, toolTip);
                 return false;
+            }
             if (txtPSK.Visible && txtPSK.Text.Length <= 0)
-                return false;
+            {
+                if (wifi.WiFiType == WiFiType.WPA || wifi.WiFiType == WiFiType.WPA2PSK || 
+                    wifi.WiFiType == WiFiType.WPA3PSK)
+                {
+                    Utility.ShowToolTip("Pre-Shared Key cannot be empty.", txtPSK, toolTip);
+                    return false;
+                }
+            }
             if (grpEnterpriseCreds.Visible)
             {
                 if (txtEnterpriseUsername.Text.Length <= 0)
+                {
+                    Utility.ShowToolTip("Username cannot be empty.", txtEnterpriseUsername, toolTip);
                     return false;
+                }
                 if (txtEnterprisePassword.Text.Length <= 0)
-                    return false;
+                {
+                    DialogResult r = MessageBox.Show(this, "Password is empty. Continue anyway?", "Confirm",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (r == DialogResult.No)
+                        return false;
+                }
             }
 
             if (grpEnterpriseCreds.Visible)
             {
-                wifi.UserPassword = new NetworkCredential("", userpassword).SecurePassword;
-                psk = string.Empty;
+                wifi.UserPassword = new NetworkCredential("", pw).SecurePassword;
             }
             else
             {
-                wifi.PreSharedKey = new NetworkCredential("", psk).SecurePassword;
-                userpassword = string.Empty;
+                wifi.PreSharedKey = new NetworkCredential("", pw).SecurePassword;
             }
 
             wifi.SetBase64Passwords();
@@ -87,6 +101,7 @@ namespace OnboardingHelper_NetCore.forms
         {
             if (Add())
             {
+                WiFiAdded?.Invoke(this, new CEventArgs.WiFiAddedEventArgs(wifi));
                 Clear();
                 return true;
             }
@@ -95,9 +110,6 @@ namespace OnboardingHelper_NetCore.forms
 
         private void Clear()
         {
-            psk = string.Empty;
-            userpassword = string.Empty;
-
             txtSSID.Text = string.Empty;
             txtPSK.Text = string.Empty;
 
@@ -108,6 +120,8 @@ namespace OnboardingHelper_NetCore.forms
             txtEnterpriseUsername.Text = string.Empty;
             txtEnterprisePassword.Text = string.Empty;
             chkIsHiddenNetwork.Checked = false;
+
+            pw = string.Empty;
         }
 
         private void chkIsHiddenNetwork_CheckedChanged(object sender, EventArgs e)
@@ -120,9 +134,10 @@ namespace OnboardingHelper_NetCore.forms
             wifi.SSID = txtSSID.Text;
         }
 
+        string pw = string.Empty;
         private void txtPSK_TextChanged(object sender, EventArgs e)
         {
-            psk = txtPSK.Text;
+            pw = txtPSK.Text;
         }
 
         private void txtEnterpriseUsername_TextChanged(object sender, EventArgs e)
@@ -132,7 +147,7 @@ namespace OnboardingHelper_NetCore.forms
 
         private void txtEnterprisePassword_TextChanged(object sender, EventArgs e)
         {
-            userpassword = txtEnterprisePassword.Text;
+            pw = txtEnterprisePassword.Text;
         }
 
         private void cmbAuthenticationType_SelectedIndexChanged(object sender, EventArgs e)

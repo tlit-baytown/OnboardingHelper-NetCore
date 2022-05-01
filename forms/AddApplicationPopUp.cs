@@ -17,7 +17,7 @@ namespace OnboardingHelper_NetCore
     {
         public EventHandler? ApplicationAdded;
 
-        private Application application = new Application();
+        private readonly Application application = new Application();
 
         public AddApplicationPopUp()
         {
@@ -36,9 +36,16 @@ namespace OnboardingHelper_NetCore
         private bool Add()
         {
             if (application.Name.Length <= 0)
+            {
+                Utility.ShowToolTip("Application must have a name.", txtName, toolTip);
                 return false;
+            }
+
             if (application.Path.Length <= 0)
+            {
+                Utility.ShowToolTip("No path specified!", btnOpen, toolTip);
                 return false;
+            }
 
             if (application.Path.EndsWith(".msi"))
                 application.IsWindowsInstaller = true;
@@ -58,6 +65,7 @@ namespace OnboardingHelper_NetCore
         {
             if (Add())
             {
+                ApplicationAdded?.Invoke(this, new CEventArgs.ApplicationAddedEventArgs(application));
                 Clear();
                 return true;
             }
@@ -92,8 +100,7 @@ namespace OnboardingHelper_NetCore
 
         private void btnAddAndClear_Click(object sender, EventArgs e)
         {
-            if (AddAndClear())
-                ApplicationAdded?.Invoke(this, new CEventArgs.ApplicationAddedEventArgs(application));
+            AddAndClear();
         }
 
         private void txtName_TextChanged(object sender, EventArgs e)

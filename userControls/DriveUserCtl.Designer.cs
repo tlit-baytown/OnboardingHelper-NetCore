@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.dgDrives = new System.Windows.Forms.DataGridView();
-            this.btnAddDrive = new System.Windows.Forms.Button();
-            this.btnDeleteDrive = new System.Windows.Forms.Button();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.columnDriveLetter = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnPath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnReconnect = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.columnUseDiffCreds = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.btnAddDrive = new System.Windows.Forms.Button();
+            this.btnDeleteDrive = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.dgDrives)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -51,14 +51,44 @@
             this.columnPath,
             this.columnReconnect,
             this.columnUseDiffCreds});
-            this.dgDrives.Dock = System.Windows.Forms.DockStyle.Top;
+            this.dgDrives.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgDrives.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgDrives.Location = new System.Drawing.Point(0, 0);
             this.dgDrives.Name = "dgDrives";
             this.dgDrives.ReadOnly = true;
             this.dgDrives.RowTemplate.Height = 25;
-            this.dgDrives.Size = new System.Drawing.Size(765, 319);
+            this.dgDrives.Size = new System.Drawing.Size(765, 316);
             this.dgDrives.TabIndex = 9;
+            // 
+            // columnDriveLetter
+            // 
+            this.columnDriveLetter.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.columnDriveLetter.HeaderText = "Drive Letter";
+            this.columnDriveLetter.Name = "columnDriveLetter";
+            this.columnDriveLetter.ReadOnly = true;
+            this.columnDriveLetter.Width = 83;
+            // 
+            // columnPath
+            // 
+            this.columnPath.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.columnPath.HeaderText = "Folder";
+            this.columnPath.Name = "columnPath";
+            this.columnPath.ReadOnly = true;
+            this.columnPath.Width = 63;
+            // 
+            // columnReconnect
+            // 
+            this.columnReconnect.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnReconnect.HeaderText = "Reconnect At Sign-In?";
+            this.columnReconnect.Name = "columnReconnect";
+            this.columnReconnect.ReadOnly = true;
+            // 
+            // columnUseDiffCreds
+            // 
+            this.columnUseDiffCreds.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnUseDiffCreds.HeaderText = "Use Different Credentials?";
+            this.columnUseDiffCreds.Name = "columnUseDiffCreds";
+            this.columnUseDiffCreds.ReadOnly = true;
             // 
             // btnAddDrive
             // 
@@ -101,36 +131,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(765, 40);
             this.tableLayoutPanel1.TabIndex = 10;
-            // 
-            // columnDriveLetter
-            // 
-            this.columnDriveLetter.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.columnDriveLetter.HeaderText = "Drive Letter";
-            this.columnDriveLetter.Name = "columnDriveLetter";
-            this.columnDriveLetter.ReadOnly = true;
-            this.columnDriveLetter.Width = 90;
-            // 
-            // columnPath
-            // 
-            this.columnPath.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.columnPath.HeaderText = "Folder";
-            this.columnPath.Name = "columnPath";
-            this.columnPath.ReadOnly = true;
-            this.columnPath.Width = 63;
-            // 
-            // columnReconnect
-            // 
-            this.columnReconnect.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.columnReconnect.HeaderText = "Reconnect At Sign-In?";
-            this.columnReconnect.Name = "columnReconnect";
-            this.columnReconnect.ReadOnly = true;
-            // 
-            // columnUseDiffCreds
-            // 
-            this.columnUseDiffCreds.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.columnUseDiffCreds.HeaderText = "Use Different Credentials?";
-            this.columnUseDiffCreds.Name = "columnUseDiffCreds";
-            this.columnUseDiffCreds.ReadOnly = true;
             // 
             // DriveUserCtl
             // 
