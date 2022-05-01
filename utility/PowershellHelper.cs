@@ -1,4 +1,5 @@
-﻿using OnboardingHelper_NetCore.wrappers;
+﻿using Microsoft.Management.Infrastructure;
+using OnboardingHelper_NetCore.wrappers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,6 +13,56 @@ namespace OnboardingHelper_NetCore
     public sealed class PowershellHelper
     {
         private static bool _updatePreReqsInstalled = true;
+
+        /// <summary>
+        /// Get the list of current printer drivers installed on the current system.
+        /// </summary>
+        /// <returns>A list of strings containing the exact driver <c>Name</c>s.</returns>
+        public static List<string> GetPrinterDriversInstalled()
+        {
+            List<string> drivers = new List<string>();
+
+            using (PowerShell instance = PowerShell.Create())
+            {
+                string path = Path.Combine("scripts", "printers", "GetPrinterDrivers.ps1");
+                if (!string.IsNullOrEmpty(path))
+                {
+                    try
+                    {
+                        instance.AddScript(File.ReadAllText(path));
+                    } catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine(ex.Message);
+                        return drivers;
+                    }
+                }
+
+                Collection<PSObject> result = instance.Invoke();
+
+                if (instance.HadErrors)
+                {
+                    if (instance.InvocationStateInfo != null)
+                        System.Diagnostics.Debug.WriteLine(instance.InvocationStateInfo.Reason.Message);
+                    return new List<string>();
+                }
+
+                if (result.Count > 0)
+                {
+                    foreach (PSObject obj in result)
+                    {
+                        CimInstance i = (CimInstance) obj.BaseObject; //convert base object to CimInstance
+                        object val = i.CimInstanceProperties["Name"].Value; //Get the 'Name' property of the printer driver
+                        if (val != null)
+                        {
+                            //Convert the object to a string and add it to the list of drivers if it is not null
+                            string? name = Convert.ToString(val);
+                            drivers.Add(name ?? "");
+                        }
+                    }
+                }
+            }
+            return drivers;
+        }
 
         private static void InstallUpdatePreReqs()
         {
@@ -63,29 +114,3 @@ namespace OnboardingHelper_NetCore
         }
     }
 }
-
-
-/*
- * public static List<TimeZoneInfo> GetTimezones()
-        {
-            List<TimeZoneInfo> list = new List<TimeZoneInfo>();
-
-            using (PowerShell instance = PowerShell.Create())
-            {
-                instance.AddScript("Get-TimeZone -ListAvailable");
-                Collection<PSObject> timezones = instance.Invoke();
-
-                foreach (PSObject obj in timezones)
-                {
-                    if (obj != null)
-                    {
-                        TimeZoneInfo? t = obj.BaseObject as TimeZoneInfo;
-                        if (t != null)
-                            list.Add(t);
-                    }
-                }
-            }
-
-            return list;
-        }
- */
