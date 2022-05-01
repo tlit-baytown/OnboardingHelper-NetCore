@@ -50,18 +50,6 @@ namespace OnboardingHelper_NetCore
             }
         }
 
-        public class RDPAudioEventArgs : EventArgs
-        {
-            public RDPAudioPlayback playbackOption { get; private set; }
-            public RDPAudioRecording recordingOption { get; private set; }
-
-            public RDPAudioEventArgs(RDPAudioPlayback playback, RDPAudioRecording recording)
-            {
-                playbackOption = playback;
-                recordingOption = recording;
-            }
-        }
-
         public class ConfigSavedEventArgs : EventArgs
         {
             public string ConfigPath { get; private set; }
@@ -79,6 +67,16 @@ namespace OnboardingHelper_NetCore
             public MappedDriveAdddedEventArgs(MappedDrive d)
             {
                 Drive = d;
+            }
+        }
+
+        public class PrinterAddedEventArgs : EventArgs
+        {
+            public Printer Printer { get; private set; }
+
+            public PrinterAddedEventArgs(Printer printer)
+            {
+                Printer = printer;
             }
         }
     }

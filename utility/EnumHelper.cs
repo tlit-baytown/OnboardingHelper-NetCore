@@ -37,21 +37,11 @@ namespace OnboardingHelper_NetCore
             [Description("The drive mapping has already been added to the collection.")]
             MAPPED_DRIVE_ALREADY_EXISTS = 2048,
             [Description("The drive mapping is not present in the collection.")]
-            MAPPED_DRIVE_DOES_NOT_EXIST = 4096
-        }
-
-        public enum RDPAudioPlayback
-        {
-            PLAY_ON_THIS_COMPUTER,
-            DO_NOT_PLAY,
-            PLAY_ON_REMOTE_COMPUTER
-        }
-
-        public enum RDPAudioRecording
-        {
-            RECORD_FROM_THIS_COMPUTER,
-            DO_NOT_RECORD,
-            DISABLED
+            MAPPED_DRIVE_DOES_NOT_EXIST = 4096,
+            [Description("The printer has already been added to the collection.")]
+            PRINTER_ALREADY_EXISTS,
+            [Description("The printer is not present in the collection.")]
+            PRINTER_DOES_NOT_EXIST
         }
     }
 
@@ -59,10 +49,12 @@ namespace OnboardingHelper_NetCore
     {
         public static string? ToDescriptionString(this ErrorCodes val)
         {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             DescriptionAttribute[] attributes = (DescriptionAttribute[])val
                .GetType()
                .GetField(val.ToString())
                .GetCustomAttributes(typeof(DescriptionAttribute), false);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
             return attributes.Length > 0 ? attributes[0].Description : string.Empty;
         }
     }

@@ -123,6 +123,12 @@ namespace OnboardingHelper_NetCore.settings
         private List<MappedDrive> mappedDrives = new List<MappedDrive>();
         #endregion
 
+        #region Mapped Printer
+        [XmlElement("printers")]
+        public List<Printer> Printers { get { return printers; } set { printers = value; } }
+        private List<Printer> printers = new List<Printer>();
+        #endregion
+
         /// <summary>
         /// Create a new blank configuration.
         /// </summary>
@@ -284,7 +290,7 @@ namespace OnboardingHelper_NetCore.settings
             return ErrorCodes.NO_ERROR;
         }
 
-        public wrappers.Application GetApplication(string name)
+        public wrappers.Application? GetApplication(string name)
         {
             return applications.FirstOrDefault(a => a.Name.Equals(name));
         }
@@ -310,7 +316,7 @@ namespace OnboardingHelper_NetCore.settings
             return ErrorCodes.NO_ERROR;
         }
 
-        public RDPFile GetRDPFile(string computerName)
+        public RDPFile? GetRDPFile(string computerName)
         {
             return rdpFiles.FirstOrDefault(a => a.ComputerName.Equals(computerName));
         }
@@ -336,9 +342,34 @@ namespace OnboardingHelper_NetCore.settings
             return ErrorCodes.NO_ERROR;
         }
 
-        public MappedDrive GetMappedDrive(DriveLetter letter)
+        public MappedDrive? GetMappedDrive(DriveLetter letter)
         {
             return mappedDrives.FirstOrDefault(d => d.DriveLetter == letter);
+        }
+        #endregion
+
+        #region Printers
+        public ErrorCodes AddPrinter(Printer p)
+        {
+            if (printers.Any(f => f.Name == p.Name))
+                return ErrorCodes.PRINTER_ALREADY_EXISTS;
+            printers.Add(p);
+
+            return ErrorCodes.NO_ERROR;
+        }
+
+        public ErrorCodes RemovePrinter(Printer p)
+        {
+            if (printers.Contains(p))
+                printers.Remove(p);
+            else
+                return ErrorCodes.PRINTER_DOES_NOT_EXIST;
+            return ErrorCodes.NO_ERROR;
+        }
+
+        public Printer? GetPrinter(string name)
+        {
+            return printers.FirstOrDefault(p => p.Name.Equals(name));
         }
         #endregion
     }

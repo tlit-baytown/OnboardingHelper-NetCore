@@ -28,42 +28,53 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnAddAndClear = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblInfPath = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.txtComment = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtPrinterName = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtComment = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.cmbDriverNames = new System.Windows.Forms.ComboBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.cmbDriverNames = new System.Windows.Forms.ComboBox();
             this.chkCreateNewDriver = new System.Windows.Forms.CheckBox();
-            this.lblInfPath = new System.Windows.Forms.Label();
             this.flpINFPath = new System.Windows.Forms.FlowLayoutPanel();
             this.btnOpenINF = new System.Windows.Forms.Button();
             this.lblPath = new System.Windows.Forms.Label();
-            this.chkIsNetworkSharedPrinter = new System.Windows.Forms.CheckBox();
             this.flpIsNetworkSharedPrinter = new System.Windows.Forms.FlowLayoutPanel();
+            this.chkIsNetworkSharedPrinter = new System.Windows.Forms.CheckBox();
             this.txtConnectionName = new System.Windows.Forms.TextBox();
-            this.chkShouldShare = new System.Windows.Forms.CheckBox();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.chkShouldShare = new System.Windows.Forms.CheckBox();
             this.txtShareName = new System.Windows.Forms.TextBox();
+            this.dlgOpenINF = new System.Windows.Forms.OpenFileDialog();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtHostname = new System.Windows.Forms.TextBox();
+            this.txtPortName = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.flpINFPath.SuspendLayout();
             this.flpIsNetworkSharedPrinter.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 3;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 72.72727F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.27273F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.03226F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.96774F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 91F));
             this.tableLayoutPanel2.Controls.Add(this.btnAddAndClear, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnAdd, 1, 0);
@@ -73,13 +84,13 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(510, 36);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(650, 36);
             this.tableLayoutPanel2.TabIndex = 13;
             // 
             // btnAddAndClear
             // 
             this.btnAddAndClear.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnAddAndClear.Location = new System.Drawing.Point(421, 6);
+            this.btnAddAndClear.Location = new System.Drawing.Point(561, 6);
             this.btnAddAndClear.Name = "btnAddAndClear";
             this.btnAddAndClear.Size = new System.Drawing.Size(86, 23);
             this.btnAddAndClear.TabIndex = 10;
@@ -90,7 +101,7 @@
             // btnAdd
             // 
             this.btnAdd.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnAdd.Location = new System.Drawing.Point(308, 6);
+            this.btnAdd.Location = new System.Drawing.Point(448, 6);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(107, 23);
             this.btnAdd.TabIndex = 9;
@@ -101,7 +112,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnCancel.Location = new System.Drawing.Point(194, 6);
+            this.btnCancel.Location = new System.Drawing.Point(331, 6);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(107, 23);
             this.btnCancel.TabIndex = 8;
@@ -121,9 +132,9 @@
             this.tableLayoutPanel1.Controls.Add(this.txtPrinterName, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.flpINFPath, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.flpIsNetworkSharedPrinter, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel2, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.panel1, 1, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -135,90 +146,8 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 77F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(510, 308);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(650, 308);
             this.tableLayoutPanel1.TabIndex = 14;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(82, 15);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Name: ";
-            // 
-            // txtPrinterName
-            // 
-            this.txtPrinterName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPrinterName.Location = new System.Drawing.Point(91, 8);
-            this.txtPrinterName.Name = "txtPrinterName";
-            this.txtPrinterName.Size = new System.Drawing.Size(416, 23);
-            this.txtPrinterName.TabIndex = 1;
-            this.txtPrinterName.TextChanged += new System.EventHandler(this.txtPrinterName_TextChanged);
-            // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 70);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(82, 15);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Comment: ";
-            // 
-            // txtComment
-            // 
-            this.txtComment.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtComment.Location = new System.Drawing.Point(91, 42);
-            this.txtComment.Multiline = true;
-            this.txtComment.Name = "txtComment";
-            this.txtComment.Size = new System.Drawing.Size(416, 71);
-            this.txtComment.TabIndex = 3;
-            this.txtComment.TextChanged += new System.EventHandler(this.txtComment_TextChanged);
-            // 
-            // label3
-            // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 127);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(82, 15);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Driver Name: ";
-            // 
-            // cmbDriverNames
-            // 
-            this.cmbDriverNames.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmbDriverNames.FormattingEnabled = true;
-            this.cmbDriverNames.Location = new System.Drawing.Point(3, 3);
-            this.cmbDriverNames.Name = "cmbDriverNames";
-            this.cmbDriverNames.Size = new System.Drawing.Size(261, 23);
-            this.cmbDriverNames.TabIndex = 5;
-            this.cmbDriverNames.SelectedIndexChanged += new System.EventHandler(this.cmbDriverNames_SelectedIndexChanged);
-            this.cmbDriverNames.TextChanged += new System.EventHandler(this.cmbDriverNames_TextChanged);
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Controls.Add(this.cmbDriverNames);
-            this.flowLayoutPanel1.Controls.Add(this.chkCreateNewDriver);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(91, 119);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(416, 31);
-            this.flowLayoutPanel1.TabIndex = 6;
-            // 
-            // chkCreateNewDriver
-            // 
-            this.chkCreateNewDriver.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.chkCreateNewDriver.AutoSize = true;
-            this.chkCreateNewDriver.Location = new System.Drawing.Point(270, 5);
-            this.chkCreateNewDriver.Name = "chkCreateNewDriver";
-            this.chkCreateNewDriver.Size = new System.Drawing.Size(121, 19);
-            this.chkCreateNewDriver.TabIndex = 6;
-            this.chkCreateNewDriver.Text = "Create New Driver";
-            this.chkCreateNewDriver.UseVisualStyleBackColor = true;
-            this.chkCreateNewDriver.CheckedChanged += new System.EventHandler(this.chkCreateNewDriver_CheckedChanged);
             // 
             // lblInfPath
             // 
@@ -226,20 +155,122 @@
             this.lblInfPath.AutoSize = true;
             this.lblInfPath.Location = new System.Drawing.Point(3, 184);
             this.lblInfPath.Name = "lblInfPath";
-            this.lblInfPath.Size = new System.Drawing.Size(82, 15);
+            this.lblInfPath.Size = new System.Drawing.Size(106, 15);
             this.lblInfPath.TabIndex = 7;
             this.lblInfPath.Text = "INF Path: ";
+            this.lblInfPath.Visible = false;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 70);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(106, 15);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Comment: ";
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 2;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.98058F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.01942F));
+            this.tableLayoutPanel3.Controls.Add(this.txtPortName, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.label4, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.label5, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.txtHostname, 1, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(210, 0);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 2;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(322, 71);
+            this.tableLayoutPanel3.TabIndex = 2;
+            // 
+            // txtComment
+            // 
+            this.txtComment.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtComment.Location = new System.Drawing.Point(115, 42);
+            this.txtComment.Multiline = true;
+            this.txtComment.Name = "txtComment";
+            this.txtComment.Size = new System.Drawing.Size(532, 71);
+            this.txtComment.TabIndex = 3;
+            this.txtComment.TextChanged += new System.EventHandler(this.txtComment_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(106, 15);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Name: ";
+            // 
+            // txtPrinterName
+            // 
+            this.txtPrinterName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtPrinterName.Location = new System.Drawing.Point(115, 8);
+            this.txtPrinterName.Name = "txtPrinterName";
+            this.txtPrinterName.Size = new System.Drawing.Size(532, 23);
+            this.txtPrinterName.TabIndex = 1;
+            this.txtPrinterName.TextChanged += new System.EventHandler(this.txtPrinterName_TextChanged);
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 127);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(106, 15);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Driver Name: ";
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.cmbDriverNames);
+            this.flowLayoutPanel1.Controls.Add(this.chkCreateNewDriver);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(115, 119);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(532, 31);
+            this.flowLayoutPanel1.TabIndex = 6;
+            // 
+            // cmbDriverNames
+            // 
+            this.cmbDriverNames.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbDriverNames.FormattingEnabled = true;
+            this.cmbDriverNames.Location = new System.Drawing.Point(3, 3);
+            this.cmbDriverNames.Name = "cmbDriverNames";
+            this.cmbDriverNames.Size = new System.Drawing.Size(388, 23);
+            this.cmbDriverNames.TabIndex = 5;
+            this.cmbDriverNames.SelectedIndexChanged += new System.EventHandler(this.cmbDriverNames_SelectedIndexChanged);
+            this.cmbDriverNames.TextChanged += new System.EventHandler(this.cmbDriverNames_TextChanged);
+            // 
+            // chkCreateNewDriver
+            // 
+            this.chkCreateNewDriver.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkCreateNewDriver.AutoSize = true;
+            this.chkCreateNewDriver.Location = new System.Drawing.Point(397, 5);
+            this.chkCreateNewDriver.Name = "chkCreateNewDriver";
+            this.chkCreateNewDriver.Size = new System.Drawing.Size(121, 19);
+            this.chkCreateNewDriver.TabIndex = 6;
+            this.chkCreateNewDriver.Text = "Create New Driver";
+            this.chkCreateNewDriver.UseVisualStyleBackColor = true;
+            this.chkCreateNewDriver.CheckedChanged += new System.EventHandler(this.chkCreateNewDriver_CheckedChanged);
             // 
             // flpINFPath
             // 
             this.flpINFPath.Controls.Add(this.btnOpenINF);
             this.flpINFPath.Controls.Add(this.lblPath);
-            this.flpINFPath.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpINFPath.Dock = System.Windows.Forms.DockStyle.Left;
             this.flpINFPath.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flpINFPath.Location = new System.Drawing.Point(91, 156);
+            this.flpINFPath.Location = new System.Drawing.Point(0, 0);
             this.flpINFPath.Name = "flpINFPath";
-            this.flpINFPath.Size = new System.Drawing.Size(416, 71);
+            this.flpINFPath.Size = new System.Drawing.Size(210, 71);
             this.flpINFPath.TabIndex = 8;
+            this.flpINFPath.Visible = false;
             // 
             // btnOpenINF
             // 
@@ -261,6 +292,16 @@
             this.lblPath.TabIndex = 1;
             this.lblPath.Text = "<path>";
             // 
+            // flpIsNetworkSharedPrinter
+            // 
+            this.flpIsNetworkSharedPrinter.Controls.Add(this.chkIsNetworkSharedPrinter);
+            this.flpIsNetworkSharedPrinter.Controls.Add(this.txtConnectionName);
+            this.flpIsNetworkSharedPrinter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpIsNetworkSharedPrinter.Location = new System.Drawing.Point(115, 233);
+            this.flpIsNetworkSharedPrinter.Name = "flpIsNetworkSharedPrinter";
+            this.flpIsNetworkSharedPrinter.Size = new System.Drawing.Size(532, 31);
+            this.flpIsNetworkSharedPrinter.TabIndex = 10;
+            // 
             // chkIsNetworkSharedPrinter
             // 
             this.chkIsNetworkSharedPrinter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -273,25 +314,26 @@
             this.chkIsNetworkSharedPrinter.UseVisualStyleBackColor = true;
             this.chkIsNetworkSharedPrinter.CheckedChanged += new System.EventHandler(this.chkIsNetworkSharedPrinter_CheckedChanged);
             // 
-            // flpIsNetworkSharedPrinter
-            // 
-            this.flpIsNetworkSharedPrinter.Controls.Add(this.chkIsNetworkSharedPrinter);
-            this.flpIsNetworkSharedPrinter.Controls.Add(this.txtConnectionName);
-            this.flpIsNetworkSharedPrinter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flpIsNetworkSharedPrinter.Location = new System.Drawing.Point(91, 233);
-            this.flpIsNetworkSharedPrinter.Name = "flpIsNetworkSharedPrinter";
-            this.flpIsNetworkSharedPrinter.Size = new System.Drawing.Size(416, 31);
-            this.flpIsNetworkSharedPrinter.TabIndex = 10;
-            // 
             // txtConnectionName
             // 
             this.txtConnectionName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtConnectionName.Location = new System.Drawing.Point(173, 3);
             this.txtConnectionName.Name = "txtConnectionName";
             this.txtConnectionName.PlaceholderText = "\\\\server\\printer";
-            this.txtConnectionName.Size = new System.Drawing.Size(234, 23);
+            this.txtConnectionName.Size = new System.Drawing.Size(350, 23);
             this.txtConnectionName.TabIndex = 10;
+            this.txtConnectionName.Visible = false;
             this.txtConnectionName.TextChanged += new System.EventHandler(this.txtConnectionName_TextChanged);
+            // 
+            // flowLayoutPanel2
+            // 
+            this.flowLayoutPanel2.Controls.Add(this.chkShouldShare);
+            this.flowLayoutPanel2.Controls.Add(this.txtShareName);
+            this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(115, 270);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(532, 35);
+            this.flowLayoutPanel2.TabIndex = 12;
             // 
             // chkShouldShare
             // 
@@ -305,32 +347,77 @@
             this.chkShouldShare.UseVisualStyleBackColor = true;
             this.chkShouldShare.CheckedChanged += new System.EventHandler(this.chkShouldShare_CheckedChanged);
             // 
-            // flowLayoutPanel2
-            // 
-            this.flowLayoutPanel2.Controls.Add(this.chkShouldShare);
-            this.flowLayoutPanel2.Controls.Add(this.txtShareName);
-            this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(91, 270);
-            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(416, 35);
-            this.flowLayoutPanel2.TabIndex = 12;
-            // 
             // txtShareName
             // 
             this.txtShareName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtShareName.Location = new System.Drawing.Point(144, 3);
             this.txtShareName.Name = "txtShareName";
             this.txtShareName.PlaceholderText = "Name to share printer with";
-            this.txtShareName.Size = new System.Drawing.Size(263, 23);
+            this.txtShareName.Size = new System.Drawing.Size(379, 23);
             this.txtShareName.TabIndex = 10;
+            this.txtShareName.Visible = false;
             this.txtShareName.TextChanged += new System.EventHandler(this.txtShareName_TextChanged);
+            // 
+            // dlgOpenINF
+            // 
+            this.dlgOpenINF.DefaultExt = "inf";
+            this.dlgOpenINF.Filter = "INF Drivers (*.inf)|*.inf";
+            this.dlgOpenINF.ReadOnlyChecked = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.tableLayoutPanel3);
+            this.panel1.Controls.Add(this.flpINFPath);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(115, 156);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(532, 71);
+            this.panel1.TabIndex = 2;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 10);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(103, 15);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Hostname/IP: ";
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 45);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(103, 15);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Port Name: ";
+            // 
+            // txtHostname
+            // 
+            this.txtHostname.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtHostname.Location = new System.Drawing.Point(112, 6);
+            this.txtHostname.Name = "txtHostname";
+            this.txtHostname.Size = new System.Drawing.Size(207, 23);
+            this.txtHostname.TabIndex = 2;
+            this.txtHostname.TextChanged += new System.EventHandler(this.txtHostname_TextChanged);
+            // 
+            // txtPortName
+            // 
+            this.txtPortName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtPortName.Location = new System.Drawing.Point(112, 41);
+            this.txtPortName.Name = "txtPortName";
+            this.txtPortName.Size = new System.Drawing.Size(207, 23);
+            this.txtPortName.TabIndex = 3;
+            this.txtPortName.TextChanged += new System.EventHandler(this.txtPortName_TextChanged);
             // 
             // AddPrinterPopUp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(510, 344);
+            this.ClientSize = new System.Drawing.Size(650, 344);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.tableLayoutPanel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -346,6 +433,8 @@
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel3.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.flpINFPath.ResumeLayout(false);
@@ -354,6 +443,7 @@
             this.flpIsNetworkSharedPrinter.PerformLayout();
             this.flowLayoutPanel2.ResumeLayout(false);
             this.flowLayoutPanel2.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -383,5 +473,13 @@
         private FlowLayoutPanel flowLayoutPanel2;
         private CheckBox chkShouldShare;
         private TextBox txtShareName;
+        private OpenFileDialog dlgOpenINF;
+        private ToolTip toolTip;
+        private TableLayoutPanel tableLayoutPanel3;
+        private Panel panel1;
+        private Label label4;
+        private Label label5;
+        private TextBox txtPortName;
+        private TextBox txtHostname;
     }
 }

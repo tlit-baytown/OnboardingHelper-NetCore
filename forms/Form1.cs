@@ -102,6 +102,9 @@ namespace OnboardingHelper_NetCore
 
         private void HandleConfigReset(object sender, EventArgs e)
         {
+            foreach (TabPage t in mainTabs.TabPages)
+                UpdateRecursive(t.Controls);
+
             lblStatusText.Text = "Configuration Cleared!";
         }
 
@@ -113,7 +116,7 @@ namespace OnboardingHelper_NetCore
             if (result == DialogResult.No || result == DialogResult.Cancel)
                 return;
 
-            Configuration.Instance.ResetConfig();
+            Configuration.Instance.ResetConfig(true);
         }
 
         private void newWindowToolStripMenuItem_Click(object sender, EventArgs e)
@@ -233,7 +236,7 @@ namespace OnboardingHelper_NetCore
 
         private void btnAbout_Click(object sender, EventArgs e)
         {
-
+            new AboutBox().ShowDialog();
         }
         #endregion
     }
