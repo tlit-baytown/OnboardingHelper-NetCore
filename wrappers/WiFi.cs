@@ -81,6 +81,17 @@ namespace OnboardingHelper_NetCore.wrappers
                 Base64UserPassword = Convert.ToBase64String(Encoding.UTF8.GetBytes(ConvertKeyToUnsecureString(UserPassword)));
         }
 
+        public void SetPasswordFromBase64()
+        {
+            if (!Base64PSK.Equals(string.Empty))
+                PreSharedKey = new NetworkCredential("", 
+                    Encoding.UTF8.GetString(Convert.FromBase64String(Base64PSK))).SecurePassword;
+
+            if (!Base64UserPassword.Equals(string.Empty))
+                UserPassword = new NetworkCredential("", 
+                    Encoding.UTF8.GetString(Convert.FromBase64String(Base64UserPassword))).SecurePassword;
+        }
+
         /// <summary>
         /// Create a new WiFi network with the specified options.
         /// </summary>

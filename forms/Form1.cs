@@ -1,5 +1,6 @@
 using OnboardingHelper_NetCore.forms;
 using OnboardingHelper_NetCore.settings;
+using OnboardingHelper_NetCore.userControls;
 using OnboardingHelper_NetCore.utility;
 using OnboardingHelper_NetCore.wrappers;
 using WUApiLib;
@@ -51,10 +52,44 @@ namespace OnboardingHelper_NetCore
 
         private void HandleConfigLoaded(object sender, EventArgs e)
         {
-            MessageBox.Show(this, "Successfully loaded the configuration!", "Success",
-                MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            lblStatusText.Text = "Config loaded successfully.";
-            //TODO: set GUI based on Configuration
+            //Update values on each user control that implements IUpdatable
+            int errorCount = 0;
+
+            foreach (TabPage t in mainTabs.TabPages)
+                errorCount += UpdateRecursive(t.Controls);
+
+            if (errorCount > 0)
+            {
+                MessageBox.Show(this, "There was an error while loading the configuration." +
+                    "Inspect the configuration file for any issues and try again.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                lblStatusText.Text = "Config loading failed!";
+            }
+            else
+            {
+                MessageBox.Show(this, "Successfully loaded the configuration!", "Success",
+                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                lblStatusText.Text = "Config loaded successfully.";
+            }
+        }
+
+        private int UpdateRecursive(Control.ControlCollection collection)
+        {
+            int errorCount = 0;
+            foreach (Control c in collection)
+            {
+                if (c is IUpdatable i)
+                {
+                    if (!i.UpdateValues())
+                    {
+                        errorCount++;
+                    }
+                }
+                else
+                    UpdateRecursive(c.Controls);
+            }
+
+            return errorCount;
         }
 
         private void HandleConfigSaved(object sender, EventArgs e)

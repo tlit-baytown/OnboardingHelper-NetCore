@@ -12,11 +12,21 @@ using System.Windows.Forms;
 
 namespace OnboardingHelper_NetCore.userControls
 {
-    public partial class AccountsUserCtl : UserControl
+    public partial class AccountsUserCtl : UserControl, IUpdatable
     {
         public AccountsUserCtl()
         {
             InitializeComponent();
+        }
+
+        public bool UpdateValues()
+        {
+            foreach (Account a in Configuration.Instance.Accounts)
+            {
+                a.UpdatePassword();
+                UpdateGrid(this, new CEventArgs.AccountAddedEventArgs(a));
+            }
+            return true;
         }
 
         private void btnAddAccount_Click(object sender, EventArgs e)

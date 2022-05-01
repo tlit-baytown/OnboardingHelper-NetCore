@@ -22,6 +22,9 @@
     <Compile Update="userControls\AccountsUserCtl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="userControls\BasicInfoUserCtl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="userControls\ProgramsUserCtl.cs">
       <SubType>UserControl</SubType>
     </Compile>

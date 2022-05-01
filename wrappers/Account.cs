@@ -33,6 +33,12 @@ namespace OnboardingHelper_NetCore.wrappers
 
         public Account() { }
 
+        public void UpdatePassword()
+        {
+            Password = new NetworkCredential(Username,
+                Encoding.UTF8.GetString(Convert.FromBase64String(Base64Password))).SecurePassword;
+        }
+
         public Account(string username, SecureString password, string base64Password, string comment, AccountType accountType, bool doesPasswordExpire, bool requirePasswordChange)
         {
             Username = username;

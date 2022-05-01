@@ -105,10 +105,21 @@ namespace OnboardingHelper_NetCore.wrappers
         /// </summary>
         public void SetBase64Passwords()
         {
-            if (!PreSharedKey.Equals(string.Empty))
+            if (PreSharedKey.Length != 0)
                 Base64PSK = Convert.ToBase64String(Encoding.UTF8.GetBytes(ConvertKeyToUnsecureString(PreSharedKey)));
-            if (!Password.Equals(string.Empty))
+            if (Password.Length != 0)
                 Base64Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(ConvertKeyToUnsecureString(Password)));
+        }
+
+        public void SetPasswords()
+        {
+            if (!Base64PSK.Equals(string.Empty))
+                PreSharedKey = new NetworkCredential("", 
+                    Encoding.UTF8.GetString(Convert.FromBase64String(Base64PSK))).SecurePassword;
+
+            if (!Base64Password.Equals(string.Empty))
+                Password = new NetworkCredential("", 
+                    Encoding.UTF8.GetString(Convert.FromBase64String(Base64Password))).SecurePassword;
         }
 
         public VPN(string connectionName, string serverAddress, string username, SecureString password, TunnelType tunnelType, SecureString preSharedKey, int idleDisconnectSeconds, bool rememberCredentials, bool enableSplitTunneling, bool autoReconnect)

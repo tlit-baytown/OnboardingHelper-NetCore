@@ -30,7 +30,7 @@ namespace OnboardingHelper_NetCore.userControls
             }
         }
 
-        public void UpdateValues()
+        public bool UpdateValues()
         {
             txtComputerName.Text = Configuration.Instance.ComputerName;
             if (txtDomain.Enabled)
@@ -47,6 +47,8 @@ namespace OnboardingHelper_NetCore.userControls
                 cmbNTPServers.Text = Configuration.Instance.PrimaryNTPServer;
 
             chkPerformTZSync.Checked = Configuration.Instance.PerformTimeSync;
+
+            return true;
         }
 
         #region Event Handlers

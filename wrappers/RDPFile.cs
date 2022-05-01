@@ -22,6 +22,27 @@ namespace OnboardingHelper_NetCore.wrappers
 
         public RDPFile() { }
 
+        /// <summary>
+        /// Creates an RDP file with the contents present in <see cref="RDPFileText"/>, if possible.
+        /// This method attempts creation at <see cref="FilePath"/>.
+        /// </summary>
+        /// <returns><c>True</c> if the file was created. <c>False</c> otherwise.</returns>
+        /// <exception cref="FormatException">Thrown if <see cref="RDPFileText"/> is empty.</exception>
+        public bool CreateIfNotExists()
+        {
+            if (!File.Exists(FilePath))
+            {
+                if (!RDPFileText.Equals(string.Empty))
+                {
+                    File.WriteAllText(FilePath, RDPFileText);
+                    return true;
+                }
+                else
+                    throw new FormatException("RDPFileText was empty! No text to create file with.");
+            }
+            return false;
+        }
+
         public RDPFile(string filePath)
         {
             FilePath = filePath;

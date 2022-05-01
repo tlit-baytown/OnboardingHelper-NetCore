@@ -1,5 +1,6 @@
 ﻿using OnboardingHelper_NetCore.forms;
 using OnboardingHelper_NetCore.settings;
+using OnboardingHelper_NetCore.wrappers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,11 +13,22 @@ using System.Windows.Forms;
 
 namespace OnboardingHelper_NetCore.userControls
 {
-    public partial class WiFiUserCtl : UserControl
+    public partial class WiFiUserCtl : UserControl, IUpdatable
     {
         public WiFiUserCtl()
         {
             InitializeComponent();
+        }
+
+        public bool UpdateValues()
+        {
+            foreach (WiFi w in Configuration.Instance.WiFiProfiles)
+            {
+                w.SetPasswordFromBase64();
+                UpdateGrid(this, new CEventArgs.WiFiAddedEventArgs(w));
+            }
+
+            return true;
         }
 
         private void btnAddWiFi_Click(object sender, EventArgs e)
@@ -40,11 +52,11 @@ namespace OnboardingHelper_NetCore.userControls
                 return;
 
             foreach (DataGridViewRow row in dgWifis.SelectedRows)
-                Configuration.Instance.RemoveWiFi((wrappers.WiFi)row.Tag);
+                Configuration.Instance.RemoveWiFi((WiFi)row.Tag);
 
             dgWifis.Rows.Clear();
             dgWifis.Update();
-            foreach (wrappers.WiFi wifi in Configuration.Instance.WiFiProfiles)
+            foreach (WiFi wifi in Configuration.Instance.WiFiProfiles)
                 UpdateGrid(this, new CEventArgs.WiFiAddedEventArgs(wifi));
         }
 
@@ -52,11 +64,11 @@ namespace OnboardingHelper_NetCore.userControls
         {
             if (e is CEventArgs.WiFiAddedEventArgs w)
             {
-                wrappers.WiFi wifi = w.WiFi;
+                WiFi wifi = w.WiFi;
 
                 foreach (DataGridViewRow r in dgWifis.Rows)
                     if (r.Tag != null)
-                        if (((wrappers.WiFi)r.Tag).SSID.Equals(wifi.SSID))
+                        if (((WiFi)r.Tag).SSID.Equals(wifi.SSID))
                             return;
 
                 int rowID = dgWifis.Rows.Add();
@@ -66,7 +78,7 @@ namespace OnboardingHelper_NetCore.userControls
 
                 row.Cells[0].Value = wifi.SSID;
                 row.Cells[1].Value =
-                    (wifi.WiFiType == wrappers.WiFiType.WPA2_ENTERPRISE || wifi.WiFiType == wrappers.WiFiType.WPA3_ENTERPRISE) ?
+                    (wifi.WiFiType == WiFiType.WPA2_ENTERPRISE || wifi.WiFiType == WiFiType.WPA3_ENTERPRISE) ?
                     "<WPA Enterprise Selected; No PSK" : wifi.ConvertKeyToUnsecureString(wifi.PreSharedKey);
                 row.Cells[2].Value = wifi.WiFiType;
                 row.Cells[3].Value = wifi.ConnectionType;

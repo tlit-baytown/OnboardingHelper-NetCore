@@ -103,6 +103,7 @@
             this.txtDomainPassword.Size = new System.Drawing.Size(253, 23);
             this.txtDomainPassword.TabIndex = 3;
             this.txtDomainPassword.UseSystemPasswordChar = true;
+            this.txtDomainPassword.TextChanged += new System.EventHandler(this.txtDomainPassword_TextChanged);
             this.txtDomainPassword.Leave += new System.EventHandler(this.txtDomainPassword_Leave);
             // 
             // btnShowDomainPassword
@@ -115,6 +116,8 @@
             this.btnShowDomainPassword.Size = new System.Drawing.Size(24, 24);
             this.btnShowDomainPassword.TabIndex = 4;
             this.btnShowDomainPassword.UseVisualStyleBackColor = true;
+            this.btnShowDomainPassword.MouseEnter += new System.EventHandler(this.btnShowDomainPassword_MouseEnter);
+            this.btnShowDomainPassword.MouseLeave += new System.EventHandler(this.btnShowDomainPassword_MouseLeave);
             // 
             // label6
             // 
@@ -144,6 +147,7 @@
             this.txtDomainUsername.PlaceholderText = "Username of domain administrator";
             this.txtDomainUsername.Size = new System.Drawing.Size(290, 23);
             this.txtDomainUsername.TabIndex = 1;
+            this.txtDomainUsername.TextChanged += new System.EventHandler(this.txtDomainUsername_TextChanged);
             // 
             // chkPerformTZSync
             // 
@@ -154,6 +158,7 @@
             this.chkPerformTZSync.TabIndex = 11;
             this.chkPerformTZSync.Text = "Perform Time Server Sync?";
             this.chkPerformTZSync.UseVisualStyleBackColor = true;
+            this.chkPerformTZSync.CheckedChanged += new System.EventHandler(this.chkPerformTZSync_CheckedChanged);
             // 
             // tableLayoutPanel1
             // 
@@ -216,6 +221,7 @@
             this.txtDomain.Name = "txtDomain";
             this.txtDomain.Size = new System.Drawing.Size(708, 23);
             this.txtDomain.TabIndex = 3;
+            this.txtDomain.TextChanged += new System.EventHandler(this.txtDomain_TextChanged);
             // 
             // label1
             // 
@@ -234,6 +240,7 @@
             this.txtComputerName.Name = "txtComputerName";
             this.txtComputerName.Size = new System.Drawing.Size(708, 23);
             this.txtComputerName.TabIndex = 1;
+            this.txtComputerName.TextChanged += new System.EventHandler(this.txtComputerName_TextChanged);
             // 
             // cmbTimeZones
             // 
@@ -245,6 +252,7 @@
             this.cmbTimeZones.Name = "cmbTimeZones";
             this.cmbTimeZones.Size = new System.Drawing.Size(708, 23);
             this.cmbTimeZones.TabIndex = 5;
+            this.cmbTimeZones.SelectedIndexChanged += new System.EventHandler(this.cmbTimeZones_SelectedIndexChanged);
             // 
             // cmbNTPServers
             // 
@@ -254,6 +262,8 @@
             this.cmbNTPServers.Name = "cmbNTPServers";
             this.cmbNTPServers.Size = new System.Drawing.Size(708, 23);
             this.cmbNTPServers.TabIndex = 7;
+            this.cmbNTPServers.SelectedIndexChanged += new System.EventHandler(this.cmbNTPServers_SelectedIndexChanged);
+            this.cmbNTPServers.TextChanged += new System.EventHandler(this.cmbNTPServers_TextChanged);
             // 
             // panel1
             // 

@@ -9,14 +9,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Application = OnboardingHelper_NetCore.wrappers.Application;
 
 namespace OnboardingHelper_NetCore.userControls
 {
-    public partial class ProgramsUserCtl : UserControl
+    public partial class ProgramsUserCtl : UserControl, IUpdatable
     {
         public ProgramsUserCtl()
         {
             InitializeComponent();
+        }
+
+        public bool UpdateValues()
+        {
+            foreach (Application a in Configuration.Instance.Applications)
+                UpdateGrid(this, new CEventArgs.ApplicationAddedEventArgs(a));
+            return true;
         }
 
         private void btnAddApplication_Click(object sender, EventArgs e)
@@ -40,7 +48,7 @@ namespace OnboardingHelper_NetCore.userControls
                 return;
 
             foreach (DataGridViewRow row in dgApplications.SelectedRows)
-                Configuration.Instance.RemoveApplication((wrappers.Application)row.Tag);
+                Configuration.Instance.RemoveApplication((Application)row.Tag);
 
             dgApplications.Rows.Clear();
             dgApplications.Update();
@@ -52,11 +60,11 @@ namespace OnboardingHelper_NetCore.userControls
         {
             if (e is CEventArgs.ApplicationAddedEventArgs a)
             {
-                wrappers.Application app = a.AddedApplication;
+                Application app = a.AddedApplication;
 
                 foreach (DataGridViewRow r in dgApplications.Rows)
                     if (r.Tag != null)
-                        if (((wrappers.Application)r.Tag).Name.Equals(app.Name))
+                        if (((Application)r.Tag).Name.Equals(app.Name))
                             return;
 
                 int rowID = dgApplications.Rows.Add();

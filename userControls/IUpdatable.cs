@@ -16,6 +16,6 @@ namespace OnboardingHelper_NetCore.userControls
         /// <summary>
         /// Indicate how the control should update its values based on the current configuration.
         /// </summary>
-        public void UpdateValues();
+        public bool UpdateValues();
     }
 }

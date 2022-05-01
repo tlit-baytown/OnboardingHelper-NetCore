@@ -13,11 +13,21 @@ using System.Windows.Forms;
 
 namespace OnboardingHelper_NetCore.userControls
 {
-    public partial class VPNUserCtl : UserControl
+    public partial class VPNUserCtl : UserControl, IUpdatable
     {
         public VPNUserCtl()
         {
             InitializeComponent();
+        }
+
+        public bool UpdateValues()
+        {
+            foreach (VPN v in Configuration.Instance.VPNProfiles)
+            {
+                v.SetPasswords();
+                UpdateGrid(this, new CEventArgs.VPNAddedEventArgs(v));
+            }
+            return true;
         }
 
         private void btnAddVPN_Click(object sender, EventArgs e)
