@@ -45,12 +45,21 @@
             this.tlpButtons = new System.Windows.Forms.TableLayoutPanel();
             this.btnAccept = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnExpandTreeView = new System.Windows.Forms.Button();
+            this.btnCollapseTreeView = new System.Windows.Forms.Button();
             this.tlpButtons.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tvOptions
             // 
-            this.tvOptions.Dock = System.Windows.Forms.DockStyle.Left;
+            this.tvOptions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvOptions.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tvOptions.Location = new System.Drawing.Point(0, 0);
             this.tvOptions.Name = "tvOptions";
@@ -80,16 +89,16 @@
             treeNode7,
             treeNode8,
             treeNode9});
-            this.tvOptions.Size = new System.Drawing.Size(196, 450);
+            this.tvOptions.Size = new System.Drawing.Size(182, 415);
             this.tvOptions.TabIndex = 0;
             this.tvOptions.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvOptions_AfterSelect);
             // 
             // propGrid
             // 
             this.propGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.propGrid.Location = new System.Drawing.Point(196, 0);
+            this.propGrid.Location = new System.Drawing.Point(0, 0);
             this.propGrid.Name = "propGrid";
-            this.propGrid.Size = new System.Drawing.Size(604, 415);
+            this.propGrid.Size = new System.Drawing.Size(614, 415);
             this.propGrid.TabIndex = 1;
             // 
             // tlpButtons
@@ -100,17 +109,17 @@
             this.tlpButtons.Controls.Add(this.btnAccept, 1, 0);
             this.tlpButtons.Controls.Add(this.btnCancel, 0, 0);
             this.tlpButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tlpButtons.Location = new System.Drawing.Point(196, 415);
+            this.tlpButtons.Location = new System.Drawing.Point(0, 415);
             this.tlpButtons.Name = "tlpButtons";
             this.tlpButtons.RowCount = 1;
             this.tlpButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpButtons.Size = new System.Drawing.Size(604, 35);
+            this.tlpButtons.Size = new System.Drawing.Size(614, 35);
             this.tlpButtons.TabIndex = 2;
             // 
             // btnAccept
             // 
             this.btnAccept.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnAccept.Location = new System.Drawing.Point(461, 6);
+            this.btnAccept.Location = new System.Drawing.Point(471, 6);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(140, 23);
             this.btnAccept.TabIndex = 0;
@@ -121,7 +130,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnCancel.Location = new System.Drawing.Point(328, 6);
+            this.btnCancel.Location = new System.Drawing.Point(335, 6);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(127, 23);
             this.btnCancel.TabIndex = 1;
@@ -129,15 +138,66 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.tvOptions);
+            this.splitContainer1.Panel1.Controls.Add(this.flowLayoutPanel1);
+            this.splitContainer1.Panel1MinSize = 180;
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.propGrid);
+            this.splitContainer1.Panel2.Controls.Add(this.tlpButtons);
+            this.splitContainer1.Panel2MinSize = 610;
+            this.splitContainer1.Size = new System.Drawing.Size(800, 450);
+            this.splitContainer1.SplitterDistance = 182;
+            this.splitContainer1.TabIndex = 3;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.btnExpandTreeView);
+            this.flowLayoutPanel1.Controls.Add(this.btnCollapseTreeView);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 415);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(182, 35);
+            this.flowLayoutPanel1.TabIndex = 3;
+            // 
+            // btnExpandTreeView
+            // 
+            this.btnExpandTreeView.Location = new System.Drawing.Point(108, 3);
+            this.btnExpandTreeView.Name = "btnExpandTreeView";
+            this.btnExpandTreeView.Size = new System.Drawing.Size(71, 23);
+            this.btnExpandTreeView.TabIndex = 2;
+            this.btnExpandTreeView.Text = "Expand All";
+            this.btnExpandTreeView.UseVisualStyleBackColor = true;
+            this.btnExpandTreeView.Click += new System.EventHandler(this.btnExpandTreeView_Click);
+            // 
+            // btnCollapseTreeView
+            // 
+            this.btnCollapseTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCollapseTreeView.Location = new System.Drawing.Point(22, 3);
+            this.btnCollapseTreeView.Name = "btnCollapseTreeView";
+            this.btnCollapseTreeView.Size = new System.Drawing.Size(80, 23);
+            this.btnCollapseTreeView.TabIndex = 3;
+            this.btnCollapseTreeView.Text = "Collapse All";
+            this.btnCollapseTreeView.UseVisualStyleBackColor = true;
+            this.btnCollapseTreeView.Click += new System.EventHandler(this.btnCollapseTreeView_Click);
+            // 
             // Summary
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.propGrid);
-            this.Controls.Add(this.tlpButtons);
-            this.Controls.Add(this.tvOptions);
+            this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimizeBox = false;
             this.Name = "Summary";
@@ -147,6 +207,11 @@
             this.TopMost = true;
             this.Load += new System.EventHandler(this.Summary_Load);
             this.tlpButtons.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -158,5 +223,9 @@
         private TableLayoutPanel tlpButtons;
         private Button btnAccept;
         private Button btnCancel;
+        private SplitContainer splitContainer1;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private Button btnExpandTreeView;
+        private Button btnCollapseTreeView;
     }
 }

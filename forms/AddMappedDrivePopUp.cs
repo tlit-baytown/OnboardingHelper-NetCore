@@ -112,5 +112,11 @@ namespace OnboardingHelper_NetCore.forms
 
             tlpCredentials.Visible = chkDifferentCreds.Checked;
         }
+
+        private void chkAssignNextLetter_CheckedChanged(object sender, EventArgs e)
+        {
+            drive.AssignNextAvailableLetter = chkAssignNextLetter.Checked;
+            cmbDriveLetters.Enabled = !chkAssignNextLetter.Checked;
+        }
     }
 }

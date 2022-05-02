@@ -48,10 +48,13 @@
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.chkAssignNextLetter = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.tlpCredentials.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.flowLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAddAndClear
@@ -94,11 +97,11 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.21811F));
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.cmbDriveLetters, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.txtPath, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label3, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.tlpCredentials, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel2, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
@@ -137,9 +140,9 @@
             this.cmbDriveLetters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbDriveLetters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDriveLetters.FormattingEnabled = true;
-            this.cmbDriveLetters.Location = new System.Drawing.Point(108, 6);
+            this.cmbDriveLetters.Location = new System.Drawing.Point(3, 3);
             this.cmbDriveLetters.Name = "cmbDriveLetters";
-            this.cmbDriveLetters.Size = new System.Drawing.Size(399, 23);
+            this.cmbDriveLetters.Size = new System.Drawing.Size(105, 23);
             this.cmbDriveLetters.TabIndex = 1;
             this.cmbDriveLetters.SelectedIndexChanged += new System.EventHandler(this.cmbDriveLetters_SelectedIndexChanged);
             // 
@@ -269,6 +272,28 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(510, 36);
             this.tableLayoutPanel2.TabIndex = 12;
             // 
+            // flowLayoutPanel2
+            // 
+            this.flowLayoutPanel2.Controls.Add(this.cmbDriveLetters);
+            this.flowLayoutPanel2.Controls.Add(this.chkAssignNextLetter);
+            this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(108, 3);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(399, 30);
+            this.flowLayoutPanel2.TabIndex = 9;
+            // 
+            // chkAssignNextLetter
+            // 
+            this.chkAssignNextLetter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkAssignNextLetter.AutoSize = true;
+            this.chkAssignNextLetter.Location = new System.Drawing.Point(114, 5);
+            this.chkAssignNextLetter.Name = "chkAssignNextLetter";
+            this.chkAssignNextLetter.Size = new System.Drawing.Size(171, 19);
+            this.chkAssignNextLetter.TabIndex = 6;
+            this.chkAssignNextLetter.Text = "Assign next available letter?";
+            this.chkAssignNextLetter.UseVisualStyleBackColor = true;
+            this.chkAssignNextLetter.CheckedChanged += new System.EventHandler(this.chkAssignNextLetter_CheckedChanged);
+            // 
             // AddMappedDrivePopUp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -294,6 +319,8 @@
             this.tlpCredentials.ResumeLayout(false);
             this.tlpCredentials.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
+            this.flowLayoutPanel2.ResumeLayout(false);
+            this.flowLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -319,5 +346,7 @@
         private TextBox txtUsername;
         private TableLayoutPanel tableLayoutPanel2;
         private ToolTip toolTip;
+        private FlowLayoutPanel flowLayoutPanel2;
+        private CheckBox chkAssignNextLetter;
     }
 }

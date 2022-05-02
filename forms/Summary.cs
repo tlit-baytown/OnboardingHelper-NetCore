@@ -172,5 +172,15 @@ namespace OnboardingHelper_NetCore.forms
             ConfigRejected?.Invoke(this, new EventArgs());
             Close();
         }
+
+        private void btnExpandTreeView_Click(object sender, EventArgs e)
+        {
+            tvOptions.ExpandAll();
+        }
+
+        private void btnCollapseTreeView_Click(object sender, EventArgs e)
+        {
+            tvOptions.CollapseAll();
+        }
     }
 }

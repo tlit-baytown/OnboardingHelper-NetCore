@@ -8,6 +8,7 @@ namespace OnboardingHelper_NetCore.forms
         public EventHandler? PrinterAdded;
 
         private readonly Printer printer = new Printer();
+        private List<string> printerDrivers = new List<string>();
 
         public AddPrinterPopUp()
         {
@@ -16,7 +17,29 @@ namespace OnboardingHelper_NetCore.forms
 
         private void AddPrinterPopUp_Load(object sender, EventArgs e)
         {
-            cmbDriverNames.DataSource = PowershellHelper.GetPrinterDriversInstalled();
+            if (!bgGetDrivers.IsBusy)
+            {
+                cmbDriverNames.Enabled = false;
+                bgGetDrivers.RunWorkerAsync();
+            }
+        }
+
+        private void bgGetDrivers_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            bgGetDrivers.ReportProgress(50);
+            printerDrivers = PowershellHelper.GetPrinterDriversInstalled();
+            bgGetDrivers.ReportProgress(100);
+        }
+
+        private void bgGetDrivers_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        {
+            cmbDriverNames.Text = "Getting available printer drivers. Please wait...";
+        }
+
+        private void bgGetDrivers_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            cmbDriverNames.Enabled = true;
+            cmbDriverNames.DataSource = printerDrivers;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -98,9 +121,15 @@ namespace OnboardingHelper_NetCore.forms
         private void cmbDriverNames_TextChanged(object sender, EventArgs e)
         {
             if (!cmbDriverNames.Items.Contains(cmbDriverNames.Text))
+            {
                 chkCreateNewDriver.Checked = true;
+                chkCreateNewDriver.Enabled = true;
+            }
             else
+            {
                 chkCreateNewDriver.Checked = false;
+                chkCreateNewDriver.Enabled = false;
+            }
         }
 
         private void cmbDriverNames_SelectedIndexChanged(object sender, EventArgs e)
@@ -113,6 +142,16 @@ namespace OnboardingHelper_NetCore.forms
             printer.ShouldCreateDriver = chkCreateNewDriver.Checked;
             flpINFPath.Visible = printer.ShouldCreateDriver;
             lblInfPath.Visible = printer.ShouldCreateDriver;
+
+            if (!printer.ShouldCreateDriver)
+            {
+                printer.INFPath = string.Empty;
+                lblPath.Text = "<path>";
+                lblPath.ForeColor = Color.Black;
+
+                if (cmbDriverNames.Items.Count > 0)
+                    cmbDriverNames.SelectedIndex = 0;
+            }
         }
 
         private void btnOpenINF_Click(object sender, EventArgs e)
@@ -121,6 +160,8 @@ namespace OnboardingHelper_NetCore.forms
             {
                 printer.INFPath = dlgOpenINF.FileName;
                 printer.ShouldCreateDriver = true;
+                lblPath.Text = printer.INFPath;
+                lblPath.ForeColor = Color.Green;
             }
         }
 
