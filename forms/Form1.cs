@@ -144,7 +144,7 @@ namespace OnboardingHelper_NetCore
             else
             {
                 MessageBox.Show(this, "Successfully loaded the configuration!", "Success",
-                    MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBoxButtons.OK, MessageBoxIcon.None);
                 lblStatusText.Text = "Config loaded successfully.";
             }
         }
