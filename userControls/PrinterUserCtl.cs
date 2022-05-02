@@ -42,7 +42,8 @@ namespace Zest_Script.userControls
                 return;
 
             foreach (DataGridViewRow row in dgPrinters.SelectedRows)
-                Configuration.Instance.RemovePrinter((Printer)row.Tag);
+                if (row.Tag != null)
+                    Configuration.Instance.RemovePrinter((Printer)row.Tag);
 
             dgPrinters.Rows.Clear();
             dgPrinters.Update();
@@ -52,7 +53,7 @@ namespace Zest_Script.userControls
             }
         }
 
-        private void UpdateGrid(object sender, EventArgs e)
+        private void UpdateGrid(object? sender, EventArgs e)
         {
             if (e is CEventArgs.PrinterAddedEventArgs p)
             {

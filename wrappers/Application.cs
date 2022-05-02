@@ -3,11 +3,11 @@ using System.Xml.Serialization;
 
 namespace Zest_Script.wrappers
 {
-    [XmlType("application")]
     /// <summary>
-    /// Structure to represent an Application that is to be installed on the computer.
+    /// Represents an Application that is to be installed on the computer. This class cannot be inherited.
     /// </summary>
-    public class Application
+    [XmlType("application")]
+    public sealed class Application
     {
         /// <summary>
         /// The name of the application.
@@ -81,21 +81,33 @@ namespace Zest_Script.wrappers
         /// </summary>
         [XmlIgnore()]
         [Browsable(false)]
-        public FileStream File
+        public FileStream? File
         {
             get
             {
-                if (System.IO.File.Exists(Path))
-                    return System.IO.File.OpenRead(Path);
-                else
+                try
+                {
+                    if (System.IO.File.Exists(Path))
+                        return System.IO.File.OpenRead(Path);
+                    else
+                        return null;
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.EventLog.WriteEntry("Application", $"There was an error reading application data: {ex.Message}",
+                        System.Diagnostics.EventLogEntryType.Warning);
                     return null;
+                }
             }
         }
 
+        /// <summary>
+        /// Create a new empty application.
+        /// </summary>
         public Application() { }
 
         /// <summary>
-        /// Create a new application with the specified name, description, path, and install arguments.
+        /// Create a new application with the specified arguments.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="description"></param>
@@ -114,14 +126,14 @@ namespace Zest_Script.wrappers
         }
 
         /// <summary>
-        /// Create a new application with the specified name and path.
+        /// Create a new application with the specified arguments.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="path"></param>
         public Application(string name, string path) : this(name, "", path, "", false, false) { }
 
         /// <summary>
-        /// Create a new application with the specified name, path, and install arguments.
+        /// Create a new application with the specified arguments.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="path"></param>
@@ -129,7 +141,7 @@ namespace Zest_Script.wrappers
         public Application(string name, string path, string installArguments) : this(name, "", path, installArguments, false, false) { }
 
         /// <summary>
-        /// 
+        /// Create a new application with the specified arguments.
         /// </summary>
         /// <param name="name"></param>
         /// <param name="path"></param>
@@ -142,17 +154,40 @@ namespace Zest_Script.wrappers
             IsISOImage = isIsoImage;
         }
 
-        public byte[] GetFileData()
+        /// <summary>
+        /// Get a byte array representing the file's data.
+        /// </summary>
+        /// <returns>A byte array with the file's contents or <c>null</c> if the file could not be read.</returns>
+        public byte[]? GetFileData()
         {
-            using (File)
+            try
             {
-                return System.IO.File.ReadAllBytes(Path);
+                if (File != null)
+                {
+                    byte[] buffer = new byte[File.Length];
+                    File.Read(buffer, 0, buffer.Length);
+
+                    return buffer;
+                }
             }
+            catch (Exception ex)
+            {
+                System.Diagnostics.EventLog.WriteEntry("Application", $"There was an error reading application data: {ex.Message}",
+                        System.Diagnostics.EventLogEntryType.Warning);
+            }
+            return null;
         }
 
+        /// <summary>
+        /// Get a base64 string representing the file's data.
+        /// </summary>
+        /// <returns>A base64 string or an empty string if the file could not be read.</returns>
         public string GetBase64String()
         {
-            byte[] data = GetFileData();
+            byte[]? data = GetFileData();
+            if (data == null)
+                return string.Empty;
+
             return Convert.ToBase64String(data);
         }
     }

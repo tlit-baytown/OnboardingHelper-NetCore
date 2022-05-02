@@ -3,18 +3,43 @@ using System.Management;
 
 namespace Zest_Script
 {
+    /// <summary>
+    /// Class which holds information about the current system the program is running on. This class cannot be inherited. This class
+    /// cannot be instantiated.
+    /// </summary>
     public sealed class SystemInfo
     {
         private static object _lock = new object();
         private static SystemInfo? instance = null;
 
+        /// <summary>
+        /// The name of the currently running operating system.
+        /// </summary>
         public string? OSName { get; private set; }
+
+        /// <summary>
+        /// The architecture of the currently running operating system.
+        /// </summary>
         public string? OSArch { get; private set; }
+
+        /// <summary>
+        /// The name of the most recent service pack installed.
+        /// </summary>
         public string? CSDVersion { get; private set; }
+
+        /// <summary>
+        /// The full name of the current CPU (processor).
+        /// </summary>
         public string? ProcessorName { get; private set; }
 
+        /// <summary>
+        /// The amount of RAM currently installed on the system.
+        /// </summary>
         public string? RAMAmount { get; private set; }
 
+        /// <summary>
+        /// Get the single instance of this class.
+        /// </summary>
         public static SystemInfo Instance
         {
             get
@@ -30,12 +55,12 @@ namespace Zest_Script
 
         private SystemInfo()
         {
-            getOperatingSystemInfo();
-            getProcessorInfo();
-            getRamInfo();
+            GetOperatingSystemInfo();
+            GetProcessorInfo();
+            GetRAMInfo();
         }
 
-        private void getOperatingSystemInfo()
+        private void GetOperatingSystemInfo()
         {
             //Create an object of ManagementObjectSearcher class and pass query as parameter.
             ManagementObjectSearcher mos = new ManagementObjectSearcher("select * from Win32_OperatingSystem");
@@ -50,18 +75,19 @@ namespace Zest_Script
             }
         }
 
-        private void getProcessorInfo()
+        private void GetProcessorInfo()
         {
             RegistryKey? processor_name = Registry.LocalMachine.OpenSubKey(@"Hardware\Description\System\CentralProcessor\0", RegistryKeyPermissionCheck.ReadSubTree);   //This registry entry contains entry for processor info.
 
             if (processor_name != null)
             {
-                if (processor_name.GetValue("ProcessorNameString") != null)
-                    ProcessorName = processor_name.GetValue("ProcessorNameString").ToString();
+                object? processor = processor_name.GetValue("ProcessorNameString");
+                if (processor != null)
+                    ProcessorName = processor.ToString();
             }
         }
 
-        private void getRamInfo()
+        private void GetRAMInfo()
         {
             RAMAmount = "Total RAM: " + Utility.FormatSize(GC.GetGCMemoryInfo().TotalAvailableMemoryBytes);
         }

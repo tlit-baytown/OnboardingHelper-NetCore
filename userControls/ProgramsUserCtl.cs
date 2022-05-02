@@ -40,7 +40,8 @@ namespace Zest_Script.userControls
                 return;
 
             foreach (DataGridViewRow row in dgApplications.SelectedRows)
-                Configuration.Instance.RemoveApplication((Application)row.Tag);
+                if (row.Tag != null)
+                    Configuration.Instance.RemoveApplication((Application)row.Tag);
 
             dgApplications.Rows.Clear();
             dgApplications.Update();
@@ -48,7 +49,7 @@ namespace Zest_Script.userControls
                 UpdateGrid(this, new CEventArgs.ApplicationAddedEventArgs(app));
         }
 
-        private void UpdateGrid(object o, EventArgs e)
+        private void UpdateGrid(object? o, EventArgs e)
         {
             if (e is CEventArgs.ApplicationAddedEventArgs a)
             {

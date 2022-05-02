@@ -1,14 +1,19 @@
 ﻿namespace Zest_Script.utility
 {
     /// <summary>
-    /// Class copied from StackOverflow: https://stackoverflow.com/questions/552579/how-to-hide-tabpage-from-tabcontrol
-    /// Mainly used as an extension for the Tab Control to faciliate hiding and showing tabs.
-    /// <c>Modified slightly to fix some bugs.</c>
+    /// Class borrowed from StackOverflow: https://stackoverflow.com/questions/552579/how-to-hide-tabpage-from-tabcontrol
+    /// <para>Used as an extension for the Tab Control to faciliate hiding and showing tabs.</para>
+    /// <para><c>Modified to fix some bugs.</c></para>
     /// </summary>
     public class TabControlHelper
     {
         private TabControl _tabControl;
         private List<KeyValuePair<TabPage, int>> _pagesIndexed;
+
+        /// <summary>
+        /// Create a new instance with the specified <paramref name="tabControl"/>.
+        /// </summary>
+        /// <param name="tabControl"></param>
         public TabControlHelper(TabControl tabControl)
         {
             _tabControl = tabControl;
@@ -20,6 +25,9 @@
             }
         }
 
+        /// <summary>
+        /// Hide all of the tabs in the <see cref="TabControl.TabPages"/> except the required <c>basic tab</c> and <c>accounts tab</c>.
+        /// </summary>
         public void HideAllPages()
         {
             for (int i = 0; i < _pagesIndexed.Count; i++)
@@ -31,6 +39,9 @@
             }
         }
 
+        /// <summary>
+        /// Show all of the tabs present in the tab page index.
+        /// </summary>
         public void ShowAllPages()
         {
             for (int i = 0; i < _pagesIndexed.Count; i++)
@@ -42,16 +53,31 @@
             }
         }
 
-        public void HidePage(TabPage tabpage)
+        /// <summary>
+        /// Hide the specified tab page from the tab control.
+        /// </summary>
+        /// <param name="tabpage"></param>
+        public void HidePage(TabPage? tabpage)
         {
+            if (tabpage == null)
+                return;
+
             if (!_tabControl.TabPages.Contains(tabpage)) return;
             _tabControl.TabPages.Remove(tabpage);
         }
 
-        public void ShowPage(TabPage tabpage)
+        /// <summary>
+        /// Show the specified tab page in its original position on the tab control.
+        /// </summary>
+        /// <param name="tabpage"></param>
+        public void ShowPage(TabPage? tabpage)
         {
+            if (tabpage == null)
+                return;
+
             if (_tabControl.TabPages.Contains(tabpage)) return;
             InsertTabPage(GetTabPage(tabpage).Key, GetTabPage(tabpage).Value);
+            //TODO: Fix ^^^ so that the page is still inserted even if an exception occurs.
         }
 
         private void InsertTabPage(TabPage tabpage, int index)
@@ -93,9 +119,23 @@
             return _pagesIndexed.Where(p => p.Key == tabpage).First();
         }
 
-        public TabPage GetPage(string tabName)
+        /// <summary>
+        /// Get a tab page by name.
+        /// </summary>
+        /// <param name="tabName"></param>
+        /// <returns>The <see cref="TabPage"/> with the specified name or <c>null</c> if the page was not found or an error occured.</returns>
+        public TabPage? GetPage(string tabName)
         {
-            return _pagesIndexed.Where(p => p.Key.Name.Equals(tabName)).First().Key;
+            try
+            {
+                return _pagesIndexed.Where(p => p.Key.Name.Equals(tabName)).First().Key;
+            }
+            catch (Exception ex) when (ex is ArgumentNullException || ex is InvalidOperationException)
+            {
+                System.Diagnostics.EventLog.WriteEntry("Application",
+                    $"Exception occured in Zest Script while attempting to get a tab page from page index: {ex.Message}", System.Diagnostics.EventLogEntryType.Error);
+                return null;
+            }
         }
     }
 }

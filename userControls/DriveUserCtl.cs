@@ -45,7 +45,8 @@ namespace Zest_Script.userControls
                 return;
 
             foreach (DataGridViewRow row in dgDrives.SelectedRows)
-                Configuration.Instance.RemoveMappedDrive((MappedDrive)row.Tag);
+                if (row.Tag != null)
+                    Configuration.Instance.RemoveMappedDrive((MappedDrive)row.Tag);
 
             dgDrives.Rows.Clear();
             dgDrives.Update();
@@ -55,7 +56,7 @@ namespace Zest_Script.userControls
             }
         }
 
-        private void UpdateGrid(object o, EventArgs e)
+        private void UpdateGrid(object? o, EventArgs e)
         {
             if (e is CEventArgs.MappedDriveAdddedEventArgs d)
             {

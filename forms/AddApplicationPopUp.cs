@@ -47,8 +47,8 @@ namespace Zest_Script
                 application.IsISOImage = true;
             }
 
-            EnumHelper.ErrorCodes error = Configuration.Instance.AddApplication(application);
-            return error == EnumHelper.ErrorCodes.NO_ERROR;
+            EnumHelper.ReturnCodes error = Configuration.Instance.AddApplication(application);
+            return error == EnumHelper.ReturnCodes.NO_ERROR;
         }
 
         private bool AddAndClear()

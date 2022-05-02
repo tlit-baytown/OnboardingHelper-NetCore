@@ -45,7 +45,8 @@ namespace Zest_Script.userControls
                 return;
 
             foreach (DataGridViewRow row in dgVpns.SelectedRows)
-                Configuration.Instance.RemoveVPN((VPN)row.Tag);
+                if (row.Tag != null)
+                    Configuration.Instance.RemoveVPN((VPN)row.Tag);
 
             dgVpns.Rows.Clear();
             dgVpns.Update();
@@ -55,7 +56,7 @@ namespace Zest_Script.userControls
             }
         }
 
-        private void UpdateGrid(object o, EventArgs e)
+        private void UpdateGrid(object? o, EventArgs e)
         {
             if (e is CEventArgs.VPNAddedEventArgs v)
             {

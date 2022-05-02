@@ -6,7 +6,7 @@ namespace Zest_Script
     {
         private UpdateSession uSession;
         private IUpdateSearcher uSearcher;
-        private ISearchResult uResult;
+        private ISearchResult? uResult;
 
         public WindowsUpdate()
         {
@@ -47,17 +47,17 @@ namespace Zest_Script
             return updates;
         }
 
-        public void DownloadUpdates()
-        {
-            if (uResult == null)
-                GetUpdates();
+        //public void DownloadUpdates()
+        //{
+        //    if (uResult == null)
+        //        GetUpdates();
 
-            UpdateDownloader downloader = uSession.CreateUpdateDownloader();
-            downloader.Updates = uResult.Updates;
+        //    UpdateDownloader downloader = uSession.CreateUpdateDownloader();
+        //    downloader.Updates = uResult.Updates;
 
-            if (downloader.Updates.Count > 0)
-                downloader.Download();
-        }
+        //    if (downloader.Updates.Count > 0)
+        //        downloader.Download();
+        //}
 
         //public IInstallationResult InstallSelectedUpdates(List<IUpdate> updates)
         //{
@@ -81,22 +81,22 @@ namespace Zest_Script
         //    return installer.Install();
         //}
 
-        public void InstallAllUpdates()
-        {
-            if (uResult == null)
-                GetUpdates();
+        //public void InstallAllUpdates()
+        //{
+        //    if (uResult == null)
+        //        GetUpdates();
 
-            DownloadUpdates();
-            UpdateCollection updatesToInstall = new UpdateCollection();
-            foreach (IUpdate update in uResult.Updates)
-            {
-                if (update.IsDownloaded)
-                    updatesToInstall.Add(update);
-            }
+        //    DownloadUpdates();
+        //    UpdateCollection updatesToInstall = new UpdateCollection();
+        //    foreach (IUpdate update in uResult.Updates)
+        //    {
+        //        if (update.IsDownloaded)
+        //            updatesToInstall.Add(update);
+        //    }
 
-            IUpdateInstaller installer = uSession.CreateUpdateInstaller();
-            installer.Updates = updatesToInstall;
-            installer.Install();
-        }
+        //    IUpdateInstaller installer = uSession.CreateUpdateInstaller();
+        //    installer.Updates = updatesToInstall;
+        //    installer.Install();
+        //}
     }
 }

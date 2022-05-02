@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.Text;
+using System.Xml;
 using System.Xml.Serialization;
 using Zest_Script.wrappers;
 using Zest_Script.wrappers.property_grid;
@@ -64,45 +65,69 @@ namespace Zest_Script.settings
         }
 
         #region Basic Options
+        /// <summary>
+        /// Basic computer information
+        /// </summary>
         [XmlElement("basic-information")]
         public BasicInfo BasicInfo = new BasicInfo();
         #endregion
 
         #region Accounts
+        /// <summary>
+        /// Get a list of accounts to create.
+        /// </summary>
         [XmlElement("accounts")]
         public List<Account> Accounts { get { return accounts; } set { accounts = value; } }
         private List<Account> accounts = new List<Account>();
         #endregion
 
         #region Connections
+        /// <summary>
+        /// Get a list of wifi profiles to create.
+        /// </summary>
         [XmlElement("wifi-profiles")]
         public List<WiFi> WiFiProfiles { get { return wifiProfiles; } set { wifiProfiles = value; } }
         private List<WiFi> wifiProfiles = new List<WiFi>();
 
+        /// <summary>
+        /// Get a list of vpn profiles to create.
+        /// </summary>
         [XmlElement("vpn-profiles")]
         public List<VPN> VPNProfiles { get { return vpnProfiles; } set { vpnProfiles = value; } }
         private List<VPN> vpnProfiles = new List<VPN>();
         #endregion
 
         #region Programs
+        /// <summary>
+        /// Get a list of applications to install.
+        /// </summary>
         [XmlElement("applications")]
         public List<wrappers.Application> Applications { get { return applications; } set { applications = value; } }
         private List<wrappers.Application> applications = new List<wrappers.Application>();
         #endregion
 
         #region Remote Desktop
+        /// <summary>
+        /// Get a list of RDP files to create.
+        /// </summary>
         [XmlElement("rdp-files")]
         public List<RDPFile> RDPFiles { get { return rdpFiles; } set { rdpFiles = value; } }
         private List<RDPFile> rdpFiles = new List<RDPFile>();
         #endregion
 
         #region Mapped Drive
+        /// <summary>
+        /// Get a list of mapped drives to create.
+        /// </summary>
         [XmlElement("mapped-drives")]
         public List<MappedDrive> MappedDrives { get { return mappedDrives; } set { mappedDrives = value; } }
         private List<MappedDrive> mappedDrives = new List<MappedDrive>();
         #endregion
 
         #region Mapped Printer
+        /// <summary>
+        /// Get a list of printers to install.
+        /// </summary>
         [XmlElement("printers")]
         public List<Printer> Printers { get { return printers; } set { printers = value; } }
         private List<Printer> printers = new List<Printer>();
@@ -143,16 +168,21 @@ namespace Zest_Script.settings
         /// configuration <see cref="Instance"/>.
         /// </summary>
         /// <param name="path"></param>
-        /// <returns>A <see cref="Configuration"/> object containing the configuration present in the XML file.</returns>
+        /// <returns>A <see cref="Configuration"/> object containing the configuration present in the XML file or the current configuration if loading failed.</returns>
         public static Configuration LoadConfig(string path)
         {
+            XmlSerializer serializer = new(typeof(Configuration));
+            StreamReader reader = new StreamReader(path);
             try
             {
-                XmlSerializer serializer = new(typeof(Configuration));
-                StreamReader reader = new StreamReader(path);
-                instance = (Configuration)serializer.Deserialize(reader);
-                reader.Close();
-                ConfigLoaded?.Invoke(Instance, new EventArgs());
+                object? deserialized = serializer.Deserialize(reader);
+                if (deserialized != null)
+                {
+                    instance = (Configuration)deserialized;
+                    ConfigLoaded?.Invoke(Instance, new EventArgs());
+                }
+                else
+                    ConfigLoadError?.Invoke(Instance, new EventArgs());
             }
             catch (Exception ex)
             {
@@ -160,11 +190,16 @@ namespace Zest_Script.settings
                     $"An error occured loading a configuration file: {ex.Message}", System.Diagnostics.EventLogEntryType.Error);
                 ConfigLoadError?.Invoke(Instance, new EventArgs());
             }
+            finally
+            {
+                reader.Close();
+            }
+
             return Instance;
         }
 
         /// <summary>
-        /// Save the current configuration to an <c>XML</c> file.
+        /// Save the current configuration to an <c>XML</c> file encoded in <see cref="Encoding.UTF8"/>.
         /// </summary>
         /// <param name="path"></param>
         /// <returns><c>True</c> if the file was saved successfully; <c>False</c> otherwise.</returns>
@@ -176,7 +211,7 @@ namespace Zest_Script.settings
                 using (var stream = new StringWriter())
                 {
                     serializer.Serialize(stream, this);
-                    File.WriteAllText(path, stream.ToString());
+                    File.WriteAllText(path, stream.ToString(), Encoding.UTF8);
                 }
                 ConfigSaved?.Invoke(Instance, new ConfigSavedEventArgs(path));
             }
@@ -192,24 +227,39 @@ namespace Zest_Script.settings
         }
 
         #region Accounts
-        public ErrorCodes AddAccount(Account a)
+        /// <summary>
+        /// Add an account (if not present) to the <see cref="Accounts"/> list.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <returns>A code representing the state after invoking.</returns>
+        public ReturnCodes AddAccount(Account a)
         {
             if (accounts.Any(acct => acct.Username.Equals(a.Username)))
-                return ErrorCodes.ACCOUNT_ALREADY_EXISTS;
+                return ReturnCodes.ACCOUNT_ALREADY_EXISTS;
             accounts.Add(a);
-            return ErrorCodes.NO_ERROR;
+            return ReturnCodes.NO_ERROR;
         }
 
-        public ErrorCodes RemoveAccount(Account a)
+        /// <summary>
+        /// Remove an account (if present) from the <see cref="Accounts"/> list.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <returns>A code representing the state after invoking.</returns>
+        public ReturnCodes RemoveAccount(Account a)
         {
             if (accounts.Contains(a))
                 accounts.Remove(a);
             else
-                return ErrorCodes.ACCOUNT_DOES_NOT_EXIST;
+                return ReturnCodes.ACCOUNT_DOES_NOT_EXIST;
 
-            return ErrorCodes.NO_ERROR;
+            return ReturnCodes.NO_ERROR;
         }
 
+        /// <summary>
+        /// Get an account based on the <paramref name="username"/>.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns>The account or <c>null</c> if not found.</returns>
         public Account? GetAccount(string username)
         {
             return accounts.FirstOrDefault(a => a.Username.Equals(username));
@@ -217,49 +267,79 @@ namespace Zest_Script.settings
         #endregion
 
         #region Connections
-        public ErrorCodes AddWiFi(WiFi w)
+        /// <summary>
+        /// Add a wifi profile (if not present) to the <see cref="WiFiProfiles"/> list.
+        /// </summary>
+        /// <param name="w"></param>
+        /// <returns>A code representing the state after invoking.</returns>
+        public ReturnCodes AddWiFi(WiFi w)
         {
             if (wifiProfiles.Any(wifi => wifi.SSID.Equals(w.SSID)))
-                return ErrorCodes.WIFI_ALREADY_EXISTS;
+                return ReturnCodes.WIFI_ALREADY_EXISTS;
             wifiProfiles.Add(w);
 
-            return ErrorCodes.NO_ERROR;
+            return ReturnCodes.NO_ERROR;
         }
 
-        public ErrorCodes RemoveWiFi(WiFi w)
+        /// <summary>
+        /// Remove a wifi profile (if present) from the <see cref="WiFiProfiles"/> list.
+        /// </summary>
+        /// <param name="w"></param>
+        /// <returns>A code representing the state after invoking.</returns>
+        public ReturnCodes RemoveWiFi(WiFi w)
         {
             if (wifiProfiles.Contains(w))
                 wifiProfiles.Remove(w);
             else
-                return ErrorCodes.WIFI_DOES_NOT_EXIST;
+                return ReturnCodes.WIFI_DOES_NOT_EXIST;
 
-            return ErrorCodes.NO_ERROR;
+            return ReturnCodes.NO_ERROR;
         }
 
+        /// <summary>
+        /// Get a wifi profile based on the <paramref name="ssid"/>.
+        /// </summary>
+        /// <param name="ssid"></param>
+        /// <returns>The wifi profile or <c>null</c> if not found.</returns>
         public WiFi? GetWiFi(string ssid)
         {
             return wifiProfiles.FirstOrDefault(wifi => wifi.SSID.Equals(ssid));
         }
 
-        public ErrorCodes AddVPN(VPN v)
+        /// <summary>
+        /// Add a vpn profile (if not present) to the <see cref="VPNProfiles"/> list.
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns>A code representing the state after invoking.</returns>
+        public ReturnCodes AddVPN(VPN v)
         {
             if (vpnProfiles.Any(vpn => vpn.ConnectionName.Equals(v.ConnectionName)))
-                return ErrorCodes.VPN_ALREADY_EXISTS;
+                return ReturnCodes.VPN_ALREADY_EXISTS;
             vpnProfiles.Add(v);
 
-            return ErrorCodes.NO_ERROR;
+            return ReturnCodes.NO_ERROR;
         }
 
-        public ErrorCodes RemoveVPN(VPN v)
+        /// <summary>
+        /// Remove a vpn profile (if present) from the <see cref="VPNProfiles"/> list.
+        /// </summary>
+        /// <param name="v"></param>
+        /// <returns>A code representing the state after invoking.</returns>
+        public ReturnCodes RemoveVPN(VPN v)
         {
             if (vpnProfiles.Contains(v))
                 vpnProfiles.Remove(v);
             else
-                return ErrorCodes.VPN_DOES_NOT_EXIST;
+                return ReturnCodes.VPN_DOES_NOT_EXIST;
 
-            return ErrorCodes.NO_ERROR;
+            return ReturnCodes.NO_ERROR;
         }
 
+        /// <summary>
+        /// Get a vpn profile based on the <paramref name="connectionName"/>.
+        /// </summary>
+        /// <param name="connectionName"></param>
+        /// <returns>The vpn profile or <c>null</c> if not found.</returns>
         public VPN? GetVPN(string connectionName)
         {
             return vpnProfiles.FirstOrDefault(vpn => vpn.ConnectionName.Equals(connectionName));
@@ -267,25 +347,40 @@ namespace Zest_Script.settings
         #endregion
 
         #region Programs
-        public ErrorCodes AddApplication(wrappers.Application a)
+        /// <summary>
+        /// Add an application (if not present) to the <see cref="Applications"/> list.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <returns>A code representing the state after invoking.</returns>
+        public ReturnCodes AddApplication(wrappers.Application a)
         {
             if (applications.Any(app => app.Name.Equals(a.Name)))
-                return ErrorCodes.APPLICATION_ALREADY_EXISTS;
+                return ReturnCodes.APPLICATION_ALREADY_EXISTS;
 
             applications.Add(a);
-            return ErrorCodes.NO_ERROR;
+            return ReturnCodes.NO_ERROR;
         }
 
-        public ErrorCodes RemoveApplication(wrappers.Application a)
+        /// <summary>
+        /// Remove an application (if present) from the <see cref="Applications"/> list.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <returns>A code representing the state after invoking.</returns>
+        public ReturnCodes RemoveApplication(wrappers.Application a)
         {
             if (applications.Contains(a))
                 applications.Remove(a);
             else
-                return ErrorCodes.APPLICATION_DOES_NOT_EXIST;
+                return ReturnCodes.APPLICATION_DOES_NOT_EXIST;
 
-            return ErrorCodes.NO_ERROR;
+            return ReturnCodes.NO_ERROR;
         }
 
+        /// <summary>
+        /// Get an application based on the <paramref name="name"/>.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>The vpn profile or <c>null</c> if not found.</returns>
         public wrappers.Application? GetApplication(string name)
         {
             return applications.FirstOrDefault(a => a.Name.Equals(name));
@@ -293,25 +388,40 @@ namespace Zest_Script.settings
         #endregion
 
         #region RDP Files
-        public ErrorCodes AddRDPFile(RDPFile file)
+        /// <summary>
+        /// Add an RDP file (if not present) to the <see cref="RDPFiles"/> list.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns>A code representing the state after invoking.</returns>
+        public ReturnCodes AddRDPFile(RDPFile file)
         {
             if (rdpFiles.Any(f => f.ComputerName.Equals(file.ComputerName)))
-                return ErrorCodes.RDP_ALREADY_EXISTS;
+                return ReturnCodes.RDP_ALREADY_EXISTS;
             rdpFiles.Add(file);
 
-            return ErrorCodes.NO_ERROR;
+            return ReturnCodes.NO_ERROR;
         }
 
-        public ErrorCodes RemoveRDPFile(RDPFile file)
+        /// <summary>
+        /// Remove an RDP file (if present) from the <see cref="RDPFiles"/> list.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns>A code representing the state after invoking.</returns>
+        public ReturnCodes RemoveRDPFile(RDPFile file)
         {
             if (rdpFiles.Contains(file))
                 rdpFiles.Remove(file);
             else
-                return ErrorCodes.RDP_DOES_NOT_EXIST;
+                return ReturnCodes.RDP_DOES_NOT_EXIST;
 
-            return ErrorCodes.NO_ERROR;
+            return ReturnCodes.NO_ERROR;
         }
 
+        /// <summary>
+        /// Get an RDP file based on the <paramref name="computerName"/>.
+        /// </summary>
+        /// <param name="computerName"></param>
+        /// <returns>The RDP file or <c>null</c> if not found.</returns>
         public RDPFile? GetRDPFile(string computerName)
         {
             return rdpFiles.FirstOrDefault(a => a.ComputerName.Equals(computerName));
@@ -319,50 +429,85 @@ namespace Zest_Script.settings
         #endregion
 
         #region Mapped Drives
-        public ErrorCodes AddMappedDrive(MappedDrive d)
+        /// <summary>
+        /// Add a mapped drive (if not present) to the <see cref="MappedDrives"/> list.
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns>A code representing the state after invoking.</returns>
+        public ReturnCodes AddMappedDrive(MappedDrive d)
         {
             if (mappedDrives.Any(f => f.DriveLetter == d.DriveLetter))
-                return ErrorCodes.MAPPED_DRIVE_ALREADY_EXISTS;
+                return ReturnCodes.MAPPED_DRIVE_ALREADY_EXISTS;
             mappedDrives.Add(d);
 
-            return ErrorCodes.NO_ERROR;
+            return ReturnCodes.NO_ERROR;
         }
 
-        public ErrorCodes RemoveMappedDrive(MappedDrive d)
+        /// <summary>
+        /// Remove a mapped drive (if present) from the <see cref="MappedDrives"/> list.
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns>A code representing the state after invoking.</returns>
+        public ReturnCodes RemoveMappedDrive(MappedDrive d)
         {
             if (mappedDrives.Contains(d))
                 mappedDrives.Remove(d);
             else
-                return ErrorCodes.MAPPED_DRIVE_DOES_NOT_EXIST;
+                return ReturnCodes.MAPPED_DRIVE_DOES_NOT_EXIST;
 
-            return ErrorCodes.NO_ERROR;
+            return ReturnCodes.NO_ERROR;
         }
 
-        public MappedDrive? GetMappedDrive(DriveLetter letter)
+        /// <summary>
+        /// Get a mapped drive based on the <paramref name="path"/> and optionally the <paramref name="letter"/>.
+        /// </summary>
+        /// 
+        /// <param name="path">The UNC path of the mapped drive.</param>
+        /// <param name="letter">The drive letter to search for. <c>Nullable</c></param>
+        /// <returns>The mapped drive or <c>null</c> if not found.</returns>
+        public MappedDrive? GetMappedDrive(string path, DriveLetter? letter)
         {
-            return mappedDrives.FirstOrDefault(d => d.DriveLetter == letter);
+            if (letter != null)
+                return mappedDrives.FirstOrDefault(d => d.DriveLetter == letter && d.Path.Equals(path));
+            else
+                return mappedDrives.FirstOrDefault(d => d.Path.Equals(path));
         }
         #endregion
 
         #region Printers
-        public ErrorCodes AddPrinter(Printer p)
+        /// <summary>
+        /// Add a printer (if not present) to the <see cref="Printers"/> list.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns>A code representing the state after invoking.</returns>
+        public ReturnCodes AddPrinter(Printer p)
         {
             if (printers.Any(f => f.Name == p.Name))
-                return ErrorCodes.PRINTER_ALREADY_EXISTS;
+                return ReturnCodes.PRINTER_ALREADY_EXISTS;
             printers.Add(p);
 
-            return ErrorCodes.NO_ERROR;
+            return ReturnCodes.NO_ERROR;
         }
 
-        public ErrorCodes RemovePrinter(Printer p)
+        /// <summary>
+        /// Remove a printer (if present) from the <see cref="Printers"/> list.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns>A code representing the state after invoking.</returns>
+        public ReturnCodes RemovePrinter(Printer p)
         {
             if (printers.Contains(p))
                 printers.Remove(p);
             else
-                return ErrorCodes.PRINTER_DOES_NOT_EXIST;
-            return ErrorCodes.NO_ERROR;
+                return ReturnCodes.PRINTER_DOES_NOT_EXIST;
+            return ReturnCodes.NO_ERROR;
         }
 
+        /// <summary>
+        /// Get a printer based on the <paramref name="name"/>.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>The printer or <c>null</c> if not found.</returns>
         public Printer? GetPrinter(string name)
         {
             return printers.FirstOrDefault(p => p.Name.Equals(name));

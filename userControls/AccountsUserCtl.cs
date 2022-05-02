@@ -43,7 +43,8 @@ namespace Zest_Script.userControls
                 return;
 
             foreach (DataGridViewRow row in dgAccounts.SelectedRows)
-                Configuration.Instance.RemoveAccount((Account)row.Tag);
+                if (row.Tag != null)
+                    Configuration.Instance.RemoveAccount((Account)row.Tag);
 
             dgAccounts.Rows.Clear();
             dgAccounts.Update();
@@ -53,7 +54,7 @@ namespace Zest_Script.userControls
             }
         }
 
-        private void UpdateGrid(object o, EventArgs e)
+        private void UpdateGrid(object? o, EventArgs e)
         {
             if (e is CEventArgs.AccountAddedEventArgs a)
             {

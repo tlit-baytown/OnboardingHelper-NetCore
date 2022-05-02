@@ -16,10 +16,13 @@ namespace Zest_Script.userControls
             cmbTimeZones.DataSource = Utility.GetTimezones();
             cmbNTPServers.DataSource = Utility.GetPossibleNTPServers();
 
-            if (SystemInfo.Instance.OSName.Contains("Home"))
+            if (SystemInfo.Instance.OSName != null)
             {
-                txtDomain.Enabled = false;
-                txtDomain.PlaceholderText = "Domain is not available in 'Home' versions of Windows!";
+                if (SystemInfo.Instance.OSName.Contains("Home"))
+                {
+                    txtDomain.Enabled = false;
+                    txtDomain.PlaceholderText = "Domain is not available in 'Home' versions of Windows!";
+                }
             }
         }
 

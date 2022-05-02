@@ -5,8 +5,17 @@ namespace Zest_Script.forms
 {
     public partial class OnboardForm : Form
     {
-        public EventHandler OnboardingDone;
+        /// <summary>
+        /// Occurs when on-boarding has completed.
+        /// </summary>
+        public EventHandler? OnboardingDone;
 
+        /// <summary>
+        /// Occurs when an error occurs while on-boarding.
+        /// </summary>
+        public EventHandler? OnboardingError;
+
+        private List<CTask> tasks = new List<CTask>();
         private CTask currentTask = new CTask();
 
         public OnboardForm()
@@ -28,6 +37,8 @@ namespace Zest_Script.forms
                 counter++;
                 currentTask.ShortMessage = $"Counter: {counter}";
                 currentTask.DescriptionMessage = $"Currently setting the counter variable to: {counter}";
+
+                tasks.Add(currentTask);
 
                 bgOnboardWorker.ReportProgress(counter);
                 Thread.Sleep(50);

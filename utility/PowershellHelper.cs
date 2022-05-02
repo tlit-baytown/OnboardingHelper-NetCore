@@ -4,9 +4,11 @@ using System.Management.Automation;
 
 namespace Zest_Script
 {
+    /// <summary>
+    /// Class to handle interacting with Powershell from the Zest Script program.
+    /// </summary>
     public sealed class PowershellHelper
     {
-        private static bool _updatePreReqsInstalled = true;
 
         /// <summary>
         /// Get the list of current printer drivers installed on the current system.
@@ -59,19 +61,19 @@ namespace Zest_Script
             return drivers;
         }
 
-        private static void InstallUpdatePreReqs()
-        {
-            //Get Prereqs installed first for Update check.
-            using (PowerShell instance = PowerShell.Create())
-            {
-                string path = Path.Combine("scripts", "windows-update", "PreReq.ps1");
-                if (!string.IsNullOrEmpty(path))
-                    instance.AddScript(File.ReadAllText(path));
-                Collection<PSObject> result = instance.Invoke();
-                if (result.Count > 0)
-                    _updatePreReqsInstalled = true;
-            }
-        }
+        //private static void InstallUpdatePreReqs()
+        //{
+        //    //Get Prereqs installed first for Update check.
+        //    using (PowerShell instance = PowerShell.Create())
+        //    {
+        //        string path = Path.Combine("scripts", "windows-update", "PreReq.ps1");
+        //        if (!string.IsNullOrEmpty(path))
+        //            instance.AddScript(File.ReadAllText(path));
+        //        Collection<PSObject> result = instance.Invoke();
+        //        if (result.Count > 0)
+        //            _updatePreReqsInstalled = true;
+        //    }
+        //}
 
         //public static List<UpdateWrapper> GetUpdates()
         //{

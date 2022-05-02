@@ -2,9 +2,13 @@
 
 namespace Zest_Script
 {
-    public class CEventArgs
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+    /// <summary>
+    /// Class to hold custom <see cref="EventArgs"/> for <see cref="EventHandler"/>s.
+    /// </summary>
+    public sealed class CEventArgs
     {
-        public class ApplicationAddedEventArgs : EventArgs
+        public sealed class ApplicationAddedEventArgs : EventArgs
         {
             public wrappers.Application AddedApplication { get; private set; }
 
@@ -14,7 +18,7 @@ namespace Zest_Script
             }
         }
 
-        public class AccountAddedEventArgs : EventArgs
+        public sealed class AccountAddedEventArgs : EventArgs
         {
             public Account AddedAccount { get; private set; }
 
@@ -24,7 +28,7 @@ namespace Zest_Script
             }
         }
 
-        public class WiFiAddedEventArgs : EventArgs
+        public sealed class WiFiAddedEventArgs : EventArgs
         {
             public WiFi WiFi { get; private set; }
 
@@ -34,7 +38,7 @@ namespace Zest_Script
             }
         }
 
-        public class VPNAddedEventArgs : EventArgs
+        public sealed class VPNAddedEventArgs : EventArgs
         {
             public VPN VPN { get; private set; }
 
@@ -44,7 +48,7 @@ namespace Zest_Script
             }
         }
 
-        public class ConfigSavedEventArgs : EventArgs
+        public sealed class ConfigSavedEventArgs : EventArgs
         {
             public string ConfigPath { get; private set; }
 
@@ -54,7 +58,7 @@ namespace Zest_Script
             }
         }
 
-        public class MappedDriveAdddedEventArgs : EventArgs
+        public sealed class MappedDriveAdddedEventArgs : EventArgs
         {
             public MappedDrive Drive { get; private set; }
 
@@ -64,7 +68,7 @@ namespace Zest_Script
             }
         }
 
-        public class PrinterAddedEventArgs : EventArgs
+        public sealed class PrinterAddedEventArgs : EventArgs
         {
             public Printer Printer { get; private set; }
 
@@ -74,7 +78,7 @@ namespace Zest_Script
             }
         }
 
-        public class OnboardDoneEventArgs : EventArgs
+        public sealed class OnboardDoneEventArgs : EventArgs
         {
             public string Message { get; private set; }
             public bool IsSuccessful { get; private set; }
@@ -87,3 +91,4 @@ namespace Zest_Script
         }
     }
 }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

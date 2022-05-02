@@ -1,13 +1,21 @@
 ﻿using System.ComponentModel;
+using System.Reflection;
 using static Zest_Script.EnumHelper;
 
 namespace Zest_Script
 {
-    public class EnumHelper
+    /// <summary>
+    /// Class that holds Enum classes and extension methods.
+    /// </summary>
+    public sealed class EnumHelper
     {
-        public enum ErrorCodes
+        /// <summary>
+        /// Represents the various codes that can be returned by methods.
+        /// </summary>
+        public enum ReturnCodes
         {
-            [Description("")]
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+            [Description("No error has occured.")]
             NO_ERROR = 0,
             [Description("The application has already been added to the collection.")]
             APPLICATION_ALREADY_EXISTS = 2,
@@ -34,23 +42,47 @@ namespace Zest_Script
             [Description("The drive mapping is not present in the collection.")]
             MAPPED_DRIVE_DOES_NOT_EXIST = 4096,
             [Description("The printer has already been added to the collection.")]
-            PRINTER_ALREADY_EXISTS,
+            PRINTER_ALREADY_EXISTS = 8192,
             [Description("The printer is not present in the collection.")]
-            PRINTER_DOES_NOT_EXIST
+            PRINTER_DOES_NOT_EXIST = 16384
         }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
 
+    /// <summary>
+    /// Extension methods for Enums defined in <see cref="EnumHelper"/>.
+    /// </summary>
     public static class EnumExtensions
     {
-        public static string? ToDescriptionString(this ErrorCodes val)
+        /// <summary>
+        /// Get the description string associated with the specified <see cref="ReturnCodes"/> value.
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns>The description of the value or <c>null</c> if the <see cref="DescriptionAttribute"/> attribute was not found.</returns>
+        public static string? ToDescriptionString(this ReturnCodes val)
         {
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-            DescriptionAttribute[] attributes = (DescriptionAttribute[])val
-               .GetType()
-               .GetField(val.ToString())
-               .GetCustomAttributes(typeof(DescriptionAttribute), false);
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-            return attributes.Length > 0 ? attributes[0].Description : string.Empty;
+            Type t = val.GetType();
+            try
+            {
+                FieldInfo? fInfo = t.GetField(val.ToString());
+                if (fInfo != null)
+                {
+                    object[]? customAttributes = fInfo.GetCustomAttributes(typeof(DescriptionAttribute), false);
+                    if (customAttributes != null)
+                    {
+                        DescriptionAttribute[] attributes = (DescriptionAttribute[])customAttributes;
+                        return attributes.Length > 0 ? attributes[0].Description : null;
+                    }
+                }
+            }
+            catch (Exception ex) when (ex is TypeLoadException || ex is ArgumentNullException
+                  || ex is InvalidOperationException || ex is NotSupportedException)
+            {
+                System.Diagnostics.EventLog.WriteEntry("Application",
+                    $"Exception occured in Zest Script while attempting to read description attribute of value: {ex.Message}",
+                    System.Diagnostics.EventLogEntryType.Error);
+            }
+            return null;
         }
     }
 }

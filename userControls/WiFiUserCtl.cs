@@ -46,7 +46,10 @@ namespace Zest_Script.userControls
                 return;
 
             foreach (DataGridViewRow row in dgWifis.SelectedRows)
-                Configuration.Instance.RemoveWiFi((WiFi)row.Tag);
+            {
+                if (row.Tag != null)
+                    Configuration.Instance.RemoveWiFi((WiFi)row.Tag);
+            }
 
             dgWifis.Rows.Clear();
             dgWifis.Update();
@@ -54,7 +57,7 @@ namespace Zest_Script.userControls
                 UpdateGrid(this, new CEventArgs.WiFiAddedEventArgs(wifi));
         }
 
-        private void UpdateGrid(object o, EventArgs e)
+        private void UpdateGrid(object? o, EventArgs e)
         {
             if (e is CEventArgs.WiFiAddedEventArgs w)
             {

@@ -6,7 +6,10 @@ namespace Zest_Script.forms
 {
     public partial class AddWiFiPopUp : Form
     {
-        public EventHandler WiFiAdded;
+        /// <summary>
+        /// Occurs when a new Wifi profile is added.
+        /// </summary>
+        public EventHandler? WiFiAdded;
 
         private readonly WiFi wifi = new WiFi();
 
@@ -84,8 +87,8 @@ namespace Zest_Script.forms
             }
 
             wifi.SetBase64Passwords();
-            EnumHelper.ErrorCodes error = Configuration.Instance.AddWiFi(wifi);
-            return error == EnumHelper.ErrorCodes.NO_ERROR;
+            EnumHelper.ReturnCodes error = Configuration.Instance.AddWiFi(wifi);
+            return error == EnumHelper.ReturnCodes.NO_ERROR;
         }
 
         private bool AddAndClear()

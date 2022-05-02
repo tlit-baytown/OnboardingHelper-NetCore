@@ -61,7 +61,7 @@ namespace Zest_Script
             summaryDialog.ShowDialog();
         }
 
-        private void HandleConfigAccepted(object sender, EventArgs e)
+        private void HandleConfigAccepted(object? sender, EventArgs e)
         {
             lblStatusText.Text = "Configuration Accepted! Beginning On-Boarding Process...";
 
@@ -71,7 +71,7 @@ namespace Zest_Script
             onboardingForm.ShowDialog();
         }
 
-        private void HandleConfigRejected(object sender, EventArgs e)
+        private void HandleConfigRejected(object? sender, EventArgs e)
         {
             lblStatusText.Text = "Configuration rejected by user. Make changes and attempt On-Boarding again.";
         }
@@ -93,7 +93,7 @@ namespace Zest_Script
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void HandleOnboardDone(object sender, EventArgs e)
+        private void HandleOnboardDone(object? sender, EventArgs e)
         {
             if (e is OnboardDoneEventArgs args)
             {
@@ -113,7 +113,7 @@ namespace Zest_Script
             }
         }
 
-        private void HandleConfigLoadError(object sender, EventArgs e)
+        private void HandleConfigLoadError(object? sender, EventArgs e)
         {
             MessageBox.Show(this, "An error occured reading the XML configuration. " +
                 "Ensure it is a valid configuration file and try again.", "Error",
@@ -121,7 +121,7 @@ namespace Zest_Script
             lblStatusText.Text = "Error loading configuration!";
         }
 
-        private void HandleConfigSaveError(object sender, EventArgs e)
+        private void HandleConfigSaveError(object? sender, EventArgs e)
         {
             MessageBox.Show(this, "An error occured saving the XML configuration. " +
                 "Ensure the file path is accessible and writable to the application.", "Error",
@@ -129,7 +129,7 @@ namespace Zest_Script
             lblStatusText.Text = "Error saving configuration!";
         }
 
-        private void HandleConfigLoaded(object sender, EventArgs e)
+        private void HandleConfigLoaded(object? sender, EventArgs e)
         {
             //Update values on each user control that implements IUpdatable
             int errorCount = 0;
@@ -171,7 +171,7 @@ namespace Zest_Script
             return errorCount;
         }
 
-        private void HandleConfigSaved(object sender, EventArgs e)
+        private void HandleConfigSaved(object? sender, EventArgs e)
         {
             if (e is ConfigSavedEventArgs args)
             {
@@ -179,7 +179,7 @@ namespace Zest_Script
             }
         }
 
-        private void HandleConfigReset(object sender, EventArgs e)
+        private void HandleConfigReset(object? sender, EventArgs e)
         {
             foreach (TabPage t in mainTabs.TabPages)
                 UpdateRecursive(t.Controls);

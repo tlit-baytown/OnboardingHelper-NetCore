@@ -6,7 +6,10 @@ namespace Zest_Script
 {
     public partial class AddAccountPopUp : Form
     {
-        public EventHandler AccountAdded;
+        /// <summary>
+        /// Occurs when a new account is added.
+        /// </summary>
+        public EventHandler? AccountAdded;
 
         private readonly Account account = new Account();
 
@@ -49,8 +52,8 @@ namespace Zest_Script
             account.Password = new NetworkCredential("", pw).SecurePassword;
             account.SetBase64FromPassword();
 
-            EnumHelper.ErrorCodes error = Configuration.Instance.AddAccount(account);
-            return error == EnumHelper.ErrorCodes.NO_ERROR;
+            EnumHelper.ReturnCodes error = Configuration.Instance.AddAccount(account);
+            return error == EnumHelper.ReturnCodes.NO_ERROR;
         }
 
         private bool AddAndClear()

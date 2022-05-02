@@ -30,7 +30,7 @@ namespace Zest_Script.forms
                         return titleAttribute.Title;
                     }
                 }
-                return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+                return Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().Location);
             }
         }
 
@@ -38,7 +38,12 @@ namespace Zest_Script.forms
         {
             get
             {
-                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                AssemblyName assemblyName = assembly.GetName();
+                if (assemblyName.Version != null)
+                    return assemblyName.Version.ToString();
+                else
+                    return new Version(1, 0, 0).ToString();
             }
         }
 

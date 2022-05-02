@@ -72,8 +72,8 @@ namespace Zest_Script.forms
                 }
             }
 
-            EnumHelper.ErrorCodes error = Configuration.Instance.AddPrinter(printer);
-            return error == EnumHelper.ErrorCodes.NO_ERROR;
+            EnumHelper.ReturnCodes error = Configuration.Instance.AddPrinter(printer);
+            return error == EnumHelper.ReturnCodes.NO_ERROR;
         }
 
         private bool AddAndClear()

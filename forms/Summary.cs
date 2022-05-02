@@ -15,16 +15,21 @@ namespace Zest_Script.forms
         /// </summary>
         public EventHandler? ConfigRejected;
 
+        /// <summary>
+        /// Create a new default summary dialog.
+        /// </summary>
         public Summary()
         {
             InitializeComponent();
         }
 
-        public Summary(bool showButtons = true)
+        /// <summary>
+        /// Create a new summary dialog with the specified argument.
+        /// </summary>
+        /// <param name="showConfirmationButtons">Indicate whether or not to show confirmation buttons.</param>
+        public Summary(bool showConfirmationButtons) : this()
         {
-            InitializeComponent();
-
-            if (!showButtons)
+            if (!showConfirmationButtons)
                 tlpButtons.Visible = false;
         }
 

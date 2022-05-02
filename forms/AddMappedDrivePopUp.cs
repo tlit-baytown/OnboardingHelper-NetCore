@@ -53,8 +53,8 @@ namespace Zest_Script.forms
                 drive.SetBase64Password();
             }
 
-            EnumHelper.ErrorCodes error = Configuration.Instance.AddMappedDrive(drive);
-            return error == EnumHelper.ErrorCodes.NO_ERROR;
+            EnumHelper.ReturnCodes error = Configuration.Instance.AddMappedDrive(drive);
+            return error == EnumHelper.ReturnCodes.NO_ERROR;
         }
 
         private bool AddAndClear()

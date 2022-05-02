@@ -6,7 +6,7 @@ namespace Zest_Script.forms
 {
     public partial class AddVPNPopUp : Form
     {
-        public EventHandler VPNAdded;
+        public EventHandler? VPNAdded;
 
         private readonly VPN vpn = new VPN();
         private bool isUsingPSK = false;
@@ -73,8 +73,8 @@ namespace Zest_Script.forms
             }
 
             vpn.SetBase64Passwords();
-            EnumHelper.ErrorCodes error = Configuration.Instance.AddVPN(vpn);
-            return error == EnumHelper.ErrorCodes.NO_ERROR;
+            EnumHelper.ReturnCodes error = Configuration.Instance.AddVPN(vpn);
+            return error == EnumHelper.ReturnCodes.NO_ERROR;
         }
 
         private bool AddAndClear()
@@ -227,9 +227,6 @@ namespace Zest_Script.forms
             vpn.ServerAddress = txtServerAddress.Text;
         }
 
-        /// <summary>
-        /// Switches the input from a username and password to a pre-shared key.
-        /// </summary>
         private void SwitchToPresharedKey()
         {
             grpCredentials.Visible = true;
@@ -243,9 +240,6 @@ namespace Zest_Script.forms
             isUsingPSK = true;
         }
 
-        /// <summary>
-        /// Switches the input from pre-shared key to a username and password.
-        /// </summary>
         private void SwitchToUsernamePassword()
         {
             grpCredentials.Visible = true;
