@@ -1,4 +1,4 @@
-﻿namespace OnboardingHelper_NetCore.userControls
+﻿namespace Zest_Script.userControls
 {
     /// <summary>
     /// This interface should be used when a user control allows its values to be updated by

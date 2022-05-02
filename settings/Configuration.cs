@@ -1,12 +1,11 @@
-﻿using OnboardingHelper_NetCore.wrappers;
-using System.Net;
-using System.Security;
-using System.Xml;
+﻿using System.Xml;
 using System.Xml.Serialization;
-using static OnboardingHelper_NetCore.CEventArgs;
-using static OnboardingHelper_NetCore.EnumHelper;
+using Zest_Script.wrappers;
+using Zest_Script.wrappers.property_grid;
+using static Zest_Script.CEventArgs;
+using static Zest_Script.EnumHelper;
 
-namespace OnboardingHelper_NetCore.settings
+namespace Zest_Script.settings
 {
 
     /// <summary>
@@ -47,6 +46,9 @@ namespace OnboardingHelper_NetCore.settings
         [XmlIgnore()]
         public bool HasBeenOnboarded { get; set; } = false;
 
+        /// <summary>
+        /// Get the current (up-to-date) version of the configuration.
+        /// </summary>
         [XmlIgnore()]
         public static Configuration Instance
         {
@@ -62,32 +64,8 @@ namespace OnboardingHelper_NetCore.settings
         }
 
         #region Basic Options
-        [XmlElement("computer-name")]
-        public string ComputerName { get; set; } = string.Empty;
-
-        [XmlElement("domain")]
-        public string Domain { get; set; } = string.Empty;
-
-        [XmlIgnore()]
-        public TimeZoneInfo TimeZone { get; set; } = TimeZoneInfo.Local;
-
-        [XmlElement("timezone")]
-        public string TimeZoneString { get; set; } = string.Empty;
-
-        [XmlElement("primary-ntp-server")]
-        public string PrimaryNTPServer { get; set; } = string.Empty;
-
-        [XmlElement("should-perform-time-sync", typeof(bool))]
-        public bool PerformTimeSync { get; set; } = true;
-
-        [XmlElement("domain-username")]
-        public string DomainUsername { get; set; } = string.Empty;
-
-        [XmlElement("domain-password")]
-        public string Base64DomainPassword { get; set; } = string.Empty;
-
-        [XmlIgnore()]
-        public SecureString DomainPassword { get; set; } = new NetworkCredential("", string.Empty).SecurePassword;
+        [XmlElement("basic-information")]
+        public BasicInfo BasicInfo = new BasicInfo();
         #endregion
 
         #region Accounts
@@ -142,8 +120,8 @@ namespace OnboardingHelper_NetCore.settings
         /// <returns></returns>
         public bool CheckConfiguration()
         {
-            if (ComputerName.Equals(string.Empty) | TimeZone == null
-                | PrimaryNTPServer.Equals(string.Empty) | accounts.Count <= 0)
+            if (BasicInfo.ComputerName.Equals(string.Empty) | BasicInfo.TimeZone == null
+                | BasicInfo.PrimaryNTPServer.Equals(string.Empty) | accounts.Count <= 0)
                 return false;
 
             return true;

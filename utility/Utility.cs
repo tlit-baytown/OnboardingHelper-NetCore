@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Security;
 
-namespace OnboardingHelper_NetCore
+namespace Zest_Script
 {
     public sealed class Utility
     {

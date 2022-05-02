@@ -1,7 +1,7 @@
-﻿using OnboardingHelper_NetCore.settings;
-using OnboardingHelper_NetCore.wrappers;
+﻿using Zest_Script.settings;
+using Zest_Script.wrappers;
 
-namespace OnboardingHelper_NetCore.forms
+namespace Zest_Script.forms
 {
     public partial class AddPrinterPopUp : Form
     {

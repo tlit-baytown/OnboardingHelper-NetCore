@@ -1,4 +1,4 @@
-﻿namespace OnboardingHelper_NetCore.userControls
+﻿namespace Zest_Script.userControls
 {
     partial class ProgramsUserCtl
     {

@@ -1,17 +1,7 @@
-﻿using OnboardingHelper_NetCore.settings;
-using OnboardingHelper_NetCore.wrappers;
-using OnboardingHelper_NetCore.wrappers.property_grid;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Zest_Script.settings;
+using Zest_Script.wrappers;
 
-namespace OnboardingHelper_NetCore.forms
+namespace Zest_Script.forms
 {
     public partial class Summary : Form
     {
@@ -24,8 +14,6 @@ namespace OnboardingHelper_NetCore.forms
         /// Occurs when the user rejects the current configuration for on-boarding.
         /// </summary>
         public EventHandler? ConfigRejected;
-
-        private BasicInfo basicInfo = new BasicInfo();
 
         public Summary()
         {
@@ -42,24 +30,27 @@ namespace OnboardingHelper_NetCore.forms
 
         private void Summary_Load(object sender, EventArgs e)
         {
-            TreeNode? basicRoot = tvOptions.Nodes["nodeBasic"];
-            if (basicRoot != null)
-            {
-                basicRoot.Tag = basicInfo;
-                propGrid.SelectedObject = basicRoot.Tag;
-                SetupTree();
-            }
+            SetupTree();
+            tvOptions.SelectedNode = tvOptions.Nodes[0]; //Select the first node in the tree view.
         }
 
         private void SetupTree()
         {
-            //Set up accounts
+            AddBasicInfo();
             AddAccounts();
             AddConnections();
             AddPrograms();
             AddRemoteDesktops();
             AddDriveMappings();
             AddPrinterMappings();
+        }
+
+        private void AddBasicInfo()
+        {
+            TreeNode? basicRoot = tvOptions.Nodes["nodeBasic"];
+            if (basicRoot == null)
+                return;
+            basicRoot.Tag = Configuration.Instance.BasicInfo;
         }
 
         private void AddAccounts()

@@ -1,4 +1,4 @@
-﻿namespace OnboardingHelper_NetCore.userControls
+﻿namespace Zest_Script.userControls
 {
     partial class BasicInfoUserCtl
     {
@@ -61,7 +61,7 @@
             this.grpDomainCredentials.Controls.Add(this.tableLayoutPanel2);
             this.grpDomainCredentials.Location = new System.Drawing.Point(3, 3);
             this.grpDomainCredentials.Name = "grpDomainCredentials";
-            this.grpDomainCredentials.Size = new System.Drawing.Size(385, 100);
+            this.grpDomainCredentials.Size = new System.Drawing.Size(385, 107);
             this.grpDomainCredentials.TabIndex = 12;
             this.grpDomainCredentials.TabStop = false;
             this.grpDomainCredentials.Text = "Domain Credentials";
@@ -76,12 +76,12 @@
             this.tableLayoutPanel2.Controls.Add(this.label6, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.label5, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.txtDomainUsername, 1, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(6, 20);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(6, 21);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 47.56097F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 52.43903F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(370, 73);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(370, 78);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // flowLayoutPanel1
@@ -89,9 +89,9 @@
             this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel1.Controls.Add(this.txtDomainPassword);
             this.flowLayoutPanel1.Controls.Add(this.btnShowDomainPassword);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(77, 37);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(77, 40);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(290, 33);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(290, 35);
             this.flowLayoutPanel1.TabIndex = 10;
             // 
             // txtDomainPassword
@@ -108,12 +108,12 @@
             // 
             // btnShowDomainPassword
             // 
-            this.btnShowDomainPassword.BackgroundImage = global::OnboardingHelper_NetCore.Properties.Resources.show_24x24;
+            this.btnShowDomainPassword.BackgroundImage = global::Zest_Script.Properties.Resources.show_24x24;
             this.btnShowDomainPassword.FlatAppearance.BorderSize = 0;
             this.btnShowDomainPassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowDomainPassword.Location = new System.Drawing.Point(262, 3);
             this.btnShowDomainPassword.Name = "btnShowDomainPassword";
-            this.btnShowDomainPassword.Size = new System.Drawing.Size(24, 24);
+            this.btnShowDomainPassword.Size = new System.Drawing.Size(24, 26);
             this.btnShowDomainPassword.TabIndex = 4;
             this.btnShowDomainPassword.UseVisualStyleBackColor = true;
             this.btnShowDomainPassword.MouseEnter += new System.EventHandler(this.btnShowDomainPassword_MouseEnter);
@@ -123,9 +123,9 @@
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 46);
+            this.label6.Location = new System.Drawing.Point(3, 49);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(68, 15);
+            this.label6.Size = new System.Drawing.Size(68, 16);
             this.label6.TabIndex = 2;
             this.label6.Text = "Password: ";
             // 
@@ -133,16 +133,16 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 9);
+            this.label5.Location = new System.Drawing.Point(3, 10);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(68, 15);
+            this.label5.Size = new System.Drawing.Size(68, 16);
             this.label5.TabIndex = 0;
             this.label5.Text = "Username: ";
             // 
             // txtDomainUsername
             // 
             this.txtDomainUsername.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDomainUsername.Location = new System.Drawing.Point(77, 5);
+            this.txtDomainUsername.Location = new System.Drawing.Point(77, 7);
             this.txtDomainUsername.Name = "txtDomainUsername";
             this.txtDomainUsername.PlaceholderText = "Username of domain administrator";
             this.txtDomainUsername.Size = new System.Drawing.Size(290, 23);
@@ -152,9 +152,9 @@
             // chkPerformTZSync
             // 
             this.chkPerformTZSync.AutoSize = true;
-            this.chkPerformTZSync.Location = new System.Drawing.Point(3, 109);
+            this.chkPerformTZSync.Location = new System.Drawing.Point(3, 116);
             this.chkPerformTZSync.Name = "chkPerformTZSync";
-            this.chkPerformTZSync.Size = new System.Drawing.Size(166, 19);
+            this.chkPerformTZSync.Size = new System.Drawing.Size(175, 20);
             this.chkPerformTZSync.TabIndex = 11;
             this.chkPerformTZSync.Text = "Perform Time Server Sync?";
             this.chkPerformTZSync.UseVisualStyleBackColor = true;
@@ -181,16 +181,16 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(877, 140);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(877, 149);
             this.tableLayoutPanel1.TabIndex = 10;
             // 
             // label4
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 115);
+            this.label4.Location = new System.Drawing.Point(3, 122);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(157, 15);
+            this.label4.Size = new System.Drawing.Size(157, 16);
             this.label4.TabIndex = 6;
             this.label4.Text = "Primary NTP Server: ";
             // 
@@ -198,9 +198,9 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 80);
+            this.label3.Location = new System.Drawing.Point(3, 84);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(157, 15);
+            this.label3.Size = new System.Drawing.Size(157, 16);
             this.label3.TabIndex = 4;
             this.label3.Text = "Time Zone: ";
             // 
@@ -208,16 +208,16 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 45);
+            this.label2.Location = new System.Drawing.Point(3, 47);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(157, 15);
+            this.label2.Size = new System.Drawing.Size(157, 16);
             this.label2.TabIndex = 2;
             this.label2.Text = "Domain: ";
             // 
             // txtDomain
             // 
             this.txtDomain.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDomain.Location = new System.Drawing.Point(166, 41);
+            this.txtDomain.Location = new System.Drawing.Point(166, 44);
             this.txtDomain.Name = "txtDomain";
             this.txtDomain.Size = new System.Drawing.Size(708, 23);
             this.txtDomain.TabIndex = 3;
@@ -229,14 +229,14 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 10);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(157, 15);
+            this.label1.Size = new System.Drawing.Size(157, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "Computer Name: ";
             // 
             // txtComputerName
             // 
             this.txtComputerName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtComputerName.Location = new System.Drawing.Point(166, 6);
+            this.txtComputerName.Location = new System.Drawing.Point(166, 7);
             this.txtComputerName.Name = "txtComputerName";
             this.txtComputerName.Size = new System.Drawing.Size(708, 23);
             this.txtComputerName.TabIndex = 1;
@@ -248,9 +248,9 @@
             this.cmbTimeZones.DisplayMember = "DisplayName";
             this.cmbTimeZones.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTimeZones.FormattingEnabled = true;
-            this.cmbTimeZones.Location = new System.Drawing.Point(166, 76);
+            this.cmbTimeZones.Location = new System.Drawing.Point(166, 80);
             this.cmbTimeZones.Name = "cmbTimeZones";
-            this.cmbTimeZones.Size = new System.Drawing.Size(708, 23);
+            this.cmbTimeZones.Size = new System.Drawing.Size(708, 24);
             this.cmbTimeZones.TabIndex = 5;
             this.cmbTimeZones.SelectedIndexChanged += new System.EventHandler(this.cmbTimeZones_SelectedIndexChanged);
             // 
@@ -258,9 +258,9 @@
             // 
             this.cmbNTPServers.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbNTPServers.FormattingEnabled = true;
-            this.cmbNTPServers.Location = new System.Drawing.Point(166, 111);
+            this.cmbNTPServers.Location = new System.Drawing.Point(166, 118);
             this.cmbNTPServers.Name = "cmbNTPServers";
-            this.cmbNTPServers.Size = new System.Drawing.Size(708, 23);
+            this.cmbNTPServers.Size = new System.Drawing.Size(708, 24);
             this.cmbNTPServers.TabIndex = 7;
             this.cmbNTPServers.SelectedIndexChanged += new System.EventHandler(this.cmbNTPServers_SelectedIndexChanged);
             this.cmbNTPServers.TextChanged += new System.EventHandler(this.cmbNTPServers_TextChanged);
@@ -272,7 +272,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(877, 471);
+            this.panel1.Size = new System.Drawing.Size(877, 502);
             this.panel1.TabIndex = 13;
             // 
             // flowLayoutPanel2
@@ -281,18 +281,18 @@
             this.flowLayoutPanel2.Controls.Add(this.chkPerformTZSync);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 140);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 149);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(395, 331);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(395, 353);
             this.flowLayoutPanel2.TabIndex = 14;
             // 
             // BasicInfoUserCtl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel1);
             this.Name = "BasicInfoUserCtl";
-            this.Size = new System.Drawing.Size(877, 471);
+            this.Size = new System.Drawing.Size(877, 502);
             this.Load += new System.EventHandler(this.BasicInfoUserCtl_Load);
             this.grpDomainCredentials.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);

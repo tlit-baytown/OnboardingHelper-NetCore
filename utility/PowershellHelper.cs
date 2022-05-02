@@ -1,9 +1,8 @@
 ﻿using Microsoft.Management.Infrastructure;
-using OnboardingHelper_NetCore.wrappers;
 using System.Collections.ObjectModel;
 using System.Management.Automation;
 
-namespace OnboardingHelper_NetCore
+namespace Zest_Script
 {
     public sealed class PowershellHelper
     {
@@ -74,39 +73,39 @@ namespace OnboardingHelper_NetCore
             }
         }
 
-        public static List<UpdateWrapper> GetUpdates()
-        {
-            List<UpdateWrapper> updates = new List<UpdateWrapper>();
+        //public static List<UpdateWrapper> GetUpdates()
+        //{
+        //    List<UpdateWrapper> updates = new List<UpdateWrapper>();
 
-            if (!_updatePreReqsInstalled)
-                InstallUpdatePreReqs();
+        //    if (!_updatePreReqsInstalled)
+        //        InstallUpdatePreReqs();
 
-            using (PowerShell instance = PowerShell.Create())
-            {
-                string path = Path.Combine("scripts", "windows-update", "CheckUpdates.ps1");
-                if (!string.IsNullOrEmpty(path))
-                {
-                    string script = File.ReadAllText(path);
-                    instance.AddScript(script);
-                }
+        //    using (PowerShell instance = PowerShell.Create())
+        //    {
+        //        string path = Path.Combine("scripts", "windows-update", "CheckUpdates.ps1");
+        //        if (!string.IsNullOrEmpty(path))
+        //        {
+        //            string script = File.ReadAllText(path);
+        //            instance.AddScript(script);
+        //        }
 
-                Collection<PSObject> PSOutput = instance.Invoke();
+        //        Collection<PSObject> PSOutput = instance.Invoke();
 
-                foreach (PSObject obj in PSOutput)
-                {
-                    if (obj != null)
-                    {
-                        updates.Add(new UpdateWrapper()
-                        {
-                            KB = obj.Properties["KB"].Value.ToString(),
-                            Size = obj.Properties["Size"].Value.ToString(),
-                            Title = obj.Properties["Title"].Value.ToString()
-                        });
-                    }
-                }
-            }
+        //        foreach (PSObject obj in PSOutput)
+        //        {
+        //            if (obj != null)
+        //            {
+        //                updates.Add(new UpdateWrapper()
+        //                {
+        //                    KB = obj.Properties["KB"].Value.ToString(),
+        //                    Size = obj.Properties["Size"].Value.ToString(),
+        //                    Title = obj.Properties["Title"].Value.ToString()
+        //                });
+        //            }
+        //        }
+        //    }
 
-            return updates;
-        }
+        //    return updates;
+        //}
     }
 }

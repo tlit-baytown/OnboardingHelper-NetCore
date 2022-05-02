@@ -1,4 +1,4 @@
-﻿namespace OnboardingHelper_NetCore.forms
+﻿namespace Zest_Script.forms
 {
     partial class AddPrinterPopUp
     {

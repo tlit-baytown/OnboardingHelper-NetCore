@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
-using static OnboardingHelper_NetCore.EnumHelper;
+using static Zest_Script.EnumHelper;
 
-namespace OnboardingHelper_NetCore
+namespace Zest_Script
 {
     public class EnumHelper
     {

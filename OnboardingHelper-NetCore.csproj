@@ -3,26 +3,30 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows10.0.22000.0</TargetFramework>
-    <RootNamespace>OnboardingHelper_NetCore</RootNamespace>
+    <RootNamespace>Zest_Script</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <Platforms>AnyCPU;x64</Platforms>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
-    <StartupObject>OnboardingHelper_NetCore.Program</StartupObject>
+    <StartupObject>Zest_Script.Program</StartupObject>
     <ApplicationIcon>onboard.ico</ApplicationIcon>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <Description>A utility program that helps MSP's on-board new client's and computers by automating some common tasks.</Description>
+    <Description>A utility program that helps MSP's on-board new client's and computers by automating some common tasks.
+-&gt; import/export configuration files
+-&gt; portable (does not require install)
+-&gt; add accounts, programs, wifi, and more to the configuration
+-&gt; fully automated</Description>
     <Copyright>(c) 2022 Ethan Hann</Copyright>
     <PackageIcon>onboarding.png</PackageIcon>
     <FileVersion>1.0.0.0</FileVersion>
     <Company>Tortal</Company>
-    <Product>On-Boarding Helper</Product>
+    <Product>Zest Script</Product>
     <Authors>Ethan Hann</Authors>
     <RepositoryUrl>https://github.com/tlit-baytown/OnboardingHelper-NetCore.git</RepositoryUrl>
     <NeutralLanguage>en</NeutralLanguage>
-    <AssemblyName>On-Boarding Helper</AssemblyName>
+    <AssemblyName>Zest Script</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

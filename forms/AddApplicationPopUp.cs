@@ -1,7 +1,7 @@
-﻿using OnboardingHelper_NetCore.settings;
-using Application = OnboardingHelper_NetCore.wrappers.Application;
+﻿using Zest_Script.settings;
+using Application = Zest_Script.wrappers.Application;
 
-namespace OnboardingHelper_NetCore
+namespace Zest_Script
 {
     public partial class AddApplicationPopUp : Form
     {

@@ -1,8 +1,8 @@
-﻿using OnboardingHelper_NetCore.settings;
-using OnboardingHelper_NetCore.wrappers;
-using System.Net;
+﻿using System.Net;
+using Zest_Script.settings;
+using Zest_Script.wrappers;
 
-namespace OnboardingHelper_NetCore
+namespace Zest_Script
 {
     public partial class AddAccountPopUp : Form
     {

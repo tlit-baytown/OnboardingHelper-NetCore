@@ -1,4 +1,4 @@
-﻿namespace OnboardingHelper_NetCore
+﻿namespace Zest_Script
 {
     public partial class HelpBox : Form
     {

@@ -1,15 +1,7 @@
-﻿using OnboardingHelper_NetCore.settings;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.ComponentModel;
+using Zest_Script.settings;
 
-namespace OnboardingHelper_NetCore.forms
+namespace Zest_Script.forms
 {
     public partial class OnboardForm : Form
     {
@@ -76,7 +68,7 @@ namespace OnboardingHelper_NetCore.forms
                 btnSeeLog.Text = "Hide Details";
                 Size = new Size(649, 303);
             }
-                
+
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

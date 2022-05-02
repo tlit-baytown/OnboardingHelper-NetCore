@@ -1,6 +1,6 @@
 ﻿using WUApiLib;
 
-namespace OnboardingHelper_NetCore
+namespace Zest_Script
 {
     public class WindowsUpdate
     {

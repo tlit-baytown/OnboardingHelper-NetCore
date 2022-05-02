@@ -1,6 +1,6 @@
-﻿using OnboardingHelper_NetCore.wrappers;
+﻿using Zest_Script.wrappers;
 
-namespace OnboardingHelper_NetCore
+namespace Zest_Script
 {
     public class CEventArgs
     {

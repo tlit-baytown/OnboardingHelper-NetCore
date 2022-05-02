@@ -1,15 +1,17 @@
-using OnboardingHelper_NetCore.forms;
-using OnboardingHelper_NetCore.settings;
-using OnboardingHelper_NetCore.userControls;
-using OnboardingHelper_NetCore.utility;
 using System.Text;
-using static OnboardingHelper_NetCore.CEventArgs;
+using Zest_Script.forms;
+using Zest_Script.settings;
+using Zest_Script.userControls;
+using Zest_Script.utility;
+using static Zest_Script.CEventArgs;
 
-namespace OnboardingHelper_NetCore
+namespace Zest_Script
 {
     public partial class MainForm : Form
     {
         private TabControlHelper tabHelper;
+        private HelpBox helpBox = new HelpBox();
+        private AboutBox aboutBox = new AboutBox();
 
         public MainForm()
         {
@@ -20,6 +22,7 @@ namespace OnboardingHelper_NetCore
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Text = $"{aboutBox.AssemblyTitle} {aboutBox.AssemblyVersion}";
             Utility.SetMainForm(this);
 
             lblOsVersion.Text = SystemInfo.Instance.OSName + "\t" + SystemInfo.Instance.CSDVersion;
@@ -77,11 +80,11 @@ namespace OnboardingHelper_NetCore
         {
             StringBuilder bldr = new StringBuilder();
 
-            if (Configuration.Instance.ComputerName.Equals(string.Empty))
+            if (Configuration.Instance.BasicInfo.ComputerName.Equals(string.Empty))
                 bldr.Append("-> Missing computer name.\n");
-            if (Configuration.Instance.TimeZone == null)
+            if (Configuration.Instance.BasicInfo.TimeZone == null)
                 bldr.Append("-> Missing time zone information.\n");
-            if (Configuration.Instance.PrimaryNTPServer.Equals(string.Empty))
+            if (Configuration.Instance.BasicInfo.PrimaryNTPServer.Equals(string.Empty))
                 bldr.Append("-> Missing primary NTP server.\n");
             if (Configuration.Instance.Accounts.Count <= 0)
                 bldr.Append("-> Missing at least 1 account.\n");
@@ -312,12 +315,14 @@ namespace OnboardingHelper_NetCore
         #region Help Menu
         private void btnViewHelp_Click(object sender, EventArgs e)
         {
-            new HelpBox().ShowDialog();
+            if (!helpBox.Visible)
+                helpBox.ShowDialog();
         }
 
         private void btnAbout_Click(object sender, EventArgs e)
         {
-            new AboutBox().ShowDialog();
+            if (!aboutBox.Visible)
+                aboutBox.ShowDialog();
         }
         #endregion
     }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Win32;
 using System.Management;
 
-namespace OnboardingHelper_NetCore
+namespace Zest_Script
 {
     public sealed class SystemInfo
     {

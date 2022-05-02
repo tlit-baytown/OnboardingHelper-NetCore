@@ -1,7 +1,8 @@
-﻿using OnboardingHelper_NetCore.settings;
+﻿using System.Net;
 using System.Text;
+using Zest_Script.settings;
 
-namespace OnboardingHelper_NetCore.userControls
+namespace Zest_Script.userControls
 {
     public partial class BasicInfoUserCtl : UserControl, IUpdatable
     {
@@ -22,23 +23,27 @@ namespace OnboardingHelper_NetCore.userControls
             }
         }
 
+        /// <summary>
+        /// Update values in this control based on the values in <see cref="Configuration"/>.
+        /// </summary>
+        /// <returns></returns>
         public bool UpdateValues()
         {
-            txtComputerName.Text = Configuration.Instance.ComputerName;
+            txtComputerName.Text = Configuration.Instance.BasicInfo.ComputerName;
             if (txtDomain.Enabled)
             {
-                txtDomain.Text = Configuration.Instance.Domain;
-                txtDomainUsername.Text = Configuration.Instance.DomainUsername;
-                txtDomainPassword.Text = Encoding.UTF8.GetString(Convert.FromBase64String(Configuration.Instance.Base64DomainPassword));
+                txtDomain.Text = Configuration.Instance.BasicInfo.Domain;
+                txtDomainUsername.Text = Configuration.Instance.BasicInfo.DomainUsername;
+                txtDomainPassword.Text = Encoding.UTF8.GetString(Convert.FromBase64String(Configuration.Instance.BasicInfo.Base64DomainPassword));
             }
 
-            cmbTimeZones.SelectedItem = Configuration.Instance.TimeZone;
-            if (cmbNTPServers.Items.Contains(Configuration.Instance.PrimaryNTPServer))
-                cmbNTPServers.SelectedItem = Configuration.Instance.PrimaryNTPServer;
+            cmbTimeZones.SelectedItem = Configuration.Instance.BasicInfo.TimeZone;
+            if (cmbNTPServers.Items.Contains(Configuration.Instance.BasicInfo.PrimaryNTPServer))
+                cmbNTPServers.SelectedItem = Configuration.Instance.BasicInfo.PrimaryNTPServer;
             else
-                cmbNTPServers.Text = Configuration.Instance.PrimaryNTPServer;
+                cmbNTPServers.Text = Configuration.Instance.BasicInfo.PrimaryNTPServer;
 
-            chkPerformTZSync.Checked = Configuration.Instance.PerformTimeSync;
+            chkPerformTZSync.Checked = Configuration.Instance.BasicInfo.PerformTimeSync;
 
             return true;
         }
@@ -61,38 +66,38 @@ namespace OnboardingHelper_NetCore.userControls
             else
                 grpDomainCredentials.Visible = false;
 
-            Configuration.Instance.Domain = txtDomain.Text;
+            Configuration.Instance.BasicInfo.Domain = txtDomain.Text;
         }
 
         private void txtComputerName_TextChanged(object sender, EventArgs e)
         {
-            Configuration.Instance.ComputerName = txtComputerName.Text;
+            Configuration.Instance.BasicInfo.ComputerName = txtComputerName.Text;
         }
 
         private void cmbTimeZones_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Configuration.Instance.TimeZone = (TimeZoneInfo)cmbTimeZones.SelectedItem;
-            Configuration.Instance.TimeZoneString = Configuration.Instance.TimeZone.ToSerializedString();
+            Configuration.Instance.BasicInfo.TimeZone = (TimeZoneInfo)cmbTimeZones.SelectedItem;
+            Configuration.Instance.BasicInfo.TimeZoneString = Configuration.Instance.BasicInfo.TimeZone.ToSerializedString();
         }
 
         private void cmbNTPServers_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Configuration.Instance.PrimaryNTPServer = (string)cmbNTPServers.SelectedItem;
+            Configuration.Instance.BasicInfo.PrimaryNTPServer = (string)cmbNTPServers.SelectedItem;
         }
 
         private void cmbNTPServers_TextChanged(object sender, EventArgs e)
         {
-            Configuration.Instance.PrimaryNTPServer = cmbNTPServers.Text;
+            Configuration.Instance.BasicInfo.PrimaryNTPServer = cmbNTPServers.Text;
         }
 
         private void chkPerformTZSync_CheckedChanged(object sender, EventArgs e)
         {
-            Configuration.Instance.PerformTimeSync = chkPerformTZSync.Checked;
+            Configuration.Instance.BasicInfo.PerformTimeSync = chkPerformTZSync.Checked;
         }
 
         private void txtDomainUsername_TextChanged(object sender, EventArgs e)
         {
-            Configuration.Instance.DomainUsername = txtDomainUsername.Text;
+            Configuration.Instance.BasicInfo.DomainUsername = txtDomainUsername.Text;
         }
 
         string pw = string.Empty;
@@ -103,7 +108,8 @@ namespace OnboardingHelper_NetCore.userControls
 
         private void txtDomainPassword_Leave(object sender, EventArgs e)
         {
-            Configuration.Instance.Base64DomainPassword = Convert.ToBase64String(Encoding.UTF8.GetBytes(pw));
+            Configuration.Instance.BasicInfo.DomainPassword = new NetworkCredential("", pw).SecurePassword;
+            Configuration.Instance.BasicInfo.SetBase64FromPassword();
         }
         #endregion
     }

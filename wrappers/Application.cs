@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace OnboardingHelper_NetCore.wrappers
+namespace Zest_Script.wrappers
 {
     [XmlType("application")]
     /// <summary>
@@ -38,7 +38,7 @@ namespace OnboardingHelper_NetCore.wrappers
         [Browsable(true)]
         [ReadOnly(true)]
         [Description("The full path to the application file to be installed.")]
-        [DisplayName("Name")]
+        [DisplayName("Path")]
         [Category("Application Information")]
         public string Path { get; set; } = string.Empty;
 

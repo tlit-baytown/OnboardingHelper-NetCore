@@ -1,4 +1,4 @@
-﻿namespace OnboardingHelper_NetCore.forms
+﻿namespace Zest_Script.forms
 {
     partial class AboutBox
     {
@@ -68,7 +68,7 @@
             // logoPictureBox
             // 
             this.logoPictureBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.logoPictureBox.Image = global::OnboardingHelper_NetCore.Properties.Resources.onboarding;
+            this.logoPictureBox.Image = global::Zest_Script.Properties.Resources.onboarding;
             this.logoPictureBox.Location = new System.Drawing.Point(4, 3);
             this.logoPictureBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.logoPictureBox.Name = "logoPictureBox";

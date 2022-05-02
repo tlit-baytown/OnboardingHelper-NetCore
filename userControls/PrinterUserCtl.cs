@@ -1,8 +1,8 @@
-﻿using OnboardingHelper_NetCore.forms;
-using OnboardingHelper_NetCore.settings;
-using OnboardingHelper_NetCore.wrappers;
+﻿using Zest_Script.forms;
+using Zest_Script.settings;
+using Zest_Script.wrappers;
 
-namespace OnboardingHelper_NetCore.userControls
+namespace Zest_Script.userControls
 {
     public partial class PrinterUserCtl : UserControl, IUpdatable
     {

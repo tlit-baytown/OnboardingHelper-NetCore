@@ -1,7 +1,7 @@
-﻿using OnboardingHelper_NetCore.settings;
-using Application = OnboardingHelper_NetCore.wrappers.Application;
+﻿using Zest_Script.settings;
+using Application = Zest_Script.wrappers.Application;
 
-namespace OnboardingHelper_NetCore.userControls
+namespace Zest_Script.userControls
 {
     public partial class ProgramsUserCtl : UserControl, IUpdatable
     {
