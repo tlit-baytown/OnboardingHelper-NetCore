@@ -89,7 +89,7 @@
             treeNode7,
             treeNode8,
             treeNode9});
-            this.tvOptions.Size = new System.Drawing.Size(182, 415);
+            this.tvOptions.Size = new System.Drawing.Size(181, 415);
             this.tvOptions.TabIndex = 0;
             this.tvOptions.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvOptions_AfterSelect);
             // 
@@ -98,7 +98,7 @@
             this.propGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propGrid.Location = new System.Drawing.Point(0, 0);
             this.propGrid.Name = "propGrid";
-            this.propGrid.Size = new System.Drawing.Size(614, 415);
+            this.propGrid.Size = new System.Drawing.Size(615, 415);
             this.propGrid.TabIndex = 1;
             // 
             // tlpButtons
@@ -113,13 +113,13 @@
             this.tlpButtons.Name = "tlpButtons";
             this.tlpButtons.RowCount = 1;
             this.tlpButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpButtons.Size = new System.Drawing.Size(614, 35);
+            this.tlpButtons.Size = new System.Drawing.Size(615, 35);
             this.tlpButtons.TabIndex = 2;
             // 
             // btnAccept
             // 
             this.btnAccept.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnAccept.Location = new System.Drawing.Point(471, 6);
+            this.btnAccept.Location = new System.Drawing.Point(472, 6);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(140, 23);
             this.btnAccept.TabIndex = 0;
@@ -130,7 +130,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnCancel.Location = new System.Drawing.Point(335, 6);
+            this.btnCancel.Location = new System.Drawing.Point(336, 6);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(127, 23);
             this.btnCancel.TabIndex = 1;
@@ -156,7 +156,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.tlpButtons);
             this.splitContainer1.Panel2MinSize = 610;
             this.splitContainer1.Size = new System.Drawing.Size(800, 450);
-            this.splitContainer1.SplitterDistance = 182;
+            this.splitContainer1.SplitterDistance = 181;
             this.splitContainer1.TabIndex = 3;
             // 
             // flowLayoutPanel1
@@ -167,12 +167,12 @@
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 415);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(182, 35);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(181, 35);
             this.flowLayoutPanel1.TabIndex = 3;
             // 
             // btnExpandTreeView
             // 
-            this.btnExpandTreeView.Location = new System.Drawing.Point(108, 3);
+            this.btnExpandTreeView.Location = new System.Drawing.Point(107, 3);
             this.btnExpandTreeView.Name = "btnExpandTreeView";
             this.btnExpandTreeView.Size = new System.Drawing.Size(71, 23);
             this.btnExpandTreeView.TabIndex = 2;
@@ -183,7 +183,7 @@
             // btnCollapseTreeView
             // 
             this.btnCollapseTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCollapseTreeView.Location = new System.Drawing.Point(22, 3);
+            this.btnCollapseTreeView.Location = new System.Drawing.Point(21, 3);
             this.btnCollapseTreeView.Name = "btnCollapseTreeView";
             this.btnCollapseTreeView.Size = new System.Drawing.Size(80, 23);
             this.btnCollapseTreeView.TabIndex = 3;
@@ -201,10 +201,9 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimizeBox = false;
             this.Name = "Summary";
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Configuration Summary";
-            this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Summary_FormClosing);
             this.Load += new System.EventHandler(this.Summary_Load);
             this.tlpButtons.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);

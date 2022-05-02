@@ -3,6 +3,9 @@ using Zest_Script.wrappers;
 
 namespace Zest_Script.forms
 {
+    /// <summary>
+    /// Shows a summary of the current configuration or of a configuration loaded by file.
+    /// </summary>
     public partial class Summary : Form
     {
         /// <summary>
@@ -15,12 +18,23 @@ namespace Zest_Script.forms
         /// </summary>
         public EventHandler? ConfigRejected;
 
+        private readonly Configuration tempConfig = Configuration.Instance;
+
         /// <summary>
         /// Create a new default summary dialog.
         /// </summary>
         public Summary()
         {
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Display a configuration file seperate from the current configuration loaded into Zest Script.
+        /// </summary>
+        /// <param name="file"></param>
+        public Summary(string file) : this(false)
+        {
+            tempConfig = Configuration.LoadConfig(file, false);
         }
 
         /// <summary>
@@ -55,7 +69,7 @@ namespace Zest_Script.forms
             TreeNode? basicRoot = tvOptions.Nodes["nodeBasic"];
             if (basicRoot == null)
                 return;
-            basicRoot.Tag = Configuration.Instance.BasicInfo;
+            basicRoot.Tag = tempConfig.BasicInfo;
         }
 
         private void AddAccounts()
@@ -64,7 +78,7 @@ namespace Zest_Script.forms
             if (accountRoot == null)
                 return;
 
-            foreach (Account a in Configuration.Instance.Accounts)
+            foreach (Account a in tempConfig.Accounts)
             {
                 TreeNode newNode = new TreeNode(a.Username);
                 newNode.Tag = a;
@@ -79,14 +93,14 @@ namespace Zest_Script.forms
             if (wifiRoot == null || vpnRoot == null)
                 return;
 
-            foreach (WiFi w in Configuration.Instance.WiFiProfiles)
+            foreach (WiFi w in tempConfig.WiFiProfiles)
             {
                 TreeNode newNode = new TreeNode(w.SSID);
                 newNode.Tag = w;
                 wifiRoot.Nodes.Add(newNode);
             }
 
-            foreach (VPN v in Configuration.Instance.VPNProfiles)
+            foreach (VPN v in tempConfig.VPNProfiles)
             {
                 TreeNode newNode = new TreeNode(v.ConnectionName);
                 newNode.Tag = v;
@@ -100,7 +114,7 @@ namespace Zest_Script.forms
             if (programsRoot == null)
                 return;
 
-            foreach (wrappers.Application a in Configuration.Instance.Applications)
+            foreach (wrappers.Application a in tempConfig.Applications)
             {
                 TreeNode newNode = new TreeNode(a.Name);
                 newNode.Tag = a;
@@ -114,7 +128,7 @@ namespace Zest_Script.forms
             if (remoteDesktopRoot == null)
                 return;
 
-            foreach (RDPFile f in Configuration.Instance.RDPFiles)
+            foreach (RDPFile f in tempConfig.RDPFiles)
             {
                 TreeNode newNode = new TreeNode(f.ComputerName);
                 newNode.Tag = f;
@@ -128,7 +142,7 @@ namespace Zest_Script.forms
             if (driveMappingsRoot == null)
                 return;
 
-            foreach (MappedDrive m in Configuration.Instance.MappedDrives)
+            foreach (MappedDrive m in tempConfig.MappedDrives)
             {
                 TreeNode newNode = new TreeNode(m.DriveLetter.ToString());
                 newNode.Tag = m;
@@ -142,7 +156,7 @@ namespace Zest_Script.forms
             if (printerMappingsRoot == null)
                 return;
 
-            foreach (Printer p in Configuration.Instance.Printers)
+            foreach (Printer p in tempConfig.Printers)
             {
                 TreeNode newNode = new TreeNode(p.Name);
                 newNode.Tag = p;
@@ -177,6 +191,11 @@ namespace Zest_Script.forms
         private void btnCollapseTreeView_Click(object sender, EventArgs e)
         {
             tvOptions.CollapseAll();
+        }
+
+        private void Summary_FormClosing(object sender, FormClosingEventArgs e)
+        {
+
         }
     }
 }

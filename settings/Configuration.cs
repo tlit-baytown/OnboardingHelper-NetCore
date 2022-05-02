@@ -165,11 +165,12 @@ namespace Zest_Script.settings
 
         /// <summary>
         /// Load a config <c>XML</c> file from the specified <paramref name="path"/> into the current
-        /// configuration <see cref="Instance"/>.
+        /// configuration <see cref="Instance"/> by default.
         /// </summary>
         /// <param name="path"></param>
+        /// <param name="loadIntoCurrentConfiguration">Whether to load the configuration file into the configuration <see cref="Instance"/> or simply return a new configuration variable.</param>
         /// <returns>A <see cref="Configuration"/> object containing the configuration present in the XML file or the current configuration if loading failed.</returns>
-        public static Configuration LoadConfig(string path)
+        public static Configuration LoadConfig(string path, bool loadIntoCurrentConfiguration = true)
         {
             XmlSerializer serializer = new(typeof(Configuration));
             StreamReader reader = new StreamReader(path);
@@ -178,8 +179,16 @@ namespace Zest_Script.settings
                 object? deserialized = serializer.Deserialize(reader);
                 if (deserialized != null)
                 {
-                    instance = (Configuration)deserialized;
-                    ConfigLoaded?.Invoke(Instance, new EventArgs());
+                    if (!loadIntoCurrentConfiguration)
+                    {
+                        ConfigLoaded?.Invoke(Instance, new EventArgs());
+                        return (Configuration)deserialized;
+                    }
+                    else
+                    {
+                        instance = (Configuration)deserialized;
+                        ConfigLoaded?.Invoke(Instance, new EventArgs());
+                    }
                 }
                 else
                     ConfigLoadError?.Invoke(Instance, new EventArgs());

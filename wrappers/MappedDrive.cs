@@ -92,7 +92,7 @@ namespace Zest_Script.wrappers
         [XmlElement("use-different-creds")]
         [Browsable(true)]
         [ReadOnly(true)]
-        [Description("Indicates whether to use the currently logged in user's credentials to attempt connection to the shared drive.")]
+        [Description("If false, indicates that the currently logged-in user's credentials will be used to attempt connection to the shared drive.")]
         [DisplayName("Connect Using Different Credentials?")]
         [Category("Drive Mapping")]
         public bool ConnectUsingDifferentCredentials { get; set; } = false;

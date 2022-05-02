@@ -40,8 +40,8 @@ namespace Zest_Script.wrappers
         [XmlElement("driver-name")]
         [Browsable(true)]
         [ReadOnly(true)]
-        [Description("The name of the driver to install this printer with.\nThis drive MUST exist in the computer's driver store." +
-            " If it doesnt, 'Create Driver' should be true so that a drive with this name can be created.")]
+        [Description("The name of the driver to install this printer with.\nThis driver MUST exist in the computer's driver store." +
+            " If it doesnt, 'Create Driver' should be true so that a driver with this name can be created.")]
         [DisplayName("Driver Name")]
         [Category("Printer Information")]
         public string DriverName { get; set; } = string.Empty;

@@ -46,6 +46,7 @@
             this.connectionsTab = new System.Windows.Forms.TabPage();
             this.connectionsTabs = new System.Windows.Forms.TabControl();
             this.tabWiFi = new System.Windows.Forms.TabPage();
+            this.wiFiUserCtl1 = new Zest_Script.userControls.WiFiUserCtl();
             this.tabVPN = new System.Windows.Forms.TabPage();
             this.vpnUserCtl1 = new Zest_Script.userControls.VPNUserCtl();
             this.programsTab = new System.Windows.Forms.TabPage();
@@ -88,7 +89,7 @@
             this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.dlgSaveConfig = new System.Windows.Forms.SaveFileDialog();
             this.dlgOpenConfig = new System.Windows.Forms.OpenFileDialog();
-            this.wiFiUserCtl1 = new Zest_Script.userControls.WiFiUserCtl();
+            this.summaryFromFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainStatusBar.SuspendLayout();
             this.mainTabs.SuspendLayout();
             this.basicTab.SuspendLayout();
@@ -127,7 +128,7 @@
             // 
             this.lblOsVersion.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.lblOsVersion.Name = "lblOsVersion";
-            this.lblOsVersion.Size = new System.Drawing.Size(80, 17);
+            this.lblOsVersion.Size = new System.Drawing.Size(79, 17);
             this.lblOsVersion.Text = "<OS Version>";
             // 
             // toolStripStatusLabel1
@@ -141,7 +142,7 @@
             // 
             this.lblProcessorInfo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.lblProcessorInfo.Name = "lblProcessorInfo";
-            this.lblProcessorInfo.Size = new System.Drawing.Size(114, 17);
+            this.lblProcessorInfo.Size = new System.Drawing.Size(109, 17);
             this.lblProcessorInfo.Text = "<Processor Name>";
             // 
             // toolStripStatusLabel2
@@ -153,7 +154,7 @@
             // lblRamAmount
             // 
             this.lblRamAmount.Name = "lblRamAmount";
-            this.lblRamAmount.Size = new System.Drawing.Size(95, 17);
+            this.lblRamAmount.Size = new System.Drawing.Size(96, 17);
             this.lblRamAmount.Text = "<RAM Amount>";
             // 
             // toolStripStatusLabel3
@@ -165,7 +166,7 @@
             // lblStatusText
             // 
             this.lblStatusText.Name = "lblStatusText";
-            this.lblStatusText.Size = new System.Drawing.Size(551, 17);
+            this.lblStatusText.Size = new System.Drawing.Size(556, 17);
             this.lblStatusText.Spring = true;
             this.lblStatusText.Text = "Ready";
             this.lblStatusText.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -191,10 +192,10 @@
             // 
             this.basicTab.Controls.Add(this.basicInfoUserCtl1);
             this.basicTab.ImageKey = "settings_24x24.png";
-            this.basicTab.Location = new System.Drawing.Point(4, 25);
+            this.basicTab.Location = new System.Drawing.Point(4, 24);
             this.basicTab.Name = "basicTab";
             this.basicTab.Padding = new System.Windows.Forms.Padding(3);
-            this.basicTab.Size = new System.Drawing.Size(877, 425);
+            this.basicTab.Size = new System.Drawing.Size(877, 426);
             this.basicTab.TabIndex = 0;
             this.basicTab.Text = "Basic";
             this.basicTab.UseVisualStyleBackColor = true;
@@ -204,17 +205,17 @@
             this.basicInfoUserCtl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.basicInfoUserCtl1.Location = new System.Drawing.Point(3, 3);
             this.basicInfoUserCtl1.Name = "basicInfoUserCtl1";
-            this.basicInfoUserCtl1.Size = new System.Drawing.Size(871, 419);
+            this.basicInfoUserCtl1.Size = new System.Drawing.Size(871, 420);
             this.basicInfoUserCtl1.TabIndex = 0;
             // 
             // accountsTab
             // 
             this.accountsTab.Controls.Add(this.accountsUserCtl1);
             this.accountsTab.ImageKey = "user_24x24.png";
-            this.accountsTab.Location = new System.Drawing.Point(4, 25);
+            this.accountsTab.Location = new System.Drawing.Point(4, 24);
             this.accountsTab.Name = "accountsTab";
             this.accountsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.accountsTab.Size = new System.Drawing.Size(192, 71);
+            this.accountsTab.Size = new System.Drawing.Size(192, 72);
             this.accountsTab.TabIndex = 1;
             this.accountsTab.Text = "Accounts";
             this.accountsTab.UseVisualStyleBackColor = true;
@@ -224,17 +225,17 @@
             this.accountsUserCtl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.accountsUserCtl1.Location = new System.Drawing.Point(3, 3);
             this.accountsUserCtl1.Name = "accountsUserCtl1";
-            this.accountsUserCtl1.Size = new System.Drawing.Size(186, 65);
+            this.accountsUserCtl1.Size = new System.Drawing.Size(186, 66);
             this.accountsUserCtl1.TabIndex = 0;
             // 
             // connectionsTab
             // 
             this.connectionsTab.Controls.Add(this.connectionsTabs);
             this.connectionsTab.ImageKey = "internet_24x24.png";
-            this.connectionsTab.Location = new System.Drawing.Point(4, 25);
+            this.connectionsTab.Location = new System.Drawing.Point(4, 24);
             this.connectionsTab.Name = "connectionsTab";
             this.connectionsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.connectionsTab.Size = new System.Drawing.Size(877, 425);
+            this.connectionsTab.Size = new System.Drawing.Size(192, 72);
             this.connectionsTab.TabIndex = 2;
             this.connectionsTab.Text = "Connections";
             this.connectionsTab.UseVisualStyleBackColor = true;
@@ -247,27 +248,35 @@
             this.connectionsTabs.Location = new System.Drawing.Point(3, 3);
             this.connectionsTabs.Name = "connectionsTabs";
             this.connectionsTabs.SelectedIndex = 0;
-            this.connectionsTabs.Size = new System.Drawing.Size(871, 419);
+            this.connectionsTabs.Size = new System.Drawing.Size(186, 66);
             this.connectionsTabs.TabIndex = 1;
             // 
             // tabWiFi
             // 
             this.tabWiFi.Controls.Add(this.wiFiUserCtl1);
-            this.tabWiFi.Location = new System.Drawing.Point(4, 25);
+            this.tabWiFi.Location = new System.Drawing.Point(4, 24);
             this.tabWiFi.Name = "tabWiFi";
             this.tabWiFi.Padding = new System.Windows.Forms.Padding(3);
-            this.tabWiFi.Size = new System.Drawing.Size(863, 390);
+            this.tabWiFi.Size = new System.Drawing.Size(178, 38);
             this.tabWiFi.TabIndex = 0;
             this.tabWiFi.Text = "Wi-Fi Networks";
             this.tabWiFi.UseVisualStyleBackColor = true;
             // 
+            // wiFiUserCtl1
+            // 
+            this.wiFiUserCtl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.wiFiUserCtl1.Location = new System.Drawing.Point(3, 3);
+            this.wiFiUserCtl1.Name = "wiFiUserCtl1";
+            this.wiFiUserCtl1.Size = new System.Drawing.Size(172, 32);
+            this.wiFiUserCtl1.TabIndex = 0;
+            // 
             // tabVPN
             // 
             this.tabVPN.Controls.Add(this.vpnUserCtl1);
-            this.tabVPN.Location = new System.Drawing.Point(4, 25);
+            this.tabVPN.Location = new System.Drawing.Point(4, 24);
             this.tabVPN.Name = "tabVPN";
             this.tabVPN.Padding = new System.Windows.Forms.Padding(3);
-            this.tabVPN.Size = new System.Drawing.Size(863, 390);
+            this.tabVPN.Size = new System.Drawing.Size(863, 391);
             this.tabVPN.TabIndex = 1;
             this.tabVPN.Text = "VPN Connections";
             this.tabVPN.UseVisualStyleBackColor = true;
@@ -277,17 +286,17 @@
             this.vpnUserCtl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.vpnUserCtl1.Location = new System.Drawing.Point(3, 3);
             this.vpnUserCtl1.Name = "vpnUserCtl1";
-            this.vpnUserCtl1.Size = new System.Drawing.Size(857, 384);
+            this.vpnUserCtl1.Size = new System.Drawing.Size(857, 385);
             this.vpnUserCtl1.TabIndex = 0;
             // 
             // programsTab
             // 
             this.programsTab.Controls.Add(this.programsUserCtl1);
             this.programsTab.ImageKey = "web-programming_24x24.png";
-            this.programsTab.Location = new System.Drawing.Point(4, 25);
+            this.programsTab.Location = new System.Drawing.Point(4, 24);
             this.programsTab.Name = "programsTab";
             this.programsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.programsTab.Size = new System.Drawing.Size(192, 71);
+            this.programsTab.Size = new System.Drawing.Size(192, 72);
             this.programsTab.TabIndex = 3;
             this.programsTab.Text = "Programs";
             this.programsTab.UseVisualStyleBackColor = true;
@@ -297,17 +306,17 @@
             this.programsUserCtl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.programsUserCtl1.Location = new System.Drawing.Point(3, 3);
             this.programsUserCtl1.Name = "programsUserCtl1";
-            this.programsUserCtl1.Size = new System.Drawing.Size(186, 65);
+            this.programsUserCtl1.Size = new System.Drawing.Size(186, 66);
             this.programsUserCtl1.TabIndex = 0;
             // 
             // remoteDesktopTab
             // 
             this.remoteDesktopTab.Controls.Add(this.rdpUserCtl1);
             this.remoteDesktopTab.ImageKey = "remote-control_24x24.png";
-            this.remoteDesktopTab.Location = new System.Drawing.Point(4, 25);
+            this.remoteDesktopTab.Location = new System.Drawing.Point(4, 24);
             this.remoteDesktopTab.Name = "remoteDesktopTab";
             this.remoteDesktopTab.Padding = new System.Windows.Forms.Padding(3);
-            this.remoteDesktopTab.Size = new System.Drawing.Size(192, 71);
+            this.remoteDesktopTab.Size = new System.Drawing.Size(192, 72);
             this.remoteDesktopTab.TabIndex = 4;
             this.remoteDesktopTab.Text = "Remote Desktop(s)";
             this.remoteDesktopTab.UseVisualStyleBackColor = true;
@@ -317,17 +326,17 @@
             this.rdpUserCtl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rdpUserCtl1.Location = new System.Drawing.Point(3, 3);
             this.rdpUserCtl1.Name = "rdpUserCtl1";
-            this.rdpUserCtl1.Size = new System.Drawing.Size(186, 65);
+            this.rdpUserCtl1.Size = new System.Drawing.Size(186, 66);
             this.rdpUserCtl1.TabIndex = 0;
             // 
             // tabDriveMaps
             // 
             this.tabDriveMaps.Controls.Add(this.driveUserCtl1);
             this.tabDriveMaps.ImageKey = "folder-network_24x24.png";
-            this.tabDriveMaps.Location = new System.Drawing.Point(4, 25);
+            this.tabDriveMaps.Location = new System.Drawing.Point(4, 24);
             this.tabDriveMaps.Name = "tabDriveMaps";
             this.tabDriveMaps.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDriveMaps.Size = new System.Drawing.Size(877, 425);
+            this.tabDriveMaps.Size = new System.Drawing.Size(192, 72);
             this.tabDriveMaps.TabIndex = 5;
             this.tabDriveMaps.Text = "Drive Mapping(s)";
             this.tabDriveMaps.UseVisualStyleBackColor = true;
@@ -337,17 +346,17 @@
             this.driveUserCtl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.driveUserCtl1.Location = new System.Drawing.Point(3, 3);
             this.driveUserCtl1.Name = "driveUserCtl1";
-            this.driveUserCtl1.Size = new System.Drawing.Size(871, 419);
+            this.driveUserCtl1.Size = new System.Drawing.Size(186, 66);
             this.driveUserCtl1.TabIndex = 0;
             // 
             // tabPrinters
             // 
             this.tabPrinters.Controls.Add(this.printerUserCtl1);
             this.tabPrinters.ImageKey = "printer_24x24.png";
-            this.tabPrinters.Location = new System.Drawing.Point(4, 25);
+            this.tabPrinters.Location = new System.Drawing.Point(4, 24);
             this.tabPrinters.Name = "tabPrinters";
             this.tabPrinters.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPrinters.Size = new System.Drawing.Size(877, 425);
+            this.tabPrinters.Size = new System.Drawing.Size(192, 72);
             this.tabPrinters.TabIndex = 6;
             this.tabPrinters.Text = "Printer Mapping(s)";
             this.tabPrinters.UseVisualStyleBackColor = true;
@@ -357,7 +366,7 @@
             this.printerUserCtl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.printerUserCtl1.Location = new System.Drawing.Point(3, 3);
             this.printerUserCtl1.Name = "printerUserCtl1";
-            this.printerUserCtl1.Size = new System.Drawing.Size(871, 419);
+            this.printerUserCtl1.Size = new System.Drawing.Size(186, 66);
             this.printerUserCtl1.TabIndex = 0;
             // 
             // imageList1
@@ -424,7 +433,7 @@
             this.fileToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F)));
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // newToolStripMenuItem
@@ -432,7 +441,7 @@
             this.newToolStripMenuItem.Image = global::Zest_Script.Properties.Resources.document_24x24;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.newToolStripMenuItem.Text = "New...";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
@@ -441,7 +450,7 @@
             this.newWindowToolStripMenuItem.Name = "newWindowToolStripMenuItem";
             this.newWindowToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.N)));
-            this.newWindowToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.newWindowToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.newWindowToolStripMenuItem.Text = "New Window...";
             this.newWindowToolStripMenuItem.Click += new System.EventHandler(this.newWindowToolStripMenuItem_Click);
             // 
@@ -450,7 +459,7 @@
             this.openConfigurationFileToolStripMenuItem.Image = global::Zest_Script.Properties.Resources.import_24x24;
             this.openConfigurationFileToolStripMenuItem.Name = "openConfigurationFileToolStripMenuItem";
             this.openConfigurationFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openConfigurationFileToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.openConfigurationFileToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.openConfigurationFileToolStripMenuItem.Text = "Open...";
             this.openConfigurationFileToolStripMenuItem.Click += new System.EventHandler(this.openConfigurationFileToolStripMenuItem_Click);
             // 
@@ -459,27 +468,27 @@
             this.saveCurrentConfigurationToolStripMenuItem.Image = global::Zest_Script.Properties.Resources.export_24x24;
             this.saveCurrentConfigurationToolStripMenuItem.Name = "saveCurrentConfigurationToolStripMenuItem";
             this.saveCurrentConfigurationToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveCurrentConfigurationToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.saveCurrentConfigurationToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.saveCurrentConfigurationToolStripMenuItem.Text = "Save";
             this.saveCurrentConfigurationToolStripMenuItem.Click += new System.EventHandler(this.saveCurrentConfigurationToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(234, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(226, 6);
             // 
             // printToolStripMenuItem
             // 
             this.printToolStripMenuItem.Name = "printToolStripMenuItem";
             this.printToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.printToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.printToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.printToolStripMenuItem.Text = "Print";
             this.printToolStripMenuItem.Click += new System.EventHandler(this.printToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(234, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(226, 6);
             // 
             // exitToolStripMenuItem
             // 
@@ -487,7 +496,7 @@
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.E)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -495,6 +504,7 @@
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnShowConfigSummary,
+            this.summaryFromFileToolStripMenuItem,
             this.toolStripSeparator6,
             this.chkShowConnectionsTab,
             this.chkProgramsTab,
@@ -508,21 +518,21 @@
             this.chkStatusBarShow});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.V)));
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "View";
             // 
             // btnShowConfigSummary
             // 
             this.btnShowConfigSummary.Name = "btnShowConfigSummary";
             this.btnShowConfigSummary.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
-            this.btnShowConfigSummary.Size = new System.Drawing.Size(256, 22);
+            this.btnShowConfigSummary.Size = new System.Drawing.Size(263, 22);
             this.btnShowConfigSummary.Text = "Configuration Summary";
             this.btnShowConfigSummary.Click += new System.EventHandler(this.btnShowConfigSummary_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(253, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(260, 6);
             // 
             // chkShowConnectionsTab
             // 
@@ -531,7 +541,7 @@
             this.chkShowConnectionsTab.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkShowConnectionsTab.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.chkShowConnectionsTab.Name = "chkShowConnectionsTab";
-            this.chkShowConnectionsTab.Size = new System.Drawing.Size(256, 22);
+            this.chkShowConnectionsTab.Size = new System.Drawing.Size(263, 22);
             this.chkShowConnectionsTab.Text = "Connections";
             this.chkShowConnectionsTab.CheckedChanged += new System.EventHandler(this.chkShowConnectionsTab_CheckedChanged);
             // 
@@ -542,7 +552,7 @@
             this.chkProgramsTab.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkProgramsTab.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.chkProgramsTab.Name = "chkProgramsTab";
-            this.chkProgramsTab.Size = new System.Drawing.Size(256, 22);
+            this.chkProgramsTab.Size = new System.Drawing.Size(263, 22);
             this.chkProgramsTab.Text = "Programs";
             this.chkProgramsTab.CheckedChanged += new System.EventHandler(this.chkProgramsTab_CheckedChanged);
             // 
@@ -553,7 +563,7 @@
             this.chkRemoteDesktops.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRemoteDesktops.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.chkRemoteDesktops.Name = "chkRemoteDesktops";
-            this.chkRemoteDesktops.Size = new System.Drawing.Size(256, 22);
+            this.chkRemoteDesktops.Size = new System.Drawing.Size(263, 22);
             this.chkRemoteDesktops.Text = "Remote Desktop(s)";
             this.chkRemoteDesktops.CheckedChanged += new System.EventHandler(this.chkRemoteDesktops_CheckedChanged);
             // 
@@ -564,7 +574,7 @@
             this.chkDriveMappings.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkDriveMappings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.chkDriveMappings.Name = "chkDriveMappings";
-            this.chkDriveMappings.Size = new System.Drawing.Size(256, 22);
+            this.chkDriveMappings.Size = new System.Drawing.Size(263, 22);
             this.chkDriveMappings.Text = "Drive Mapping(s)";
             this.chkDriveMappings.CheckedChanged += new System.EventHandler(this.chkDriveMappings_CheckedChanged);
             // 
@@ -575,21 +585,21 @@
             this.chkPrinterMappings.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkPrinterMappings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.chkPrinterMappings.Name = "chkPrinterMappings";
-            this.chkPrinterMappings.Size = new System.Drawing.Size(256, 22);
+            this.chkPrinterMappings.Size = new System.Drawing.Size(263, 22);
             this.chkPrinterMappings.Text = "Printer Mapping(s)";
             this.chkPrinterMappings.CheckedChanged += new System.EventHandler(this.chkPrinterMappings_CheckedChanged);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(253, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(260, 6);
             // 
             // btnHideAllTabs
             // 
             this.btnHideAllTabs.Name = "btnHideAllTabs";
             this.btnHideAllTabs.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.H)));
-            this.btnHideAllTabs.Size = new System.Drawing.Size(256, 22);
+            this.btnHideAllTabs.Size = new System.Drawing.Size(263, 22);
             this.btnHideAllTabs.Text = "Hide All";
             this.btnHideAllTabs.Click += new System.EventHandler(this.btnHideAllTabs_Click);
             // 
@@ -598,14 +608,14 @@
             this.btnShowAllTabs.Name = "btnShowAllTabs";
             this.btnShowAllTabs.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-            this.btnShowAllTabs.Size = new System.Drawing.Size(256, 22);
+            this.btnShowAllTabs.Size = new System.Drawing.Size(263, 22);
             this.btnShowAllTabs.Text = "Show All";
             this.btnShowAllTabs.Click += new System.EventHandler(this.btnShowAllTabs_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(253, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(260, 6);
             // 
             // chkStatusBarShow
             // 
@@ -613,7 +623,7 @@
             this.chkStatusBarShow.CheckOnClick = true;
             this.chkStatusBarShow.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkStatusBarShow.Name = "chkStatusBarShow";
-            this.chkStatusBarShow.Size = new System.Drawing.Size(256, 22);
+            this.chkStatusBarShow.Size = new System.Drawing.Size(263, 22);
             this.chkStatusBarShow.Text = "Status Bar";
             this.chkStatusBarShow.CheckedChanged += new System.EventHandler(this.chkStatusBarShow_CheckedChanged);
             // 
@@ -632,19 +642,19 @@
             // 
             this.btnViewHelp.Name = "btnViewHelp";
             this.btnViewHelp.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.btnViewHelp.Size = new System.Drawing.Size(225, 22);
+            this.btnViewHelp.Size = new System.Drawing.Size(217, 22);
             this.btnViewHelp.Text = "View Help";
             this.btnViewHelp.Click += new System.EventHandler(this.btnViewHelp_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(222, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(214, 6);
             // 
             // btnAbout
             // 
             this.btnAbout.Name = "btnAbout";
-            this.btnAbout.Size = new System.Drawing.Size(225, 22);
+            this.btnAbout.Size = new System.Drawing.Size(217, 22);
             this.btnAbout.Text = "About On-Boarding Helper";
             this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
             // 
@@ -658,13 +668,14 @@
             this.dlgOpenConfig.FileName = "configuration";
             this.dlgOpenConfig.Filter = "XML Config (*.xml)|*.xml";
             // 
-            // wiFiUserCtl1
+            // summaryFromFileToolStripMenuItem
             // 
-            this.wiFiUserCtl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.wiFiUserCtl1.Location = new System.Drawing.Point(3, 3);
-            this.wiFiUserCtl1.Name = "wiFiUserCtl1";
-            this.wiFiUserCtl1.Size = new System.Drawing.Size(857, 384);
-            this.wiFiUserCtl1.TabIndex = 0;
+            this.summaryFromFileToolStripMenuItem.Name = "summaryFromFileToolStripMenuItem";
+            this.summaryFromFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.W)));
+            this.summaryFromFileToolStripMenuItem.Size = new System.Drawing.Size(263, 22);
+            this.summaryFromFileToolStripMenuItem.Text = "Summary From File...";
+            this.summaryFromFileToolStripMenuItem.Click += new System.EventHandler(this.summaryFromFileToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -764,5 +775,6 @@
         private userControls.DriveUserCtl driveUserCtl1;
         private userControls.PrinterUserCtl printerUserCtl1;
         private userControls.WiFiUserCtl wiFiUserCtl1;
+        private ToolStripMenuItem summaryFromFileToolStripMenuItem;
     }
 }

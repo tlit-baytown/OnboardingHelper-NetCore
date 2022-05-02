@@ -253,7 +253,15 @@ namespace Zest_Script
 
         private void btnShowConfigSummary_Click(object sender, EventArgs e)
         {
-            new Summary(false).ShowDialog();
+            new Summary(false).Show();
+        }
+
+        private void summaryFromFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dlgOpenConfig.ShowDialog() == DialogResult.OK)
+            {
+                new Summary(dlgOpenConfig.FileName).Show();
+            }
         }
 
         private void chkShowConnectionsTab_CheckedChanged(object sender, EventArgs e)
