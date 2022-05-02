@@ -156,7 +156,8 @@ namespace OnboardingHelper_NetCore.settings
         public void ResetConfig(bool fireEvent = false)
         {
             instance = new Configuration();
-            ConfigReset?.Invoke(this, new EventArgs());
+            if (fireEvent)
+                ConfigReset?.Invoke(this, new EventArgs());
         }
 
         /// <summary>
