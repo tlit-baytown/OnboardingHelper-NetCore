@@ -28,6 +28,12 @@
     <Compile Update="forms\HelpBox.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="forms\OnboardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="forms\Summary.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="userControls\AccountsUserCtl.cs">
       <SubType>UserControl</SubType>
     </Compile>

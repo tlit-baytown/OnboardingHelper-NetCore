@@ -73,5 +73,17 @@ namespace OnboardingHelper_NetCore
                 Printer = printer;
             }
         }
+
+        public class OnboardDoneEventArgs : EventArgs
+        {
+            public string Message { get; private set; }
+            public bool IsSuccessful { get; private set; }
+
+            public OnboardDoneEventArgs(string message, bool success)
+            {
+                Message = message;
+                IsSuccessful = success;
+            }
+        }
     }
 }

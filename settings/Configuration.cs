@@ -41,6 +41,12 @@ namespace OnboardingHelper_NetCore.settings
         private static Configuration? instance = null;
         private static object instanceLock = new object();
 
+        /// <summary>
+        /// Get a value indicating whether the current configuration has already been on-boarded this session.
+        /// </summary>
+        [XmlIgnore()]
+        public bool HasBeenOnboarded { get; set; } = false;
+
         [XmlIgnore()]
         public static Configuration Instance
         {
@@ -128,6 +134,20 @@ namespace OnboardingHelper_NetCore.settings
         /// Create a new blank configuration.
         /// </summary>
         public Configuration() { }
+
+        /// <summary>
+        /// Check that the current configuration is valid and ready for on-boarding.
+        /// <para>A valid configuration has at the very least all basic settings (computer name, time zone, ntp server, and whether to perform time sync) as well as at least one account.</para>
+        /// </summary>
+        /// <returns></returns>
+        public bool CheckConfiguration()
+        {
+            if (ComputerName.Equals(string.Empty) | TimeZone == null
+                | PrimaryNTPServer.Equals(string.Empty) | accounts.Count <= 0)
+                return false;
+
+            return true;
+        }
 
         /// <summary>
         /// Reset the current configuration to defaults (blank config).

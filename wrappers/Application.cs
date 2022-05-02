@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.ComponentModel;
+using System.Xml.Serialization;
 
 namespace OnboardingHelper_NetCore.wrappers
 {
@@ -8,47 +9,78 @@ namespace OnboardingHelper_NetCore.wrappers
     /// </summary>
     public class Application
     {
-        [XmlAttribute("name")]
         /// <summary>
         /// The name of the application.
         /// </summary>
+        [XmlAttribute("name")]
+        [Browsable(true)]
+        [ReadOnly(true)]
+        [Description("The name of the application.")]
+        [DisplayName("Name")]
+        [Category("Application Information")]
         public string Name { get; set; } = string.Empty;
 
-        [XmlElement("description")]
         /// <summary>
         /// An optional description of the application.
         /// </summary>
+        [XmlElement("description")]
+        [Browsable(true)]
+        [ReadOnly(true)]
+        [Description("An optional description of the application.")]
+        [DisplayName("Description")]
+        [Category("Application Information")]
         public string Description { get; set; } = string.Empty;
 
-        [XmlElement("path")]
         /// <summary>
         /// The full path to the application file to be installed.
         /// </summary>
+        [XmlElement("path")]
+        [Browsable(true)]
+        [ReadOnly(true)]
+        [Description("The full path to the application file to be installed.")]
+        [DisplayName("Name")]
+        [Category("Application Information")]
         public string Path { get; set; } = string.Empty;
 
-        [XmlElement("install-arguments")]
         /// <summary>
         /// The installation arguments needed for installation via command line.
         /// </summary>
+        [XmlElement("install-arguments")]
+        [Browsable(true)]
+        [ReadOnly(true)]
+        [Description("The installation arguments needed for installation via command line.")]
+        [DisplayName("Install Arguments")]
+        [Category("Application Information")]
         public string InstallArguments { get; set; } = string.Empty;
 
-        [XmlElement("is-msi")]
         /// <summary>
         /// Is the installer file an .MSI file (windows installer)?
         /// <para>If <c>false</c>, the application is assumed to be an .EXE file.</para>
         /// </summary>
+        [XmlElement("is-msi")]
+        [Browsable(true)]
+        [ReadOnly(true)]
+        [Description("Is the installer file an .MSI file (windows installer)?")]
+        [DisplayName("Is Windows Installer (.msi)?")]
+        [Category("Application Information")]
         public bool IsWindowsInstaller { get; set; } = false;
 
-        [XmlElement("is-iso-image")]
         /// <summary>
         /// Is the installer an ISO disk image? (such is the case for Microsoft Office 2019)
         /// </summary>
+        [XmlElement("is-iso-image")]
+        [Browsable(true)]
+        [ReadOnly(true)]
+        [Description("Is the installer an ISO disk image?")]
+        [DisplayName("Is ISO Image (.iso)?")]
+        [Category("Application Information")]
         public bool IsISOImage { get; set; } = false;
 
-        [XmlIgnore()]
         /// <summary>
         /// Provides a <see cref="FileStream"/> object that represents this application.
         /// </summary>
+        [XmlIgnore()]
+        [Browsable(false)]
         public FileStream File
         {
             get

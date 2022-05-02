@@ -2,6 +2,7 @@ using OnboardingHelper_NetCore.forms;
 using OnboardingHelper_NetCore.settings;
 using OnboardingHelper_NetCore.userControls;
 using OnboardingHelper_NetCore.utility;
+using System.Text;
 using static OnboardingHelper_NetCore.CEventArgs;
 
 namespace OnboardingHelper_NetCore
@@ -30,6 +31,83 @@ namespace OnboardingHelper_NetCore
             Configuration.ConfigLoaded += HandleConfigLoaded;
             Configuration.ConfigSaved += HandleConfigSaved;
             Configuration.ConfigReset += HandleConfigReset;
+        }
+
+        private void btnOnboard_Click(object sender, EventArgs e)
+        {
+            if (Configuration.Instance.HasBeenOnboarded)
+            {
+                DialogResult result = MessageBox.Show(this, "The current configuration has already been set on this computer.\nContinue Anyway?", "Confirm",
+                    MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                if (result == DialogResult.No || result == DialogResult.Cancel)
+                    return;
+            }
+
+            if (Configuration.Instance.CheckConfiguration())
+                ShowSummaryBeforeOnboard();
+            else
+                ShowMissingInformation();
+        }
+
+        private void ShowSummaryBeforeOnboard()
+        {
+            Summary summaryDialog = new Summary();
+            summaryDialog.ConfigAccepted += HandleConfigAccepted;
+            summaryDialog.ConfigRejected += HandleConfigRejected;
+
+            summaryDialog.ShowDialog();
+        }
+
+        private void HandleConfigAccepted(object sender, EventArgs e)
+        {
+            lblStatusText.Text = "Configuration Accepted! Beginning On-Boarding Process...";
+
+            OnboardForm onboardingForm = new OnboardForm();
+            onboardingForm.OnboardingDone += HandleOnboardDone;
+
+            onboardingForm.ShowDialog();
+        }
+
+        private void HandleConfigRejected(object sender, EventArgs e)
+        {
+            lblStatusText.Text = "Configuration rejected by user. Make changes and attempt On-Boarding again.";
+        }
+
+        private void ShowMissingInformation()
+        {
+            StringBuilder bldr = new StringBuilder();
+
+            if (Configuration.Instance.ComputerName.Equals(string.Empty))
+                bldr.Append("-> Missing computer name.\n");
+            if (Configuration.Instance.TimeZone == null)
+                bldr.Append("-> Missing time zone information.\n");
+            if (Configuration.Instance.PrimaryNTPServer.Equals(string.Empty))
+                bldr.Append("-> Missing primary NTP server.\n");
+            if (Configuration.Instance.Accounts.Count <= 0)
+                bldr.Append("-> Missing at least 1 account.\n");
+
+            MessageBox.Show(this, $"The current configuration is missing required information. See below:\n{bldr}", "Incomplete Configuration",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void HandleOnboardDone(object sender, EventArgs e)
+        {
+            if (e is OnboardDoneEventArgs args)
+            {
+                if (args.IsSuccessful)
+                {
+                    lblStatusText.Text = "Onboarding Process Completed!";
+                    Configuration.Instance.HasBeenOnboarded = true;
+                }
+                else
+                {
+                    lblStatusText.Text = "Onboarding Process Failed! See message in popup.";
+                    Configuration.Instance.HasBeenOnboarded = false;
+                }
+
+                if (!args.IsSuccessful)
+                    MessageBox.Show(this, args.Message, "Onboarding", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void HandleConfigLoadError(object sender, EventArgs e)
@@ -168,6 +246,11 @@ namespace OnboardingHelper_NetCore
         private void ShowTab(string tabKey)
         {
             tabHelper.ShowPage(tabHelper.GetPage(tabKey));
+        }
+
+        private void btnShowConfigSummary_Click(object sender, EventArgs e)
+        {
+            new Summary(false).ShowDialog();
         }
 
         private void chkShowConnectionsTab_CheckedChanged(object sender, EventArgs e)

@@ -10,24 +10,55 @@ namespace OnboardingHelper_NetCore.wrappers
     public class Account
     {
         [XmlAttribute("username")]
+        [Browsable(true)]
+        [ReadOnly(true)]
+        [Description("The username of the new account.")]
+        [DisplayName("Username")]
+        [Category("Account Information")]
         public string Username { get; set; } = string.Empty;
 
         [XmlIgnore()]
+        [Browsable(false)]
         public SecureString Password { get; set; } = new NetworkCredential("", string.Empty).SecurePassword;
 
         [XmlElement("password")]
+        [Browsable(true)]
+        [ReadOnly(true)]
+        [Description("The base64 representation of the user's password.")]
+        [DisplayName("Password")]
+        [Category("Account Information")]
         public string Base64Password { get; set; } = string.Empty;
 
         [XmlElement("comment")]
+        [Browsable(true)]
+        [ReadOnly(true)]
+        [Description("A comment associated with the new account.")]
+        [DisplayName("Comment")]
+        [Category("Account Information")]
         public string Comment { get; set; } = string.Empty;
 
         [XmlElement("account-type")]
+        [Browsable(true)]
+        [ReadOnly(true)]
+        [Description("The type of account to create.")]
+        [DisplayName("Account Type")]
+        [Category("Account Information")]
         public AccountType AccountType { get; set; } = AccountType.STANDARD_USER;
 
         [XmlElement("password-expires")]
+        [Browsable(true)]
+        [ReadOnly(true)]
+        [Description("Indicates whether or not this user's password should expire.")]
+        [DisplayName("Password Expires?")]
+        [Category("Account Information")]
         public bool DoesPasswordExpire { get; set; } = false;
 
         [XmlElement("require-password-change")]
+        [Browsable(true)]
+        [ReadOnly(true)]
+        [Description("Indicates whether or not the user should be required to change the password on first login.")]
+        [DisplayName("Require Password Change?")]
+        [Category("Account Information")]
         public bool RequirePasswordChange { get; set; } = false;
 
         public Account() { }

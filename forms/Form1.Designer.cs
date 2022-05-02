@@ -59,7 +59,7 @@
             this.printerUserCtl1 = new OnboardingHelper_NetCore.userControls.PrinterUserCtl();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnOnboard = new System.Windows.Forms.Button();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -87,6 +87,8 @@
             this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.dlgSaveConfig = new System.Windows.Forms.SaveFileDialog();
             this.dlgOpenConfig = new System.Windows.Forms.OpenFileDialog();
+            this.btnShowConfigSummary = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.mainStatusBar.SuspendLayout();
             this.mainTabs.SuspendLayout();
             this.basicTab.SuspendLayout();
@@ -353,7 +355,7 @@
             this.tabPrinters.Location = new System.Drawing.Point(4, 24);
             this.tabPrinters.Name = "tabPrinters";
             this.tabPrinters.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPrinters.Size = new System.Drawing.Size(877, 426);
+            this.tabPrinters.Size = new System.Drawing.Size(192, 72);
             this.tabPrinters.TabIndex = 6;
             this.tabPrinters.Text = "Printer Mapping(s)";
             this.tabPrinters.UseVisualStyleBackColor = true;
@@ -363,7 +365,7 @@
             this.printerUserCtl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.printerUserCtl1.Location = new System.Drawing.Point(3, 3);
             this.printerUserCtl1.Name = "printerUserCtl1";
-            this.printerUserCtl1.Size = new System.Drawing.Size(871, 420);
+            this.printerUserCtl1.Size = new System.Drawing.Size(186, 66);
             this.printerUserCtl1.TabIndex = 0;
             // 
             // imageList1
@@ -382,25 +384,26 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.btnOnboard);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 478);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(885, 45);
             this.panel1.TabIndex = 2;
             // 
-            // button1
+            // btnOnboard
             // 
-            this.button1.BackColor = System.Drawing.Color.DarkGreen;
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(0, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(885, 45);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "On-Board";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnOnboard.BackColor = System.Drawing.Color.DarkGreen;
+            this.btnOnboard.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnOnboard.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnOnboard.ForeColor = System.Drawing.Color.White;
+            this.btnOnboard.Location = new System.Drawing.Point(0, 0);
+            this.btnOnboard.Name = "btnOnboard";
+            this.btnOnboard.Size = new System.Drawing.Size(885, 45);
+            this.btnOnboard.TabIndex = 3;
+            this.btnOnboard.Text = "On-Board";
+            this.btnOnboard.UseVisualStyleBackColor = false;
+            this.btnOnboard.Click += new System.EventHandler(this.btnOnboard_Click);
             // 
             // mainMenu
             // 
@@ -499,6 +502,8 @@
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnShowConfigSummary,
+            this.toolStripSeparator6,
             this.chkShowConnectionsTab,
             this.chkProgramsTab,
             this.chkRemoteDesktops,
@@ -521,7 +526,7 @@
             this.chkShowConnectionsTab.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkShowConnectionsTab.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.chkShowConnectionsTab.Name = "chkShowConnectionsTab";
-            this.chkShowConnectionsTab.Size = new System.Drawing.Size(192, 22);
+            this.chkShowConnectionsTab.Size = new System.Drawing.Size(247, 22);
             this.chkShowConnectionsTab.Text = "Connections";
             this.chkShowConnectionsTab.CheckedChanged += new System.EventHandler(this.chkShowConnectionsTab_CheckedChanged);
             // 
@@ -532,7 +537,7 @@
             this.chkProgramsTab.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkProgramsTab.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.chkProgramsTab.Name = "chkProgramsTab";
-            this.chkProgramsTab.Size = new System.Drawing.Size(192, 22);
+            this.chkProgramsTab.Size = new System.Drawing.Size(247, 22);
             this.chkProgramsTab.Text = "Programs";
             this.chkProgramsTab.CheckedChanged += new System.EventHandler(this.chkProgramsTab_CheckedChanged);
             // 
@@ -543,7 +548,7 @@
             this.chkRemoteDesktops.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRemoteDesktops.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.chkRemoteDesktops.Name = "chkRemoteDesktops";
-            this.chkRemoteDesktops.Size = new System.Drawing.Size(192, 22);
+            this.chkRemoteDesktops.Size = new System.Drawing.Size(247, 22);
             this.chkRemoteDesktops.Text = "Remote Desktop(s)";
             this.chkRemoteDesktops.CheckedChanged += new System.EventHandler(this.chkRemoteDesktops_CheckedChanged);
             // 
@@ -554,7 +559,7 @@
             this.chkDriveMappings.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkDriveMappings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.chkDriveMappings.Name = "chkDriveMappings";
-            this.chkDriveMappings.Size = new System.Drawing.Size(192, 22);
+            this.chkDriveMappings.Size = new System.Drawing.Size(247, 22);
             this.chkDriveMappings.Text = "Drive Mapping(s)";
             this.chkDriveMappings.CheckedChanged += new System.EventHandler(this.chkDriveMappings_CheckedChanged);
             // 
@@ -565,21 +570,21 @@
             this.chkPrinterMappings.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkPrinterMappings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.chkPrinterMappings.Name = "chkPrinterMappings";
-            this.chkPrinterMappings.Size = new System.Drawing.Size(192, 22);
+            this.chkPrinterMappings.Size = new System.Drawing.Size(247, 22);
             this.chkPrinterMappings.Text = "Printer Mapping(s)";
             this.chkPrinterMappings.CheckedChanged += new System.EventHandler(this.chkPrinterMappings_CheckedChanged);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(189, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(244, 6);
             // 
             // btnHideAllTabs
             // 
             this.btnHideAllTabs.Name = "btnHideAllTabs";
             this.btnHideAllTabs.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.H)));
-            this.btnHideAllTabs.Size = new System.Drawing.Size(192, 22);
+            this.btnHideAllTabs.Size = new System.Drawing.Size(247, 22);
             this.btnHideAllTabs.Text = "Hide All";
             this.btnHideAllTabs.Click += new System.EventHandler(this.btnHideAllTabs_Click);
             // 
@@ -588,14 +593,14 @@
             this.btnShowAllTabs.Name = "btnShowAllTabs";
             this.btnShowAllTabs.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-            this.btnShowAllTabs.Size = new System.Drawing.Size(192, 22);
+            this.btnShowAllTabs.Size = new System.Drawing.Size(247, 22);
             this.btnShowAllTabs.Text = "Show All";
             this.btnShowAllTabs.Click += new System.EventHandler(this.btnShowAllTabs_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(189, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(244, 6);
             // 
             // chkStatusBarShow
             // 
@@ -603,7 +608,7 @@
             this.chkStatusBarShow.CheckOnClick = true;
             this.chkStatusBarShow.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkStatusBarShow.Name = "chkStatusBarShow";
-            this.chkStatusBarShow.Size = new System.Drawing.Size(192, 22);
+            this.chkStatusBarShow.Size = new System.Drawing.Size(247, 22);
             this.chkStatusBarShow.Text = "Status Bar";
             this.chkStatusBarShow.CheckedChanged += new System.EventHandler(this.chkStatusBarShow_CheckedChanged);
             // 
@@ -647,6 +652,19 @@
             // 
             this.dlgOpenConfig.FileName = "configuration";
             this.dlgOpenConfig.Filter = "XML Config (*.xml)|*.xml";
+            // 
+            // btnShowConfigSummary
+            // 
+            this.btnShowConfigSummary.Name = "btnShowConfigSummary";
+            this.btnShowConfigSummary.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
+            this.btnShowConfigSummary.Size = new System.Drawing.Size(247, 22);
+            this.btnShowConfigSummary.Text = "Configuration Summary";
+            this.btnShowConfigSummary.Click += new System.EventHandler(this.btnShowConfigSummary_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(244, 6);
             // 
             // MainForm
             // 
@@ -695,7 +713,7 @@
         private TabPage basicTab;
         private TabPage accountsTab;
         private Panel panel1;
-        private Button button1;
+        private Button btnOnboard;
         private TabPage connectionsTab;
         private TabPage programsTab;
         private MenuStrip mainMenu;
@@ -746,5 +764,7 @@
         private userControls.BasicInfoUserCtl basicInfoUserCtl1;
         private userControls.DriveUserCtl driveUserCtl1;
         private userControls.PrinterUserCtl printerUserCtl1;
+        private ToolStripMenuItem btnShowConfigSummary;
+        private ToolStripSeparator toolStripSeparator6;
     }
 }
