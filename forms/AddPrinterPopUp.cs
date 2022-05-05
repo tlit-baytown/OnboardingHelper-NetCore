@@ -1,10 +1,14 @@
-﻿using Zest_Script.settings;
+﻿using Zest_Script.Powershell;
+using Zest_Script.settings;
 using Zest_Script.wrappers;
 
 namespace Zest_Script.forms
 {
     public partial class AddPrinterPopUp : Form
     {
+        /// <summary>
+        /// Occurs when a printer is added.
+        /// </summary>
         public EventHandler? PrinterAdded;
 
         private readonly Printer printer = new Printer();
@@ -27,7 +31,8 @@ namespace Zest_Script.forms
         private void bgGetDrivers_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             bgGetDrivers.ReportProgress(50);
-            printerDrivers = PowershellHelper.GetPrinterDriversInstalled();
+            printerDrivers = PSHelper.Printer.GetPrinterDriversInstalled();
+
             bgGetDrivers.ReportProgress(100);
         }
 

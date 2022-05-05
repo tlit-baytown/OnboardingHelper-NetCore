@@ -74,13 +74,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="helpControls\Accounts.html">
+    <None Update="docs\Accounts.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="helpControls\Basic.html">
+    <None Update="docs\Basic.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="helpControls\styles.css">
+    <None Update="docs\styles.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="scripts\printers\GetPrinterDrivers.ps1">

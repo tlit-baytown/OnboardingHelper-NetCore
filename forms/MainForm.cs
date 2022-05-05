@@ -1,5 +1,6 @@
 using System.Text;
 using Zest_Script.forms;
+using Zest_Script.Powershell;
 using Zest_Script.settings;
 using Zest_Script.userControls;
 using Zest_Script.utility;
@@ -20,7 +21,7 @@ namespace Zest_Script
             tabHelper = new TabControlHelper(mainTabs);
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
             Text = $"{aboutBox.AssemblyTitle} {aboutBox.AssemblyVersion}";
             Utility.SetMainForm(this);
@@ -333,5 +334,15 @@ namespace Zest_Script
                 aboutBox.ShowDialog();
         }
         #endregion
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            PSHelper.DestroyPSEnvironment();
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            PSHelper.InitializePSEnvironment();
+        }
     }
 }

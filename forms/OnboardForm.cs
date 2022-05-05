@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Zest_Script.Powershell;
 using Zest_Script.settings;
 
 namespace Zest_Script.forms
@@ -29,20 +30,30 @@ namespace Zest_Script.forms
                 bgOnboardWorker.RunWorkerAsync();
         }
 
+        private void ConfigureBasicInfo()
+        {
+            currentTask.ShortMessage = "Setting computer name...";
+            currentTask.DescriptionMessage = PSHelper.Basic.SetComputerName(Configuration.Instance.BasicInfo.ComputerName);
+            tasks.Add(currentTask);
+            bgOnboardWorker.ReportProgress(5);
+        }
+
         private void bgOnboardWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            int counter = 0;
-            while (counter < 100)
-            {
-                counter++;
-                currentTask.ShortMessage = $"Counter: {counter}";
-                currentTask.DescriptionMessage = $"Currently setting the counter variable to: {counter}";
+            ConfigureBasicInfo();
+            
+            //int counter = 0;
+            //while (counter < 100)
+            //{
+            //    counter++;
+            //    currentTask.ShortMessage = $"Counter: {counter}";
+            //    currentTask.DescriptionMessage = $"Currently setting the counter variable to: {counter}";
 
-                tasks.Add(currentTask);
+            //    tasks.Add(currentTask);
 
-                bgOnboardWorker.ReportProgress(counter);
-                Thread.Sleep(50);
-            }
+            //    bgOnboardWorker.ReportProgress(counter);
+            //    Thread.Sleep(50);
+            //}
         }
 
         private void bgOnboardWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)

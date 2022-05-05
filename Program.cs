@@ -1,3 +1,7 @@
+using System.Windows.Forms;
+using System.Security.Principal;
+using System.Diagnostics;
+
 namespace Zest_Script
 {
     internal static class Program
@@ -8,10 +12,29 @@ namespace Zest_Script
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
-            Application.Run(new MainForm());
+            bool elevated = CheckIfRunningAsAdmin();
+            if (Debugger.IsAttached || elevated)
+            {
+                ApplicationConfiguration.Initialize();
+                Application.Run(new MainForm());
+            }
+            else
+            {
+                MessageBox.Show(null, "This application requires Administrator privilages to run correctly.\n" +
+                        "Please restart the application as an administrator.", "Invalid Permission", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
+        }
+
+        private static bool CheckIfRunningAsAdmin()
+        {
+            bool isElevated;
+            using (WindowsIdentity identity = WindowsIdentity.GetCurrent())
+            {
+                WindowsPrincipal principal = new WindowsPrincipal(identity);
+                isElevated = principal.IsInRole(WindowsBuiltInRole.Administrator);
+            }
+            return isElevated;
         }
     }
 }

@@ -57,6 +57,7 @@
             this.driveUserCtl1 = new Zest_Script.userControls.DriveUserCtl();
             this.tabPrinters = new System.Windows.Forms.TabPage();
             this.printerUserCtl1 = new Zest_Script.userControls.PrinterUserCtl();
+            this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnOnboard = new System.Windows.Forms.Button();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
@@ -89,7 +90,6 @@
             this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.dlgSaveConfig = new System.Windows.Forms.SaveFileDialog();
             this.dlgOpenConfig = new System.Windows.Forms.OpenFileDialog();
-            this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.mainStatusBar.SuspendLayout();
             this.mainTabs.SuspendLayout();
             this.basicTab.SuspendLayout();
@@ -213,10 +213,10 @@
             // 
             this.accountsTab.Controls.Add(this.accountsUserCtl1);
             this.accountsTab.ImageKey = "user.png";
-            this.accountsTab.Location = new System.Drawing.Point(4, 31);
+            this.accountsTab.Location = new System.Drawing.Point(4, 24);
             this.accountsTab.Name = "accountsTab";
             this.accountsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.accountsTab.Size = new System.Drawing.Size(877, 419);
+            this.accountsTab.Size = new System.Drawing.Size(192, 72);
             this.accountsTab.TabIndex = 1;
             this.accountsTab.Text = "Accounts";
             this.accountsTab.ToolTipText = "Add and remove user accounts.";
@@ -227,17 +227,17 @@
             this.accountsUserCtl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.accountsUserCtl1.Location = new System.Drawing.Point(3, 3);
             this.accountsUserCtl1.Name = "accountsUserCtl1";
-            this.accountsUserCtl1.Size = new System.Drawing.Size(871, 413);
+            this.accountsUserCtl1.Size = new System.Drawing.Size(186, 66);
             this.accountsUserCtl1.TabIndex = 0;
             // 
             // connectionsTab
             // 
             this.connectionsTab.Controls.Add(this.connectionsTabs);
             this.connectionsTab.ImageKey = "internet.png";
-            this.connectionsTab.Location = new System.Drawing.Point(4, 31);
+            this.connectionsTab.Location = new System.Drawing.Point(4, 24);
             this.connectionsTab.Name = "connectionsTab";
             this.connectionsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.connectionsTab.Size = new System.Drawing.Size(877, 419);
+            this.connectionsTab.Size = new System.Drawing.Size(192, 72);
             this.connectionsTab.TabIndex = 2;
             this.connectionsTab.Text = "Connections";
             this.connectionsTab.ToolTipText = "Add and remove Wi-Fi and VPN connections.";
@@ -251,7 +251,7 @@
             this.connectionsTabs.Location = new System.Drawing.Point(3, 3);
             this.connectionsTabs.Name = "connectionsTabs";
             this.connectionsTabs.SelectedIndex = 0;
-            this.connectionsTabs.Size = new System.Drawing.Size(871, 413);
+            this.connectionsTabs.Size = new System.Drawing.Size(186, 66);
             this.connectionsTabs.TabIndex = 1;
             // 
             // tabWiFi
@@ -260,7 +260,7 @@
             this.tabWiFi.Location = new System.Drawing.Point(4, 24);
             this.tabWiFi.Name = "tabWiFi";
             this.tabWiFi.Padding = new System.Windows.Forms.Padding(3);
-            this.tabWiFi.Size = new System.Drawing.Size(863, 385);
+            this.tabWiFi.Size = new System.Drawing.Size(178, 38);
             this.tabWiFi.TabIndex = 0;
             this.tabWiFi.Text = "Wi-Fi Networks";
             this.tabWiFi.UseVisualStyleBackColor = true;
@@ -270,7 +270,7 @@
             this.wiFiUserCtl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.wiFiUserCtl1.Location = new System.Drawing.Point(3, 3);
             this.wiFiUserCtl1.Name = "wiFiUserCtl1";
-            this.wiFiUserCtl1.Size = new System.Drawing.Size(857, 379);
+            this.wiFiUserCtl1.Size = new System.Drawing.Size(172, 32);
             this.wiFiUserCtl1.TabIndex = 0;
             // 
             // tabVPN
@@ -296,10 +296,10 @@
             // 
             this.programsTab.Controls.Add(this.programsUserCtl1);
             this.programsTab.ImageKey = "web-programming.png";
-            this.programsTab.Location = new System.Drawing.Point(4, 31);
+            this.programsTab.Location = new System.Drawing.Point(4, 24);
             this.programsTab.Name = "programsTab";
             this.programsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.programsTab.Size = new System.Drawing.Size(877, 419);
+            this.programsTab.Size = new System.Drawing.Size(192, 72);
             this.programsTab.TabIndex = 3;
             this.programsTab.Text = "Programs";
             this.programsTab.ToolTipText = "Add and remove applications to install.";
@@ -310,17 +310,17 @@
             this.programsUserCtl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.programsUserCtl1.Location = new System.Drawing.Point(3, 3);
             this.programsUserCtl1.Name = "programsUserCtl1";
-            this.programsUserCtl1.Size = new System.Drawing.Size(871, 413);
+            this.programsUserCtl1.Size = new System.Drawing.Size(186, 66);
             this.programsUserCtl1.TabIndex = 0;
             // 
             // remoteDesktopTab
             // 
             this.remoteDesktopTab.Controls.Add(this.rdpUserCtl1);
             this.remoteDesktopTab.ImageKey = "remote-control.png";
-            this.remoteDesktopTab.Location = new System.Drawing.Point(4, 31);
+            this.remoteDesktopTab.Location = new System.Drawing.Point(4, 24);
             this.remoteDesktopTab.Name = "remoteDesktopTab";
             this.remoteDesktopTab.Padding = new System.Windows.Forms.Padding(3);
-            this.remoteDesktopTab.Size = new System.Drawing.Size(877, 419);
+            this.remoteDesktopTab.Size = new System.Drawing.Size(192, 72);
             this.remoteDesktopTab.TabIndex = 4;
             this.remoteDesktopTab.Text = "Remote Desktop(s)";
             this.remoteDesktopTab.ToolTipText = "Add and remove remote desktop files (RDP).";
@@ -331,17 +331,17 @@
             this.rdpUserCtl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rdpUserCtl1.Location = new System.Drawing.Point(3, 3);
             this.rdpUserCtl1.Name = "rdpUserCtl1";
-            this.rdpUserCtl1.Size = new System.Drawing.Size(871, 413);
+            this.rdpUserCtl1.Size = new System.Drawing.Size(186, 66);
             this.rdpUserCtl1.TabIndex = 0;
             // 
             // tabDriveMaps
             // 
             this.tabDriveMaps.Controls.Add(this.driveUserCtl1);
             this.tabDriveMaps.ImageKey = "folder-network.png";
-            this.tabDriveMaps.Location = new System.Drawing.Point(4, 31);
+            this.tabDriveMaps.Location = new System.Drawing.Point(4, 24);
             this.tabDriveMaps.Name = "tabDriveMaps";
             this.tabDriveMaps.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDriveMaps.Size = new System.Drawing.Size(877, 419);
+            this.tabDriveMaps.Size = new System.Drawing.Size(192, 72);
             this.tabDriveMaps.TabIndex = 5;
             this.tabDriveMaps.Text = "Drive Mapping(s)";
             this.tabDriveMaps.ToolTipText = "Add and remove network drive mappings.";
@@ -352,17 +352,17 @@
             this.driveUserCtl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.driveUserCtl1.Location = new System.Drawing.Point(3, 3);
             this.driveUserCtl1.Name = "driveUserCtl1";
-            this.driveUserCtl1.Size = new System.Drawing.Size(871, 413);
+            this.driveUserCtl1.Size = new System.Drawing.Size(186, 66);
             this.driveUserCtl1.TabIndex = 0;
             // 
             // tabPrinters
             // 
             this.tabPrinters.Controls.Add(this.printerUserCtl1);
             this.tabPrinters.ImageKey = "printer.png";
-            this.tabPrinters.Location = new System.Drawing.Point(4, 31);
+            this.tabPrinters.Location = new System.Drawing.Point(4, 24);
             this.tabPrinters.Name = "tabPrinters";
             this.tabPrinters.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPrinters.Size = new System.Drawing.Size(877, 419);
+            this.tabPrinters.Size = new System.Drawing.Size(192, 72);
             this.tabPrinters.TabIndex = 6;
             this.tabPrinters.Text = "Printer Mapping(s)";
             this.tabPrinters.ToolTipText = "Add and remove printers.";
@@ -373,8 +373,22 @@
             this.printerUserCtl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.printerUserCtl1.Location = new System.Drawing.Point(3, 3);
             this.printerUserCtl1.Name = "printerUserCtl1";
-            this.printerUserCtl1.Size = new System.Drawing.Size(871, 413);
+            this.printerUserCtl1.Size = new System.Drawing.Size(186, 66);
             this.printerUserCtl1.TabIndex = 0;
+            // 
+            // imageList
+            // 
+            this.imageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
+            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList.Images.SetKeyName(0, "document.png");
+            this.imageList.Images.SetKeyName(1, "folder-network.png");
+            this.imageList.Images.SetKeyName(2, "internet.png");
+            this.imageList.Images.SetKeyName(3, "printer.png");
+            this.imageList.Images.SetKeyName(4, "remote-control.png");
+            this.imageList.Images.SetKeyName(5, "user.png");
+            this.imageList.Images.SetKeyName(6, "web-programming.png");
+            this.imageList.Images.SetKeyName(7, "settings.png");
             // 
             // panel1
             // 
@@ -670,20 +684,6 @@
             this.dlgOpenConfig.FileName = "configuration";
             this.dlgOpenConfig.Filter = "XML Config (*.xml)|*.xml";
             // 
-            // imageList
-            // 
-            this.imageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
-            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList.Images.SetKeyName(0, "document.png");
-            this.imageList.Images.SetKeyName(1, "folder-network.png");
-            this.imageList.Images.SetKeyName(2, "internet.png");
-            this.imageList.Images.SetKeyName(3, "printer.png");
-            this.imageList.Images.SetKeyName(4, "remote-control.png");
-            this.imageList.Images.SetKeyName(5, "user.png");
-            this.imageList.Images.SetKeyName(6, "web-programming.png");
-            this.imageList.Images.SetKeyName(7, "settings.png");
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -699,7 +699,9 @@
             this.Name = "MainForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.mainStatusBar.ResumeLayout(false);
             this.mainStatusBar.PerformLayout();
             this.mainTabs.ResumeLayout(false);
@@ -773,7 +775,6 @@
         private ToolStripMenuItem btnAbout;
         private ToolStripMenuItem btnShowConfigSummary;
         private ToolStripSeparator toolStripSeparator6;
-        private userControls.BasicInfoUserCtl basicInfoUserCtl1;
         private userControls.AccountsUserCtl accountsUserCtl1;
         private userControls.VPNUserCtl vpnUserCtl1;
         private userControls.ProgramsUserCtl programsUserCtl1;
@@ -783,5 +784,6 @@
         private userControls.WiFiUserCtl wiFiUserCtl1;
         private ToolStripMenuItem summaryFromFileToolStripMenuItem;
         private ImageList imageList;
+        private userControls.BasicInfoUserCtl basicInfoUserCtl1;
     }
 }
