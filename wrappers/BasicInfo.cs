@@ -4,7 +4,7 @@ using System.Security;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace Zest_Script.wrappers.property_grid
+namespace Zest_Script.wrappers
 {
     /// <summary>
     /// Represents the collection of basic information needed for a computer's configuration. This class cannot be inherited.

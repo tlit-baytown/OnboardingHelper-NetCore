@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Basic Information");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Accounts");
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("WiFi");
@@ -41,6 +42,7 @@
             System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Printer Mapping(s)");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Summary));
             this.tvOptions = new System.Windows.Forms.TreeView();
+            this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.propGrid = new System.Windows.Forms.PropertyGrid();
             this.tlpButtons = new System.Windows.Forms.TableLayoutPanel();
             this.btnAccept = new System.Windows.Forms.Button();
@@ -61,24 +63,37 @@
             // 
             this.tvOptions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvOptions.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.tvOptions.ImageIndex = 0;
+            this.tvOptions.ImageList = this.imageList;
+            this.tvOptions.ItemHeight = 25;
+            this.tvOptions.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.tvOptions.Location = new System.Drawing.Point(0, 0);
             this.tvOptions.Name = "tvOptions";
+            treeNode1.ImageKey = "settings.png";
             treeNode1.Name = "nodeBasic";
             treeNode1.Text = "Basic Information";
+            treeNode2.ImageKey = "user.png";
             treeNode2.Name = "nodeAccounts";
             treeNode2.Text = "Accounts";
+            treeNode3.ImageKey = "internet.png";
             treeNode3.Name = "nodeWifi";
             treeNode3.Text = "WiFi";
+            treeNode4.ImageKey = "internet.png";
             treeNode4.Name = "nodeVPN";
             treeNode4.Text = "VPN";
+            treeNode5.ImageKey = "internet.png";
             treeNode5.Name = "nodeConnections";
             treeNode5.Text = "Connections";
+            treeNode6.ImageKey = "web-programming.png";
             treeNode6.Name = "nodePrograms";
             treeNode6.Text = "Programs";
+            treeNode7.ImageKey = "remote-control.png";
             treeNode7.Name = "nodeRemoteDesktop";
             treeNode7.Text = "Remote Desktop(s)";
+            treeNode8.ImageKey = "folder-network.png";
             treeNode8.Name = "nodeDriveMappings";
             treeNode8.Text = "Drive Mapping(s)";
+            treeNode9.ImageKey = "printer.png";
             treeNode9.Name = "nodePrinterMappings";
             treeNode9.Text = "Printer Mapping(s)";
             this.tvOptions.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
@@ -89,16 +104,33 @@
             treeNode7,
             treeNode8,
             treeNode9});
-            this.tvOptions.Size = new System.Drawing.Size(181, 415);
+            this.tvOptions.SelectedImageIndex = 9;
+            this.tvOptions.Size = new System.Drawing.Size(200, 415);
             this.tvOptions.TabIndex = 0;
             this.tvOptions.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvOptions_AfterSelect);
+            // 
+            // imageList
+            // 
+            this.imageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
+            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList.Images.SetKeyName(0, "document.png");
+            this.imageList.Images.SetKeyName(1, "folder-network.png");
+            this.imageList.Images.SetKeyName(2, "internet.png");
+            this.imageList.Images.SetKeyName(3, "printer.png");
+            this.imageList.Images.SetKeyName(4, "remote-control.png");
+            this.imageList.Images.SetKeyName(5, "user.png");
+            this.imageList.Images.SetKeyName(6, "web-programming.png");
+            this.imageList.Images.SetKeyName(7, "settings.png");
+            this.imageList.Images.SetKeyName(8, "blank_24x24.png");
+            this.imageList.Images.SetKeyName(9, "right-arrow.png");
             // 
             // propGrid
             // 
             this.propGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.propGrid.Location = new System.Drawing.Point(0, 0);
             this.propGrid.Name = "propGrid";
-            this.propGrid.Size = new System.Drawing.Size(615, 415);
+            this.propGrid.Size = new System.Drawing.Size(596, 415);
             this.propGrid.TabIndex = 1;
             // 
             // tlpButtons
@@ -113,15 +145,15 @@
             this.tlpButtons.Name = "tlpButtons";
             this.tlpButtons.RowCount = 1;
             this.tlpButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpButtons.Size = new System.Drawing.Size(615, 35);
+            this.tlpButtons.Size = new System.Drawing.Size(596, 35);
             this.tlpButtons.TabIndex = 2;
             // 
             // btnAccept
             // 
             this.btnAccept.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnAccept.Location = new System.Drawing.Point(472, 6);
+            this.btnAccept.Location = new System.Drawing.Point(454, 6);
             this.btnAccept.Name = "btnAccept";
-            this.btnAccept.Size = new System.Drawing.Size(140, 23);
+            this.btnAccept.Size = new System.Drawing.Size(139, 23);
             this.btnAccept.TabIndex = 0;
             this.btnAccept.Text = "Confirm Configuration";
             this.btnAccept.UseVisualStyleBackColor = true;
@@ -130,7 +162,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnCancel.Location = new System.Drawing.Point(336, 6);
+            this.btnCancel.Location = new System.Drawing.Point(321, 6);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(127, 23);
             this.btnCancel.TabIndex = 1;
@@ -148,15 +180,15 @@
             // 
             this.splitContainer1.Panel1.Controls.Add(this.tvOptions);
             this.splitContainer1.Panel1.Controls.Add(this.flowLayoutPanel1);
-            this.splitContainer1.Panel1MinSize = 180;
+            this.splitContainer1.Panel1MinSize = 200;
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.propGrid);
             this.splitContainer1.Panel2.Controls.Add(this.tlpButtons);
-            this.splitContainer1.Panel2MinSize = 610;
+            this.splitContainer1.Panel2MinSize = 590;
             this.splitContainer1.Size = new System.Drawing.Size(800, 450);
-            this.splitContainer1.SplitterDistance = 181;
+            this.splitContainer1.SplitterDistance = 200;
             this.splitContainer1.TabIndex = 3;
             // 
             // flowLayoutPanel1
@@ -167,12 +199,12 @@
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 415);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(181, 35);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(200, 35);
             this.flowLayoutPanel1.TabIndex = 3;
             // 
             // btnExpandTreeView
             // 
-            this.btnExpandTreeView.Location = new System.Drawing.Point(107, 3);
+            this.btnExpandTreeView.Location = new System.Drawing.Point(126, 3);
             this.btnExpandTreeView.Name = "btnExpandTreeView";
             this.btnExpandTreeView.Size = new System.Drawing.Size(71, 23);
             this.btnExpandTreeView.TabIndex = 2;
@@ -183,7 +215,7 @@
             // btnCollapseTreeView
             // 
             this.btnCollapseTreeView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCollapseTreeView.Location = new System.Drawing.Point(21, 3);
+            this.btnCollapseTreeView.Location = new System.Drawing.Point(40, 3);
             this.btnCollapseTreeView.Name = "btnCollapseTreeView";
             this.btnCollapseTreeView.Size = new System.Drawing.Size(80, 23);
             this.btnCollapseTreeView.TabIndex = 3;
@@ -226,5 +258,6 @@
         private FlowLayoutPanel flowLayoutPanel1;
         private Button btnExpandTreeView;
         private Button btnCollapseTreeView;
+        private ImageList imageList;
     }
 }

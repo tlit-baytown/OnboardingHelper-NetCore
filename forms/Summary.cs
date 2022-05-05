@@ -82,6 +82,7 @@ namespace Zest_Script.forms
             {
                 TreeNode newNode = new TreeNode(a.Username);
                 newNode.Tag = a;
+                newNode.ImageKey = "user.png";
                 accountRoot.Nodes.Add(newNode);
             }
         }
@@ -97,6 +98,7 @@ namespace Zest_Script.forms
             {
                 TreeNode newNode = new TreeNode(w.SSID);
                 newNode.Tag = w;
+                newNode.ImageKey = "internet.png";
                 wifiRoot.Nodes.Add(newNode);
             }
 
@@ -104,6 +106,7 @@ namespace Zest_Script.forms
             {
                 TreeNode newNode = new TreeNode(v.ConnectionName);
                 newNode.Tag = v;
+                newNode.ImageKey = "internet.png";
                 vpnRoot.Nodes.Add(newNode);
             }
         }
@@ -118,6 +121,7 @@ namespace Zest_Script.forms
             {
                 TreeNode newNode = new TreeNode(a.Name);
                 newNode.Tag = a;
+                newNode.ImageKey = "web-programming.png";
                 programsRoot.Nodes.Add(newNode);
             }
         }
@@ -132,6 +136,7 @@ namespace Zest_Script.forms
             {
                 TreeNode newNode = new TreeNode(f.ComputerName);
                 newNode.Tag = f;
+                newNode.ImageKey = "remote-control.png";
                 remoteDesktopRoot.Nodes.Add(newNode);
             }
         }
@@ -146,6 +151,7 @@ namespace Zest_Script.forms
             {
                 TreeNode newNode = new TreeNode(m.DriveLetter.ToString());
                 newNode.Tag = m;
+                newNode.ImageKey = "folder-network.png";
                 driveMappingsRoot.Nodes.Add(newNode);
             }
         }
@@ -160,6 +166,7 @@ namespace Zest_Script.forms
             {
                 TreeNode newNode = new TreeNode(p.Name);
                 newNode.Tag = p;
+                newNode.ImageKey = "printer.png";
                 printerMappingsRoot.Nodes.Add(newNode);
             }
         }

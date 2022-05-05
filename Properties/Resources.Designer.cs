@@ -63,9 +63,9 @@ namespace Zest_Script.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap document_24x24 {
+        internal static System.Drawing.Bitmap blank_24x24 {
             get {
-                object obj = ResourceManager.GetObject("document_24x24", resourceCulture);
+                object obj = ResourceManager.GetObject("blank_24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace Zest_Script.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap document_32x32 {
+        internal static System.Drawing.Bitmap document {
             get {
-                object obj = ResourceManager.GetObject("document_32x32", resourceCulture);
+                object obj = ResourceManager.GetObject("document", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace Zest_Script.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap exit_24x24 {
+        internal static System.Drawing.Bitmap exit {
             get {
-                object obj = ResourceManager.GetObject("exit_24x24", resourceCulture);
+                object obj = ResourceManager.GetObject("exit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace Zest_Script.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap export_24x24 {
+        internal static System.Drawing.Bitmap export {
             get {
-                object obj = ResourceManager.GetObject("export_24x24", resourceCulture);
+                object obj = ResourceManager.GetObject("export", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +103,9 @@ namespace Zest_Script.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap export_32x32 {
+        internal static System.Drawing.Bitmap folder_network {
             get {
-                object obj = ResourceManager.GetObject("export_32x32", resourceCulture);
+                object obj = ResourceManager.GetObject("folder-network", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +113,9 @@ namespace Zest_Script.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap folder_network_24x24 {
+        internal static System.Drawing.Bitmap import {
             get {
-                object obj = ResourceManager.GetObject("folder_network_24x24", resourceCulture);
+                object obj = ResourceManager.GetObject("import", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,49 +123,9 @@ namespace Zest_Script.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap folder_network_32x32 {
+        internal static System.Drawing.Bitmap internet {
             get {
-                object obj = ResourceManager.GetObject("folder_network_32x32", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap import_24x24 {
-            get {
-                object obj = ResourceManager.GetObject("import_24x24", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap import_32x32 {
-            get {
-                object obj = ResourceManager.GetObject("import_32x32", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap internet_24x24 {
-            get {
-                object obj = ResourceManager.GetObject("internet_24x24", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap internet_32x32 {
-            get {
-                object obj = ResourceManager.GetObject("internet_32x32", resourceCulture);
+                object obj = ResourceManager.GetObject("internet", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -183,9 +143,9 @@ namespace Zest_Script.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap printer_24x24 {
+        internal static System.Drawing.Bitmap printer {
             get {
-                object obj = ResourceManager.GetObject("printer_24x24", resourceCulture);
+                object obj = ResourceManager.GetObject("printer", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -193,9 +153,9 @@ namespace Zest_Script.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap printer_32x32 {
+        internal static System.Drawing.Bitmap remote_control {
             get {
-                object obj = ResourceManager.GetObject("printer_32x32", resourceCulture);
+                object obj = ResourceManager.GetObject("remote-control", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -203,9 +163,9 @@ namespace Zest_Script.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap remote_control_24x24 {
+        internal static System.Drawing.Bitmap reset {
             get {
-                object obj = ResourceManager.GetObject("remote_control_24x24", resourceCulture);
+                object obj = ResourceManager.GetObject("reset", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -213,9 +173,9 @@ namespace Zest_Script.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap remote_control_32x32 {
+        internal static System.Drawing.Bitmap right_arrow {
             get {
-                object obj = ResourceManager.GetObject("remote_control_32x32", resourceCulture);
+                object obj = ResourceManager.GetObject("right-arrow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -223,9 +183,9 @@ namespace Zest_Script.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap reset_24x24 {
+        internal static System.Drawing.Bitmap settings {
             get {
-                object obj = ResourceManager.GetObject("reset_24x24", resourceCulture);
+                object obj = ResourceManager.GetObject("settings", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -233,19 +193,9 @@ namespace Zest_Script.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap settings_24x24 {
+        internal static System.Drawing.Bitmap show {
             get {
-                object obj = ResourceManager.GetObject("settings_24x24", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap settings_32x32 {
-            get {
-                object obj = ResourceManager.GetObject("settings_32x32", resourceCulture);
+                object obj = ResourceManager.GetObject("show", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -263,9 +213,9 @@ namespace Zest_Script.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap show_32x32 {
+        internal static System.Drawing.Bitmap user {
             get {
-                object obj = ResourceManager.GetObject("show_32x32", resourceCulture);
+                object obj = ResourceManager.GetObject("user", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -273,39 +223,9 @@ namespace Zest_Script.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap user_24x24 {
+        internal static System.Drawing.Bitmap web_programming {
             get {
-                object obj = ResourceManager.GetObject("user_24x24", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap user_32x32 {
-            get {
-                object obj = ResourceManager.GetObject("user_32x32", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap web_programming_24x24 {
-            get {
-                object obj = ResourceManager.GetObject("web_programming_24x24", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap web_programming_32x32 {
-            get {
-                object obj = ResourceManager.GetObject("web_programming_32x32", resourceCulture);
+                object obj = ResourceManager.GetObject("web-programming", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

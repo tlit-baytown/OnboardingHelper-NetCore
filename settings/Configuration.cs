@@ -2,7 +2,6 @@
 using System.Xml;
 using System.Xml.Serialization;
 using Zest_Script.wrappers;
-using Zest_Script.wrappers.property_grid;
 using static Zest_Script.CEventArgs;
 using static Zest_Script.EnumHelper;
 
