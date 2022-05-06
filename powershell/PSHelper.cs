@@ -2,6 +2,8 @@
 using Microsoft.PowerShell;
 using System.Collections.ObjectModel;
 using System.Management.Automation;
+using System.Management.Automation.Runspaces;
+using System.Security;
 
 namespace Zest_Script.Powershell
 {
@@ -16,18 +18,42 @@ namespace Zest_Script.Powershell
         private static bool _isIntialized = false;
 
         /// <summary>
-        /// Initialized the Powershell environment on the user's computer so that scripts can run.
-        /// <para>Essentially, sets the execution policy to 'Unrestricted'. The policy is set back to what it was after the application is closed.</para>
+        /// Initialize the Powershell environment in the application's Runspace so that scripts can run. This method should be the first method
+        /// called in <see cref="PSHelper"/> before any other methods.
+        /// <para>Sets the execution policy to 'Unrestricted' and installs required modules. The policy is set back to what it was after the application is closed.</para>
         /// </summary>
-        public static void InitializePSEnvironment()
+        /// <returns>True if the environment was initialized successfully; False otherwise.</returns>
+        public static bool InitializePSEnvironment()
         {
             using (PowerShell instance = PowerShell.Create())
             {
-                instance.AddScript("Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope LocalMachine -Force");
-                instance.Invoke();
-                if (!instance.HadErrors)
-                    _isIntialized = true;
+                //Install modules and set up pre-req environment
+                string path = Path.Combine("scripts", "Prereqs.ps1");
+                if (!string.IsNullOrEmpty(path))
+                {
+                    try
+                    {
+                        instance.AddStatement().AddScript(File.ReadAllText(path));
+
+                        instance.Invoke();
+                        if (!instance.HadErrors)
+                            _isIntialized = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine(ex.Message);
+
+                        if (instance.HadErrors)
+                            System.Diagnostics.Debug.WriteLine(instance.Streams.Error.First().Exception.Message);
+
+                        _isIntialized = false;
+                    }
+                }
+                else
+                    _isIntialized = false;
             }
+
+            return _isIntialized;
         }
 
         /// <summary>
@@ -62,6 +88,28 @@ namespace Zest_Script.Powershell
             }
         }
 
+        private static string GetPsCommand(PowerShell ps)
+        {
+            string cmdText = string.Empty;
+            for (int i = 0; i < ps.Commands.Commands.Count; i++)
+            {
+                var cmd = ps.Commands.Commands[i];
+                cmdText += cmd.CommandText;
+                foreach (var param in cmd.Parameters)
+                {
+                    if (!string.IsNullOrEmpty(param.Name))
+                        cmdText += " -" + param.Name + ":";
+
+                    cmdText += param.Value;
+                }
+                if (cmd.IsEndOfStatement || i + 1 == ps.Commands.Commands.Count)
+                    cmdText += Environment.NewLine;
+                else
+                    cmdText += "|";
+            }
+            return cmdText;
+        }
+
         #region Internal Classes
 
         #region Basic Info
@@ -81,7 +129,8 @@ namespace Zest_Script.Powershell
                         cmd = $"{cmd} -Restart";
                     instance.AddScript(cmd);
 
-                    Collection<PSObject> result = instance.Invoke();
+                    instance.Invoke();
+
                     if (instance.HadErrors)
                     {
                         if (instance.InvocationStateInfo != null)
@@ -91,6 +140,32 @@ namespace Zest_Script.Powershell
                         return "Could not set the computer name! Perhaps you should run Zest Script as an administrator. See the system Event Log for errors.";
                     }
                     return $"Computer name successfully set to: {name}";
+                }
+            }
+
+            internal static string JoinDomain(string domain, string username, SecureString password, bool restartAfterJoin = false)
+            {
+                if (!_isIntialized)
+                    return "Environment is not initialized!";
+
+                using (PowerShell instance = PowerShell.Create())
+                {
+                    PSCredential credential = new PSCredential(username, password);
+                    instance.AddStatement()
+                        .AddScript("Add-Computer")
+                        .AddParameter("DomainName", domain)
+                        .AddParameter("Credential", credential)
+                        .AddParameter("Force", "$True");
+                    if (restartAfterJoin)
+                        instance.AddParameter("Restart", "$True");
+
+                    System.Diagnostics.Debug.WriteLine(GetPsCommand(instance));
+
+                    instance.Invoke();
+                    if (instance.HadErrors)
+                        return instance.Streams.Error.First().Exception.Message;
+
+                    return GetPsCommand(instance);
                 }
             }
         }
@@ -115,19 +190,20 @@ namespace Zest_Script.Powershell
 
                 using (PowerShell instance = PowerShell.Create())
                 {
-                    string path = Path.Combine("scripts", "printers", "GetPrinterDrivers.ps1");
-                    if (!string.IsNullOrEmpty(path))
-                    {
-                        try
-                        {
-                            instance.AddScript(File.ReadAllText(path));
-                        }
-                        catch (Exception ex)
-                        {
-                            System.Diagnostics.Debug.WriteLine(ex.Message);
-                            return drivers;
-                        }
-                    }
+                    instance.AddScript("Get-PrinterDriver");
+                    //string path = Path.Combine("scripts", "printers", "GetPrinterDrivers.ps1");
+                    //if (!string.IsNullOrEmpty(path))
+                    //{
+                    //    try
+                    //    {
+                    //        instance.AddScript(File.ReadAllText(path));
+                    //    }
+                    //    catch (Exception ex)
+                    //    {
+                    //        System.Diagnostics.Debug.WriteLine(ex.Message);
+                    //        return drivers;
+                    //    }
+                    //}
 
                     Collection<PSObject> result = instance.Invoke();
 

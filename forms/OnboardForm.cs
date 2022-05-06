@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
 using Zest_Script.Powershell;
 using Zest_Script.settings;
+using Zest_Script.wrappers;
 
 namespace Zest_Script.forms
 {
@@ -19,9 +21,14 @@ namespace Zest_Script.forms
         private List<CTask> tasks = new List<CTask>();
         private CTask currentTask = new CTask();
 
+        private bool inDevEnv = false;
+
         public OnboardForm()
         {
             InitializeComponent();
+
+            if (Debugger.IsAttached)
+                inDevEnv = true;
         }
 
         private void OnboardForm_Load(object sender, EventArgs e)
@@ -32,10 +39,21 @@ namespace Zest_Script.forms
 
         private void ConfigureBasicInfo()
         {
+            BasicInfo info = Configuration.Instance.BasicInfo;
             currentTask.ShortMessage = "Setting computer name...";
-            currentTask.DescriptionMessage = PSHelper.Basic.SetComputerName(Configuration.Instance.BasicInfo.ComputerName);
+            currentTask.DescriptionMessage = inDevEnv ? "[WhatIf] only! Running in development..." : PSHelper.Basic.SetComputerName(info.ComputerName);
             tasks.Add(currentTask);
             bgOnboardWorker.ReportProgress(5);
+
+            //Join domain if present
+            if (!info.Domain.Equals(string.Empty))
+            {
+                currentTask.ShortMessage = $"Joining the {info.Domain} domain...";
+                currentTask.DescriptionMessage = PSHelper.Basic.JoinDomain(info.Domain, info.DomainUsername, info.DomainPassword, true);
+                tasks.Add(currentTask);
+                bgOnboardWorker.ReportProgress(10);
+            }
+
         }
 
         private void bgOnboardWorker_DoWork(object sender, DoWorkEventArgs e)

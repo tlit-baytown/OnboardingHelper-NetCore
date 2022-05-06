@@ -83,6 +83,9 @@
     <None Update="docs\styles.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="scripts\Prereqs.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="scripts\printers\GetPrinterDrivers.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

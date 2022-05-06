@@ -1,3 +1,2 @@
-﻿Import-Module PrintManagement
+﻿#Import-Module PrintManagement
 
-Get-PrinterDriver

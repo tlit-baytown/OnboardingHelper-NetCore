@@ -12,7 +12,7 @@ later be read by the application and then modified for the specific computer tha
 
 Feature Overview
 =======================================
-* Customize the computer name, domain, time-zone, and NTP server.
+* Customize the computer name, domain, time-zone, and NTP server. 
 * Create user accounts.
 * Create pre-configured Wi-Fi and VPN profiles.
 * Add a list of applications to install.
