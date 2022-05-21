@@ -54,6 +54,11 @@ namespace Zest_Script.forms
                 bgOnboardWorker.ReportProgress(10);
             }
 
+            currentTask.ShortMessage = "Setting timezone and NTP server...";
+            currentTask.DescriptionMessage = PSHelper.Basic.SetTimeZone(info.TimeZone, info.PrimaryNTPServer, info.PerformTimeSync);
+            tasks.Add(currentTask);
+            bgOnboardWorker.ReportProgress(20);
+
         }
 
         private void bgOnboardWorker_DoWork(object sender, DoWorkEventArgs e)

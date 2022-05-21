@@ -16,6 +16,7 @@ namespace Zest_Script.Powershell
 
         private static ExecutionPolicy Policy = GetExecutionPolicy();
         private static bool _isIntialized = false;
+        private static Runspace runspace = RunspaceFactory.CreateRunspace();
 
         /// <summary>
         /// Initialize the Powershell environment in the application's Runspace so that scripts can run. This method should be the first method
@@ -25,8 +26,12 @@ namespace Zest_Script.Powershell
         /// <returns>True if the environment was initialized successfully; False otherwise.</returns>
         public static bool InitializePSEnvironment()
         {
+            runspace.Open();
             using (PowerShell instance = PowerShell.Create())
             {
+                instance.Runspace = runspace;
+
+
                 //Install modules and set up pre-req environment
                 string path = Path.Combine("scripts", "Prereqs.ps1");
                 if (!string.IsNullOrEmpty(path))
@@ -66,10 +71,15 @@ namespace Zest_Script.Powershell
 
             using (PowerShell instance = PowerShell.Create())
             {
+                instance.Runspace = runspace;
+
                 instance.AddScript($"Set-ExecutionPolicy -ExecutionPolicy {Policy} -Scope LocalMachine -Force");
                 instance.Invoke();
                 if (!instance.HadErrors)
+                {
                     _isIntialized = false;
+                    runspace.Close();
+                }
             }
         }
 
@@ -77,6 +87,8 @@ namespace Zest_Script.Powershell
         {
             using (PowerShell instance = PowerShell.Create())
             {
+                instance.Runspace = runspace;
+
                 instance.AddScript("Get-ExecutionPolicy");
                 Collection<PSObject> result = instance.Invoke();
                 if (result.Count > 0)
@@ -124,6 +136,8 @@ namespace Zest_Script.Powershell
 
                 using (PowerShell instance = PowerShell.Create())
                 {
+                    instance.Runspace = runspace;
+
                     string cmd = $"Rename-Computer -NewName \"{name}\"";
                     if (restartAfterSet)
                         cmd = $"{cmd} -Restart";
@@ -150,6 +164,8 @@ namespace Zest_Script.Powershell
 
                 using (PowerShell instance = PowerShell.Create())
                 {
+                    instance.Runspace = runspace;
+
                     PSCredential credential = new PSCredential(username, password);
                     instance.AddStatement()
                         .AddScript("Add-Computer")
@@ -158,6 +174,36 @@ namespace Zest_Script.Powershell
                         .AddParameter("Force", "$True");
                     if (restartAfterJoin)
                         instance.AddParameter("Restart", "$True");
+
+                    System.Diagnostics.Debug.WriteLine(GetPsCommand(instance));
+
+                    instance.Invoke();
+                    if (instance.HadErrors)
+                        return instance.Streams.Error.First().Exception.Message;
+
+                    return GetPsCommand(instance);
+                }
+            }
+
+            internal static string SetTimeZone(TimeZoneInfo timeZone, string ntpServer, bool performTimeSync)
+            {
+                if (!_isIntialized)
+                    return "Environment is not initialized!";
+
+                using (PowerShell instance = PowerShell.Create())
+                {
+                    instance.Runspace = runspace;
+
+                    instance.AddStatement()
+                        .AddScript("Set-TimeZone")
+                        .AddParameter("Id", timeZone.Id);
+
+                    instance.AddStatement()
+                        .AddScript($"w32tm /config /syncfromflags:manual /manualpeerlist:\"{ntpServer}\"");
+
+                    if (performTimeSync)
+                        instance.AddStatement()
+                            .AddScript("w32tm /resync /force");
 
                     System.Diagnostics.Debug.WriteLine(GetPsCommand(instance));
 
@@ -190,6 +236,8 @@ namespace Zest_Script.Powershell
 
                 using (PowerShell instance = PowerShell.Create())
                 {
+                    instance.Runspace = runspace;
+
                     instance.AddScript("Get-PrinterDriver");
                     //string path = Path.Combine("scripts", "printers", "GetPrinterDrivers.ps1");
                     //if (!string.IsNullOrEmpty(path))

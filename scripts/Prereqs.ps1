@@ -14,3 +14,6 @@ Install-Module Microsoft.PowerShell.Management
 #Module imports
 Import-Module Microsoft.PowerShell.Management
 Import-Module PrintManagement
+
+#Check this module for an alternative to Powershell management: ComputerManagementDsc and ComputerManagement
+#https://stackoverflow.com/questions/63385304/powershell-install-no-match-was-found-for-the-specified-search-criteria-and-mo
