@@ -6,6 +6,7 @@ using System.Management.Automation.Runspaces;
 using System.Net;
 using System.Security;
 using Zest_Script.settings;
+using Zest_Script.wrappers;
 
 namespace Zest_Script.Powershell
 {
@@ -47,12 +48,23 @@ namespace Zest_Script.Powershell
         /// <returns>The <see cref="Path"/> to the script file.</returns>
         public static string CreateScript()
         {
+            //If script has already been created, overwrite it.
+            if (Configuration.Instance.HasBeenOnboarded)
+                File.Create(FullScriptPath).Close();
+
             WriteHeader();
             WriteBasicInfo();
+            WriteAccounts();
 
             return FullScriptPath;
         }
 
+        /// <summary>
+        /// Write a comment line to the script file. This is a line preceeded by a pound (#) symbol.
+        /// </summary>
+        /// <param name="file">The file to write to.</param>
+        /// <param name="comment">The comment.</param>
+        /// <param name="appendNewLine">Whether a new line should be included. Default = True.</param>
         private static void WriteComment(StreamWriter file, string comment, bool appendNewLine = true)
         {
             if (appendNewLine)
@@ -61,6 +73,15 @@ namespace Zest_Script.Powershell
                 file.Write("#" + comment);
         }
 
+        /// <summary>
+        /// Write descriptive text to the script file. This is a line with the specified foreground and background color that serves to
+        /// provide information to the user about what the script is doing.
+        /// </summary>
+        /// <param name="file">The file to write to.</param>
+        /// <param name="text">The text to write.</param>
+        /// <param name="foreground">The foreground color.</param>
+        /// <param name="background">The background color.</param>
+        /// <param name="appendNewLine">Whether a new line should be included. Default = True.</param>
         private static void WriteDescriptionText(StreamWriter file, string text, Color foreground, Color background, bool appendNewLine = true)
         {
             if (appendNewLine)
@@ -69,57 +90,105 @@ namespace Zest_Script.Powershell
                 file.Write($"Write-Host \"{text}\" -ForegroundColor {foreground.Name} -BackgroundColor {background.Name}");
         }
 
+        /// <summary>
+        /// Write descriptive text to the script file. This is a line with a DarkRed foreground color and White background color that serves to
+        /// provide information to the user about what the script is doing.
+        /// </summary>
+        /// <param name="file">The file to write to.</param>
+        /// <param name="text">The text to write.</param>
+        /// <param name="appendNewLine">Whether a new line should be included. Default = True.</param>
+        private static void WriteDescriptionText(StreamWriter file, string text, bool appendNewLine = true) =>
+            WriteDescriptionText(file, text, Color.DarkRed, Color.White, appendNewLine);
+
+        /// <summary>
+        /// Writes a blank new line the specified file.
+        /// </summary>
+        /// <param name="file">The file to write to.</param>
         private static void WriteLine(StreamWriter file)
         {
             file.WriteLine();
         }
 
-        private static void WriteStatement(StreamWriter file, string statement, bool appendNewLine = true)
+        /// <summary>
+        /// Writes a PowerShell command to the file for execution.
+        /// </summary>
+        /// <param name="file">The file to write to.</param>
+        /// <param name="cmd">The command to write.</param>
+        /// <param name="appendNewLine">Whether a new line should be included. Default = True.</param>
+        private static void WriteCmd(StreamWriter file, string cmd, bool appendNewLine = true)
         {
             if (appendNewLine)
-                file.WriteLine(statement);
+                file.WriteLine(cmd);
             else
-                file.Write(statement);
+                file.Write(cmd);
         }
 
-        private static void WriteDescriptionText(StreamWriter file, string text, bool appendNewLine = true) => 
-            WriteDescriptionText(file, text, Color.DarkRed, Color.White, appendNewLine);
+        /// <summary>
+        /// Writes an indented line to the file.
+        /// </summary>
+        /// <param name="file">The file to write to.</param>
+        /// <param name="line">The line to write.</param>
+        /// <param name="appendNewLine">Whether a new line should be included. Default = True.</param>
+        private static void WriteFunctionLine(StreamWriter file, string line, bool appendNewLine = true)
+        {
+            if (appendNewLine)
+                file.WriteLine("\t" + line);
+            else
+                file.Write("\t" + line);
+        }
 
         private static void WriteHeader()
         {
-            using StreamWriter file = new(Path.Combine(pathToScripts, uniqueName), append: true);
-            WriteComment(file, $"ZestScript - Version {Application.ProductVersion}");
-            WriteComment(file, "Auto-generated Powershell script for onboarding a new computer.");
-            WriteLine(file);
+            using StreamWriter file = new(FullScriptPath, append: true);
+
+            WriteComment(file, "Auto-generated PowerShell script for onboarding a new computer.");
+            WriteDescriptionText(file, $"ZestScript - Version {System.Windows.Forms.Application.ProductVersion}", Color.White, Color.DarkGreen);
             WriteLine(file);
 
             WriteComment(file, "Import modules needed by script");
-            WriteStatement(file, "Import-Module Microsoft.PowerShell.Management");
-            WriteStatement(file, "Import-Module PrintManagement");
+            WriteCmd(file, "Import-Module Microsoft.PowerShell.Management");
+            WriteCmd(file, "Import-Module PrintManagement");
             WriteLine(file);
 
+            WriteFunctions(file);
+
             WriteDescriptionText(file, "Saving the current execution policy to a variable and setting policy to Unrestricted.");
-            WriteStatement(file, "$currentExecutionPolicy=Get-ExecutionPolicy -Scope LocalMachine");
-            WriteStatement(file, "Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope LocalMachine -Force");
+            WriteCmd(file, "$currentExecutionPolicy=Get-ExecutionPolicy -Scope LocalMachine");
+            WriteCmd(file, "Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope LocalMachine -Force");
+            WriteLine(file);
+        }
+
+        /// <summary>
+        /// Writes the function definitions to the top of the script file.
+        /// </summary>
+        /// <param name="file">The file to write to.</param>
+        private static void WriteFunctions(StreamWriter file)
+        {
+            WriteComment(file, "Function Definitions");
+            WriteCmd(file, "Function Add-Account($username, $base64password, $comment, $accountType, $passwordExpires, $requirePWChange)");
+            WriteCmd(file, "{");
+            WriteFunctionLine(file, "$rawPw = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($base64password))");
+            WriteFunctionLine(file, "$pw = ConvertTo-SecureString $rawPW -AsPlainText -Force");
+            WriteFunctionLine(file, "New-LocalUser -Name $username -Password $pw -Description $comment -AccountNeverExpires | Set-LocalUser -PasswordNeverExpires $passwordExpires");
+            WriteCmd(file, "}");
             WriteLine(file);
         }
 
         private static void WriteBasicInfo()
         {
-            using StreamWriter file = new(Path.Combine(pathToScripts, uniqueName), append: true);
+            using StreamWriter file = new(FullScriptPath, append: true);
+
             WriteDescriptionText(file, "Setting computer name...");
             if (Configuration.Instance.BasicInfo.ComputerName.Equals(""))
                 WriteDescriptionText(file, "Computer name was empty. Skipping...");
             else
             {
-                WriteStatement(file, $"Rename-Computer -NewName \"{Configuration.Instance.BasicInfo.ComputerName}\"", false);
+                WriteCmd(file, $"Rename-Computer -NewName \"{Configuration.Instance.BasicInfo.ComputerName}\"", false);
                 if (Properties.Settings.Default.RestartAfterComputerNameSet)
-                    WriteStatement(file, "-Restart");
+                    WriteCmd(file, "-Restart");
             }
             WriteLine(file);
 
-            
-            file.WriteLine("#Adding computer to domain.");
             if (!Configuration.Instance.BasicInfo.Domain.Equals("")) //domain is not empty
             {
                 WriteDescriptionText(file, "Adding computer to domain...");
@@ -128,20 +197,43 @@ namespace Zest_Script.Powershell
                 string username = Configuration.Instance.BasicInfo.DomainUsername;
                 string base64Pass = Configuration.Instance.BasicInfo.Base64DomainPassword;
 
-                WriteStatement(file, $"$domain = \"{domain}\"");
-                WriteStatement(file, $"$domainUsername = \"{username}\"");
-                WriteStatement(file, $"$base64DomainPassword = \"{base64Pass}\"");
-                WriteStatement(file, $"$rawDomainPassword = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($base64DomainPassword))");
-                WriteStatement(file, $"$domainPassword = ConvertTo-SecureString $rawDomainPassword -AsPlainText -Force");
-                WriteStatement(file, $"[PSCredential]$credential = New-Object System.Management.Automation.PSCredential ($domainUsername, $domainPassword)");
+                WriteCmd(file, $"$domain = \"{domain}\"");
+                WriteCmd(file, $"$domainUsername = \"{username}\"");
+                WriteCmd(file, $"$base64DomainPassword = \"{base64Pass}\"");
+                WriteCmd(file, $"$rawDomainPassword = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($base64DomainPassword))");
+                WriteCmd(file, $"$domainPassword = ConvertTo-SecureString $rawDomainPassword -AsPlainText -Force");
+                WriteCmd(file, $"[PSCredential]$credential = New-Object System.Management.Automation.PSCredential ($domainUsername, $domainPassword)");
 
-                WriteStatement(file, $"Add-Computer -DomainName $domain -Credential $credential -Force");
+                WriteCmd(file, $"Add-Computer -DomainName $domain -Credential $credential -Force");
             }
             else
                 WriteDescriptionText(file, "No domain specified. Skipping...");
 
             WriteLine(file);
+
+            //Timezone and NTP
+            WriteDescriptionText(file, "Setting TimeZone info...");
+            WriteCmd(file, $"Set-TimeZone -Name \"{Configuration.Instance.BasicInfo.TimeZone.Id}\"");
+            WriteCmd(file, "Start-Service w32time");
+            WriteCmd(file, "w32tm /register");
+            WriteCmd(file, $"w32tm /config /syncfromflags:manual /manualpeerlist:\"{Configuration.Instance.BasicInfo.PrimaryNTPServer}\"");
+            
+            if (Configuration.Instance.BasicInfo.PerformTimeSync)
+                WriteCmd(file, "w32tm /resync /force");
         }
+
+        private static void WriteAccounts()
+        {
+            using StreamWriter file = new(FullScriptPath, append: true);
+
+            WriteDescriptionText(file, "Creating user accounts...");
+            foreach (Account acct in Configuration.Instance.Accounts)
+            {
+                WriteDescriptionText(file, $"Adding account: {acct.Username}");
+                WriteCmd(file, $"Add-Account \"{acct.Username}\" \"{acct.Base64Password}\" \"{acct.Comment}\" ${acct.DoesPasswordExpire} ${acct.RequirePasswordChange}");
+            }
+        }
+        //            WriteCmd(file, "function Add-Account($username, $base64password, $comment, $accountType, $passwordExpires, $requirePWChange)");
 
         ///// <summary>
         ///// Creates a unique key file to use for encrypting and decrypting credentials.
