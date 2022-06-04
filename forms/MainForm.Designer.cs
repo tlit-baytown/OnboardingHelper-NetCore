@@ -69,6 +69,10 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.pathToScriptFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetToDefaultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.restartAfterComputerRenameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnShowConfigSummary = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,6 +94,7 @@
             this.btnAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.dlgSaveConfig = new System.Windows.Forms.SaveFileDialog();
             this.dlgOpenConfig = new System.Windows.Forms.OpenFileDialog();
+            this.dlgPathToScripts = new System.Windows.Forms.FolderBrowserDialog();
             this.mainStatusBar.SuspendLayout();
             this.mainTabs.SuspendLayout();
             this.basicTab.SuspendLayout();
@@ -436,6 +441,7 @@
             this.toolStripSeparator3,
             this.printToolStripMenuItem,
             this.toolStripSeparator1,
+            this.btnSettings,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -496,6 +502,47 @@
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(226, 6);
+            // 
+            // btnSettings
+            // 
+            this.btnSettings.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.pathToScriptFilesToolStripMenuItem,
+            this.restartAfterComputerRenameToolStripMenuItem});
+            this.btnSettings.Image = global::Zest_Script.Properties.Resources.settings;
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(229, 22);
+            this.btnSettings.Text = "Settings";
+            // 
+            // pathToScriptFilesToolStripMenuItem
+            // 
+            this.pathToScriptFilesToolStripMenuItem.AutoToolTip = true;
+            this.pathToScriptFilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.resetToDefaultToolStripMenuItem});
+            this.pathToScriptFilesToolStripMenuItem.Name = "pathToScriptFilesToolStripMenuItem";
+            this.pathToScriptFilesToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.pathToScriptFilesToolStripMenuItem.Text = "Path To Script Files...";
+            this.pathToScriptFilesToolStripMenuItem.ToolTipText = "Indicates where script files should be saved.";
+            this.pathToScriptFilesToolStripMenuItem.Click += new System.EventHandler(this.pathToScriptFilesToolStripMenuItem_Click);
+            // 
+            // resetToDefaultToolStripMenuItem
+            // 
+            this.resetToDefaultToolStripMenuItem.Name = "resetToDefaultToolStripMenuItem";
+            this.resetToDefaultToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.resetToDefaultToolStripMenuItem.Text = "Reset To Default (C:\\ZestScript)";
+            this.resetToDefaultToolStripMenuItem.Click += new System.EventHandler(this.resetToDefaultToolStripMenuItem_Click);
+            // 
+            // restartAfterComputerRenameToolStripMenuItem
+            // 
+            this.restartAfterComputerRenameToolStripMenuItem.AutoToolTip = true;
+            this.restartAfterComputerRenameToolStripMenuItem.Checked = true;
+            this.restartAfterComputerRenameToolStripMenuItem.CheckOnClick = true;
+            this.restartAfterComputerRenameToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.restartAfterComputerRenameToolStripMenuItem.Name = "restartAfterComputerRenameToolStripMenuItem";
+            this.restartAfterComputerRenameToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.restartAfterComputerRenameToolStripMenuItem.Text = "Restart After Computer Rename";
+            this.restartAfterComputerRenameToolStripMenuItem.ToolTipText = "Indicates whether the script should restart the computer after changing the compu" +
+    "ter name.";
+            this.restartAfterComputerRenameToolStripMenuItem.CheckedChanged += new System.EventHandler(this.restartAfterComputerRenameToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
@@ -684,6 +731,12 @@
             this.dlgOpenConfig.FileName = "configuration";
             this.dlgOpenConfig.Filter = "XML Config (*.xml)|*.xml";
             // 
+            // dlgPathToScripts
+            // 
+            this.dlgPathToScripts.AutoUpgradeEnabled = false;
+            this.dlgPathToScripts.Description = "Select the directory to store script files in.";
+            this.dlgPathToScripts.RootFolder = System.Environment.SpecialFolder.MyComputer;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -785,5 +838,10 @@
         private ToolStripMenuItem summaryFromFileToolStripMenuItem;
         private ImageList imageList;
         private userControls.BasicInfoUserCtl basicInfoUserCtl1;
+        private ToolStripMenuItem btnSettings;
+        private ToolStripMenuItem pathToScriptFilesToolStripMenuItem;
+        private ToolStripMenuItem restartAfterComputerRenameToolStripMenuItem;
+        private FolderBrowserDialog dlgPathToScripts;
+        private ToolStripMenuItem resetToDefaultToolStripMenuItem;
     }
 }

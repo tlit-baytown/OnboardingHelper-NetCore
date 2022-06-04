@@ -225,6 +225,43 @@ namespace Zest_Script
             }
         }
 
+        private void pathToScriptFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fileToolStripMenuItem.HideDropDown();
+            btnSettings.HideDropDown();
+
+            if (dlgPathToScripts.ShowDialog() == DialogResult.OK)
+            {
+                if (Directory.Exists(dlgPathToScripts.SelectedPath))
+                {
+                    Properties.Settings.Default.PathToScripts = dlgPathToScripts.SelectedPath;
+                    Properties.Settings.Default.Save();
+                    lblStatusText.Text = $"New Scripts Path: {Properties.Settings.Default.PathToScripts}";
+                }
+                else
+                {
+                    MessageBox.Show(this, "The selected path for script files was not found. Please try again.",
+                        "Error Saving Path", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    lblStatusText.Text = "Error saving selected script path.";
+                }
+            }
+        }
+
+        private void resetToDefaultToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.PathToScripts = "C:\\ZestScript\\";
+            Properties.Settings.Default.Save();
+            lblStatusText.Text = $"New Scripts Path: {Properties.Settings.Default.PathToScripts}";
+        }
+
+        private void restartAfterComputerRenameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.RestartAfterComputerNameSet = restartAfterComputerRenameToolStripMenuItem.Checked;
+            Properties.Settings.Default.Save();
+            lblStatusText.Text = $"Restart After Computer Name Set: {Properties.Settings.Default.RestartAfterComputerNameSet}";
+        }
+
+
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show(this, "Are you sure you want to exit?\nThe configuration is NOT automatically saved.", "Confirm", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);

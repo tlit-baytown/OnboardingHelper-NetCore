@@ -17,7 +17,6 @@ namespace Zest_Script.Powershell
         private PSHelper() { }
 
         private static string pathToScripts = Properties.Settings.Default.PathToScripts;
-        private static string pathToKeyFiles = Properties.Settings.Default.PathToKeyFiles;
         private static string uniqueName = Guid.NewGuid().ToString()[..8] + ".ps1"; //use the first 8 characters of the GUID as the script name for simplicity
 
         /// <summary>
@@ -144,23 +143,23 @@ namespace Zest_Script.Powershell
             WriteLine(file);
         }
 
-        /// <summary>
-        /// Creates a unique key file to use for encrypting and decrypting credentials.
-        /// Saves the file in the location specified by <see cref="Properties.Settings.PathToKeyFiles"/> with the unique script name as the file name.
-        /// </summary>
-        public static void CreateKeyFile()
-        {
-            if (!Directory.Exists(pathToKeyFiles))
-                Directory.CreateDirectory(pathToKeyFiles);
+        ///// <summary>
+        ///// Creates a unique key file to use for encrypting and decrypting credentials.
+        ///// Saves the file in the location specified by <see cref="Properties.Settings.PathToKeyFiles"/> with the unique script name as the file name.
+        ///// </summary>
+        //public static void CreateKeyFile()
+        //{
+        //    if (!Directory.Exists(pathToKeyFiles))
+        //        Directory.CreateDirectory(pathToKeyFiles);
 
-            using (PowerShell instance = PowerShell.Create())
-            {
-                instance.AddScript($"$KeyFile={Path.Combine(pathToKeyFiles, uniqueName)}.key");
-                instance.AddStatement().AddScript("$Key=New-Object Byte[] 16");
-                instance.AddStatement().AddScript("[System.Security.Cryptography.RNGCryptoServiceProvider]::Create().GetBytes($Key)");
-                instance.AddStatement().AddScript("$Key | Out-File $KeyFile");
-            }
-        }
+        //    using (PowerShell instance = PowerShell.Create())
+        //    {
+        //        instance.AddScript($"$KeyFile={Path.Combine(pathToKeyFiles, uniqueName)}.key");
+        //        instance.AddStatement().AddScript("$Key=New-Object Byte[] 16");
+        //        instance.AddStatement().AddScript("[System.Security.Cryptography.RNGCryptoServiceProvider]::Create().GetBytes($Key)");
+        //        instance.AddStatement().AddScript("$Key | Out-File $KeyFile");
+        //    }
+        //}
 
         ///// <summary>
         ///// Initialize the Powershell environment in the application's Runspace so that scripts can run. This method should be the first method

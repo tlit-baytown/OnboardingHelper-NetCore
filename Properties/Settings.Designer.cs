@@ -46,17 +46,5 @@ namespace Zest_Script.Properties {
                 this["RestartAfterComputerNameSet"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\ZestScript\\Keys\\")]
-        public string PathToKeyFiles {
-            get {
-                return ((string)(this["PathToKeyFiles"]));
-            }
-            set {
-                this["PathToKeyFiles"] = value;
-            }
-        }
     }
 }

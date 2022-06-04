@@ -54,6 +54,7 @@
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panel1.Controls.Add(this.panelDetails);
             this.panel1.Controls.Add(this.tableLayoutPanel1);
             this.panel1.Controls.Add(this.panel2);
@@ -145,10 +146,10 @@
             // lblCurrentTask
             // 
             this.lblCurrentTask.AutoSize = true;
-            this.lblCurrentTask.Font = new System.Drawing.Font("Segoe UI", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.lblCurrentTask.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.lblCurrentTask.Location = new System.Drawing.Point(12, 38);
             this.lblCurrentTask.Name = "lblCurrentTask";
-            this.lblCurrentTask.Size = new System.Drawing.Size(96, 17);
+            this.lblCurrentTask.Size = new System.Drawing.Size(85, 17);
             this.lblCurrentTask.TabIndex = 1;
             this.lblCurrentTask.Text = "Current task...";
             // 

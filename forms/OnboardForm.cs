@@ -33,7 +33,11 @@ namespace Zest_Script.forms
 
         private void OnboardForm_Load(object sender, EventArgs e)
         {
-            PSHelper.SetEnvironment();
+            if (!PSHelper.SetEnvironment())
+            {
+                MessageBox.Show(this, "The PowerShell environment could not be created! Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             if (!bgOnboardWorker.IsBusy)
                 bgOnboardWorker.RunWorkerAsync();
