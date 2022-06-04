@@ -165,11 +165,17 @@ namespace Zest_Script.Powershell
         private static void WriteFunctions(StreamWriter file)
         {
             WriteComment(file, "Function Definitions");
-            WriteCmd(file, "Function Add-Account($username, $base64password, $comment, $accountType, $passwordExpires, $requirePWChange)");
+
+            WriteComment(file, "Function to add user accounts");
+            WriteCmd(file, "Function Add-Account($username, $base64password, $comment, $accountType, $passwordExpires, $requirePWChange, $isAdministrator)");
             WriteCmd(file, "{");
             WriteFunctionLine(file, "$rawPw = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($base64password))");
             WriteFunctionLine(file, "$pw = ConvertTo-SecureString $rawPW -AsPlainText -Force");
             WriteFunctionLine(file, "New-LocalUser -Name $username -Password $pw -Description $comment -AccountNeverExpires | Set-LocalUser -PasswordNeverExpires $passwordExpires");
+            WriteFunctionLine(file, "if ($isAdministrator)");
+            WriteFunctionLine(file, "{");
+            WriteFunctionLine(file, "\tAdd-LocalGroupMember -Group \"Administrators\" -Member \"$username\"");
+            WriteFunctionLine(file, "}");
             WriteCmd(file, "}");
             WriteLine(file);
         }
@@ -230,7 +236,8 @@ namespace Zest_Script.Powershell
             foreach (Account acct in Configuration.Instance.Accounts)
             {
                 WriteDescriptionText(file, $"Adding account: {acct.Username}");
-                WriteCmd(file, $"Add-Account \"{acct.Username}\" \"{acct.Base64Password}\" \"{acct.Comment}\" ${acct.DoesPasswordExpire} ${acct.RequirePasswordChange}");
+                WriteCmd(file, $"Add-Account \"{acct.Username}\" \"{acct.Base64Password}\" \"{acct.Comment}\" " +
+                    $"${acct.DoesPasswordExpire} ${acct.RequirePasswordChange} ${acct.AccountType == AccountType.ADMINISTRATOR}");
             }
         }
         //            WriteCmd(file, "function Add-Account($username, $base64password, $comment, $accountType, $passwordExpires, $requirePWChange)");
