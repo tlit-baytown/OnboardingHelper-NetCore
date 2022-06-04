@@ -239,10 +239,10 @@
             // 
             this.connectionsTab.Controls.Add(this.connectionsTabs);
             this.connectionsTab.ImageKey = "internet.png";
-            this.connectionsTab.Location = new System.Drawing.Point(4, 24);
+            this.connectionsTab.Location = new System.Drawing.Point(4, 31);
             this.connectionsTab.Name = "connectionsTab";
             this.connectionsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.connectionsTab.Size = new System.Drawing.Size(192, 72);
+            this.connectionsTab.Size = new System.Drawing.Size(877, 419);
             this.connectionsTab.TabIndex = 2;
             this.connectionsTab.Text = "Connections";
             this.connectionsTab.ToolTipText = "Add and remove Wi-Fi and VPN connections.";
@@ -256,7 +256,7 @@
             this.connectionsTabs.Location = new System.Drawing.Point(3, 3);
             this.connectionsTabs.Name = "connectionsTabs";
             this.connectionsTabs.SelectedIndex = 0;
-            this.connectionsTabs.Size = new System.Drawing.Size(186, 66);
+            this.connectionsTabs.Size = new System.Drawing.Size(871, 413);
             this.connectionsTabs.TabIndex = 1;
             // 
             // tabWiFi
@@ -265,7 +265,7 @@
             this.tabWiFi.Location = new System.Drawing.Point(4, 24);
             this.tabWiFi.Name = "tabWiFi";
             this.tabWiFi.Padding = new System.Windows.Forms.Padding(3);
-            this.tabWiFi.Size = new System.Drawing.Size(178, 38);
+            this.tabWiFi.Size = new System.Drawing.Size(863, 385);
             this.tabWiFi.TabIndex = 0;
             this.tabWiFi.Text = "Wi-Fi Networks";
             this.tabWiFi.UseVisualStyleBackColor = true;
@@ -275,7 +275,7 @@
             this.wiFiUserCtl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.wiFiUserCtl1.Location = new System.Drawing.Point(3, 3);
             this.wiFiUserCtl1.Name = "wiFiUserCtl1";
-            this.wiFiUserCtl1.Size = new System.Drawing.Size(172, 32);
+            this.wiFiUserCtl1.Size = new System.Drawing.Size(857, 379);
             this.wiFiUserCtl1.TabIndex = 0;
             // 
             // tabVPN
