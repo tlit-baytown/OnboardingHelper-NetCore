@@ -139,6 +139,7 @@
             this.pgOnboardProgress.Location = new System.Drawing.Point(12, 12);
             this.pgOnboardProgress.Name = "pgOnboardProgress";
             this.pgOnboardProgress.Size = new System.Drawing.Size(625, 23);
+            this.pgOnboardProgress.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.pgOnboardProgress.TabIndex = 0;
             // 
             // lblCurrentTask

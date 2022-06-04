@@ -29,66 +29,119 @@ namespace Zest_Script.Powershell
         /// Checks if the directory for storing scripts exists as well as the current script file. Creates them if they don't exist.
         ///
         /// </summary>
-        /// <returns></returns>
-        public static void SetEnvironment()
+        /// <returns>True if directory and file was created successfully. False, otherwise.</returns>
+        public static bool SetEnvironment()
         {
-            if (!Directory.Exists(pathToScripts))
-                Directory.CreateDirectory(pathToScripts);
-            if (!File.Exists(FullScriptPath))
-                File.Create(FullScriptPath);
+            try
+            {
+                if (!Directory.Exists(pathToScripts))
+                    Directory.CreateDirectory(pathToScripts);
+                if (!File.Exists(FullScriptPath))
+                    File.Create(FullScriptPath).Close();
+                return true;
+            } catch (Exception) { return false; }
         }
 
-        public static void WriteHeader()
+        /// <summary>
+        /// Compiles and creates the PowerShell script based on Configuration values present in <see cref="Configuration"/>.
+        /// </summary>
+        /// <returns>The <see cref="Path"/> to the script file.</returns>
+        public static string CreateScript()
         {
-            using StreamWriter file = new(Path.Combine(pathToScripts, uniqueName), append: true);
-            file.WriteLine($"#ZestScript - Version {Application.ProductVersion}"); //header comment
-            file.WriteLine("#Auto-generated Powershell script for onboarding a new computer.");
-            file.WriteLine("");
+            WriteHeader();
+            WriteBasicInfo();
 
-            file.WriteLine("#Import modules needed by script");
-            file.WriteLine("Import-Module Microsoft.PowerShell.Management");
-            file.WriteLine("Import-Module PrintManagement");
-            file.WriteLine("");
-
-            file.WriteLine("#Saving the current execution policy to a variable and setting policy to Unrestricted.");
-            file.WriteLine("$currentExecutionPolicy=Get-ExecutionPolicy -Scope LocalMachine"); //Get the current execution policy for scripts
-            file.WriteLine("Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope LocalMachine -Force"); //Set execution policy for scripts so we can execute correctly
-            file.WriteLine("Write-Output $currentExecutionPolicy");
-            file.WriteLine("");
+            return FullScriptPath;
         }
 
-        public static void WriteBasicInfo()
+        private static void WriteComment(StreamWriter file, string comment, bool appendNewLine = true)
+        {
+            if (appendNewLine)
+                file.WriteLine("#" + comment);
+            else
+                file.Write("#" + comment);
+        }
+
+        private static void WriteDescriptionText(StreamWriter file, string text, Color foreground, Color background, bool appendNewLine = true)
+        {
+            if (appendNewLine)
+                file.WriteLine($"Write-Host \"{text}\" -ForegroundColor {foreground.Name} -BackgroundColor {background.Name}");
+            else
+                file.Write($"Write-Host \"{text}\" -ForegroundColor {foreground.Name} -BackgroundColor {background.Name}");
+        }
+
+        private static void WriteLine(StreamWriter file)
+        {
+            file.WriteLine();
+        }
+
+        private static void WriteStatement(StreamWriter file, string statement, bool appendNewLine = true)
+        {
+            if (appendNewLine)
+                file.WriteLine(statement);
+            else
+                file.Write(statement);
+        }
+
+        private static void WriteDescriptionText(StreamWriter file, string text, bool appendNewLine = true) => 
+            WriteDescriptionText(file, text, Color.DarkRed, Color.White, appendNewLine);
+
+        private static void WriteHeader()
         {
             using StreamWriter file = new(Path.Combine(pathToScripts, uniqueName), append: true);
-            file.WriteLine("#Setting computer name.");
+            WriteComment(file, $"ZestScript - Version {Application.ProductVersion}");
+            WriteComment(file, "Auto-generated Powershell script for onboarding a new computer.");
+            WriteLine(file);
+            WriteLine(file);
+
+            WriteComment(file, "Import modules needed by script");
+            WriteStatement(file, "Import-Module Microsoft.PowerShell.Management");
+            WriteStatement(file, "Import-Module PrintManagement");
+            WriteLine(file);
+
+            WriteDescriptionText(file, "Saving the current execution policy to a variable and setting policy to Unrestricted.");
+            WriteStatement(file, "$currentExecutionPolicy=Get-ExecutionPolicy -Scope LocalMachine");
+            WriteStatement(file, "Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope LocalMachine -Force");
+            WriteLine(file);
+        }
+
+        private static void WriteBasicInfo()
+        {
+            using StreamWriter file = new(Path.Combine(pathToScripts, uniqueName), append: true);
+            WriteDescriptionText(file, "Setting computer name...");
             if (Configuration.Instance.BasicInfo.ComputerName.Equals(""))
-                file.WriteLine("#Computer name was empty. Skipping..."); //skip command if computer name was left empty
+                WriteDescriptionText(file, "Computer name was empty. Skipping...");
             else
             {
-                file.WriteLine($"Rename-Computer -NewName \"{Configuration.Instance.BasicInfo.ComputerName}\""); //rename computer
+                WriteStatement(file, $"Rename-Computer -NewName \"{Configuration.Instance.BasicInfo.ComputerName}\"", false);
                 if (Properties.Settings.Default.RestartAfterComputerNameSet)
-                    file.Write(" -Restart"); //add restart flag if enabled in settings
+                    WriteStatement(file, "-Restart");
             }
-            file.WriteLine("");
+            WriteLine(file);
 
+            
             file.WriteLine("#Adding computer to domain.");
             if (!Configuration.Instance.BasicInfo.Domain.Equals("")) //domain is not empty
             {
+                WriteDescriptionText(file, "Adding computer to domain...");
+
                 string domain = Configuration.Instance.BasicInfo.Domain;
                 string username = Configuration.Instance.BasicInfo.DomainUsername;
                 string base64Pass = Configuration.Instance.BasicInfo.Base64DomainPassword;
-                file.WriteLine($"$domain = \"{domain}\"");
-                file.WriteLine($"$domainUsername = \"{username}\"");
-                file.WriteLine($"$base64DomainPassword = \"{base64Pass}\"");
-                file.WriteLine($"$rawDomainPassword = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($base64DomainPassword))");
-                file.WriteLine($"$domainPassword = ConvertTo-SecureString $rawDomainPassword -AsPlainText -Force");
-                file.WriteLine($"[PSCredential]$credential = New-Object System.Management.Automation.PSCredential ($domainUsername, $domainPassword)");
 
-                file.WriteLine($"Add-Computer -DomainName $domain -Credential $credential -Force");
+                WriteStatement(file, $"$domain = \"{domain}\"");
+                WriteStatement(file, $"$domainUsername = \"{username}\"");
+                WriteStatement(file, $"$base64DomainPassword = \"{base64Pass}\"");
+                WriteStatement(file, $"$rawDomainPassword = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($base64DomainPassword))");
+                WriteStatement(file, $"$domainPassword = ConvertTo-SecureString $rawDomainPassword -AsPlainText -Force");
+                WriteStatement(file, $"[PSCredential]$credential = New-Object System.Management.Automation.PSCredential ($domainUsername, $domainPassword)");
+
+                WriteStatement(file, $"Add-Computer -DomainName $domain -Credential $credential -Force");
             }
             else
-                file.WriteLine("#No domain specified. Skipping...");
-            file.WriteLine("");
+                WriteDescriptionText(file, "No domain specified. Skipping...");
+
+            WriteLine(file);
         }
 
         /// <summary>

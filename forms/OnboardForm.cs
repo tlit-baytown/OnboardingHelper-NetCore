@@ -33,59 +33,27 @@ namespace Zest_Script.forms
 
         private void OnboardForm_Load(object sender, EventArgs e)
         {
+            PSHelper.SetEnvironment();
+
             if (!bgOnboardWorker.IsBusy)
                 bgOnboardWorker.RunWorkerAsync();
         }
 
-        private void ConfigureBasicInfo()
+        private void bgOnboardWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             currentTask.ShortMessage = "Creating script...";
             currentTask.DescriptionMessage = $"Script writing to: {PSHelper.FullScriptPath}\nPlease wait...";
             tasks.Add(currentTask);
+            bgOnboardWorker.ReportProgress(50);
+            Thread.Sleep(500);
 
-            PSHelper.WriteHeader();
-            bgOnboardWorker.ReportProgress(5);
+            PSHelper.CreateScript();
 
-            PSHelper.WriteBasicInfo();
-            bgOnboardWorker.ReportProgress(10);
-            //BasicInfo info = Configuration.Instance.BasicInfo;
-            //currentTask.ShortMessage = "Setting computer name...";
-            //currentTask.DescriptionMessage = inDevEnv ? "[WhatIf] only! Running in development..." : PSHelper.Basic.SetComputerName(info.ComputerName);
-            //tasks.Add(currentTask);
-            //bgOnboardWorker.ReportProgress(5);
+            currentTask.ShortMessage = "Script Created!";
+            currentTask.DescriptionMessage = "PowerShell script has been created and can now be executed to on-board the computer.";
+            tasks.Add(currentTask);
 
-            ////Join domain if present
-            //if (!info.Domain.Equals(string.Empty))
-            //{
-            //    currentTask.ShortMessage = $"Joining the {info.Domain} domain...";
-            //    currentTask.DescriptionMessage = PSHelper.Basic.JoinDomain(info.Domain, info.DomainUsername, info.DomainPassword, true);
-            //    tasks.Add(currentTask);
-            //    bgOnboardWorker.ReportProgress(10);
-            //}
-
-            //currentTask.ShortMessage = "Setting timezone and NTP server...";
-            //currentTask.DescriptionMessage = PSHelper.Basic.SetTimeZone(info.TimeZone, info.PrimaryNTPServer, info.PerformTimeSync);
-            //tasks.Add(currentTask);
-            //bgOnboardWorker.ReportProgress(20);
-
-        }
-
-        private void bgOnboardWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            ConfigureBasicInfo();
-            
-            //int counter = 0;
-            //while (counter < 100)
-            //{
-            //    counter++;
-            //    currentTask.ShortMessage = $"Counter: {counter}";
-            //    currentTask.DescriptionMessage = $"Currently setting the counter variable to: {counter}";
-
-            //    tasks.Add(currentTask);
-
-            //    bgOnboardWorker.ReportProgress(counter);
-            //    Thread.Sleep(50);
-            //}
+            bgOnboardWorker.ReportProgress(100);
         }
 
         private void bgOnboardWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -98,6 +66,9 @@ namespace Zest_Script.forms
         private void bgOnboardWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             OnboardingDone?.Invoke(this, new CEventArgs.OnboardDoneEventArgs("Successful", true));
+            pgOnboardProgress.Style = ProgressBarStyle.Continuous;
+            pgOnboardProgress.Value = 100;
+
             btnCancel.Text = "Close";
         }
 

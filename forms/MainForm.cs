@@ -342,7 +342,7 @@ namespace Zest_Script
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            PSHelper.SetEnvironment();
+
         }
     }
 }
