@@ -3,7 +3,9 @@ using Microsoft.PowerShell;
 using System.Collections.ObjectModel;
 using System.Management.Automation;
 using System.Management.Automation.Runspaces;
+using System.Net;
 using System.Security;
+using Zest_Script.settings;
 
 namespace Zest_Script.Powershell
 {
@@ -14,208 +16,269 @@ namespace Zest_Script.Powershell
     {
         private PSHelper() { }
 
-        private static ExecutionPolicy Policy = GetExecutionPolicy();
-        private static bool _isIntialized = false;
-        private static Runspace runspace = RunspaceFactory.CreateRunspace();
+        private static string pathToScripts = Properties.Settings.Default.PathToScripts;
+        private static string pathToKeyFiles = Properties.Settings.Default.PathToKeyFiles;
+        private static string uniqueName = Guid.NewGuid().ToString()[..8] + ".ps1"; //use the first 8 characters of the GUID as the script name for simplicity
 
         /// <summary>
-        /// Initialize the Powershell environment in the application's Runspace so that scripts can run. This method should be the first method
-        /// called in <see cref="PSHelper"/> before any other methods.
-        /// <para>Sets the execution policy to 'Unrestricted' and installs required modules. The policy is set back to what it was after the application is closed.</para>
+        /// Get the full path to the auto-generated script file.
         /// </summary>
-        /// <returns>True if the environment was initialized successfully; False otherwise.</returns>
-        public static bool InitializePSEnvironment()
+        public static string FullScriptPath { get { return Path.Combine(pathToScripts, uniqueName); } }
+
+        /// <summary>
+        /// Checks if the directory for storing scripts exists as well as the current script file. Creates them if they don't exist.
+        ///
+        /// </summary>
+        /// <returns></returns>
+        public static void SetEnvironment()
         {
-            runspace.Open();
-            using (PowerShell instance = PowerShell.Create())
+            if (!Directory.Exists(pathToScripts))
+                Directory.CreateDirectory(pathToScripts);
+            if (!File.Exists(FullScriptPath))
+                File.Create(FullScriptPath);
+        }
+
+        public static void WriteHeader()
+        {
+            using StreamWriter file = new(Path.Combine(pathToScripts, uniqueName), append: true);
+            file.WriteLine($"#ZestScript - Version {Application.ProductVersion}"); //header comment
+            file.WriteLine("#Auto-generated Powershell script for onboarding a new computer.");
+            file.WriteLine("");
+
+            file.WriteLine("#Import modules needed by script");
+            file.WriteLine("Import-Module Microsoft.PowerShell.Management");
+            file.WriteLine("Import-Module PrintManagement");
+            file.WriteLine("");
+
+            file.WriteLine("#Saving the current execution policy to a variable and setting policy to Unrestricted.");
+            file.WriteLine("$currentExecutionPolicy=Get-ExecutionPolicy -Scope LocalMachine"); //Get the current execution policy for scripts
+            file.WriteLine("Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope LocalMachine -Force"); //Set execution policy for scripts so we can execute correctly
+            file.WriteLine("Write-Output $currentExecutionPolicy");
+            file.WriteLine("");
+        }
+
+        public static void WriteBasicInfo()
+        {
+            using StreamWriter file = new(Path.Combine(pathToScripts, uniqueName), append: true);
+            file.WriteLine("#Setting computer name.");
+            if (Configuration.Instance.BasicInfo.ComputerName.Equals(""))
+                file.WriteLine("#Computer name was empty. Skipping..."); //skip command if computer name was left empty
+            else
             {
-                instance.Runspace = runspace;
-
-
-                //Install modules and set up pre-req environment
-                string path = Path.Combine("scripts", "Prereqs.ps1");
-                if (!string.IsNullOrEmpty(path))
-                {
-                    try
-                    {
-                        instance.AddStatement().AddScript(File.ReadAllText(path));
-
-                        instance.Invoke();
-                        if (!instance.HadErrors)
-                            _isIntialized = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        System.Diagnostics.Debug.WriteLine(ex.Message);
-
-                        if (instance.HadErrors)
-                            System.Diagnostics.Debug.WriteLine(instance.Streams.Error.First().Exception.Message);
-
-                        _isIntialized = false;
-                    }
-                }
-                else
-                    _isIntialized = false;
+                file.WriteLine($"Rename-Computer -NewName \"{Configuration.Instance.BasicInfo.ComputerName}\""); //rename computer
+                if (Properties.Settings.Default.RestartAfterComputerNameSet)
+                    file.Write(" -Restart"); //add restart flag if enabled in settings
             }
+            file.WriteLine("");
 
-            return _isIntialized;
+            file.WriteLine("#Adding computer to domain.");
+            if (!Configuration.Instance.BasicInfo.Domain.Equals("")) //domain is not empty
+            {
+                string domain = Configuration.Instance.BasicInfo.Domain;
+                string username = Configuration.Instance.BasicInfo.DomainUsername;
+                string base64Pass = Configuration.Instance.BasicInfo.Base64DomainPassword;
+                file.WriteLine($"$domain = \"{domain}\"");
+                file.WriteLine($"$domainUsername = \"{username}\"");
+                file.WriteLine($"$base64DomainPassword = \"{base64Pass}\"");
+                file.WriteLine($"$rawDomainPassword = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($base64DomainPassword))");
+                file.WriteLine($"$domainPassword = ConvertTo-SecureString $rawDomainPassword -AsPlainText -Force");
+                file.WriteLine($"[PSCredential]$credential = New-Object System.Management.Automation.PSCredential ($domainUsername, $domainPassword)");
+
+                file.WriteLine($"Add-Computer -DomainName $domain -Credential $credential -Force");
+            }
+            else
+                file.WriteLine("#No domain specified. Skipping...");
+            file.WriteLine("");
         }
 
         /// <summary>
-        /// Resets the ExecutionPolicy on the computer back to what it was before the on-boarding script ran.
+        /// Creates a unique key file to use for encrypting and decrypting credentials.
+        /// Saves the file in the location specified by <see cref="Properties.Settings.PathToKeyFiles"/> with the unique script name as the file name.
         /// </summary>
-        public static void DestroyPSEnvironment()
+        public static void CreateKeyFile()
         {
-            if (!_isIntialized)
-                return;
+            if (!Directory.Exists(pathToKeyFiles))
+                Directory.CreateDirectory(pathToKeyFiles);
 
             using (PowerShell instance = PowerShell.Create())
             {
-                instance.Runspace = runspace;
-
-                instance.AddScript($"Set-ExecutionPolicy -ExecutionPolicy {Policy} -Scope LocalMachine -Force");
-                instance.Invoke();
-                if (!instance.HadErrors)
-                {
-                    _isIntialized = false;
-                    runspace.Close();
-                }
+                instance.AddScript($"$KeyFile={Path.Combine(pathToKeyFiles, uniqueName)}.key");
+                instance.AddStatement().AddScript("$Key=New-Object Byte[] 16");
+                instance.AddStatement().AddScript("[System.Security.Cryptography.RNGCryptoServiceProvider]::Create().GetBytes($Key)");
+                instance.AddStatement().AddScript("$Key | Out-File $KeyFile");
             }
         }
 
-        private static ExecutionPolicy GetExecutionPolicy()
-        {
-            using (PowerShell instance = PowerShell.Create())
-            {
-                instance.Runspace = runspace;
+        ///// <summary>
+        ///// Initialize the Powershell environment in the application's Runspace so that scripts can run. This method should be the first method
+        ///// called in <see cref="PSHelper"/> before any other methods.
+        ///// <para>Sets the execution policy to 'Unrestricted' and installs required modules. The policy is set back to what it was after the application is closed.</para>
+        ///// </summary>
+        ///// <returns>True if the environment was initialized successfully; False otherwise.</returns>
+        //public static bool InitializePSEnvironment()
+        //{
+        //    runspace.Open();
+        //    using (PowerShell instance = PowerShell.Create())
+        //    {
+        //        instance.Runspace = runspace;
 
-                instance.AddScript("Get-ExecutionPolicy");
-                Collection<PSObject> result = instance.Invoke();
-                if (result.Count > 0)
-                {
-                    ExecutionPolicy i = (ExecutionPolicy)result[0].BaseObject;
-                    return i;
-                }
-                return ExecutionPolicy.Default;
-            }
-        }
 
-        private static string GetPsCommand(PowerShell ps)
-        {
-            string cmdText = string.Empty;
-            for (int i = 0; i < ps.Commands.Commands.Count; i++)
-            {
-                var cmd = ps.Commands.Commands[i];
-                cmdText += cmd.CommandText;
-                foreach (var param in cmd.Parameters)
-                {
-                    if (!string.IsNullOrEmpty(param.Name))
-                        cmdText += " -" + param.Name + ":";
+        //        //Install modules and set up pre-req environment
+        //        string path = Path.Combine("scripts", "Prereqs.ps1");
+        //        if (!string.IsNullOrEmpty(path))
+        //        {
+        //            try
+        //            {
+        //                instance.AddStatement().AddScript(File.ReadAllText(path));
 
-                    cmdText += param.Value;
-                }
-                if (cmd.IsEndOfStatement || i + 1 == ps.Commands.Commands.Count)
-                    cmdText += Environment.NewLine;
-                else
-                    cmdText += "|";
-            }
-            return cmdText;
-        }
+        //                instance.Invoke();
+        //                if (!instance.HadErrors)
+        //                    _isIntialized = true;
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                System.Diagnostics.Debug.WriteLine(ex.Message);
 
-        #region Internal Classes
+        //                if (instance.HadErrors)
+        //                    System.Diagnostics.Debug.WriteLine(instance.Streams.Error.First().Exception.Message);
 
-        #region Basic Info
-        public sealed class Basic
-        {
-            private Basic() { }
+        //                _isIntialized = false;
+        //            }
+        //        }
+        //        else
+        //            _isIntialized = false;
+        //    }
 
-            internal static string SetComputerName(string name, bool restartAfterSet = false)
-            {
-                if (!_isIntialized)
-                    return "Environment is not initialized!";
+        //    return _isIntialized;
+        //}
 
-                using (PowerShell instance = PowerShell.Create())
-                {
-                    instance.Runspace = runspace;
+        ///// <summary>
+        ///// Resets the ExecutionPolicy on the computer back to what it was before the on-boarding script ran.
+        ///// </summary>
+        //public static void DestroyPSEnvironment()
+        //{
+        //    if (!_isIntialized)
+        //        return;
 
-                    string cmd = $"Rename-Computer -NewName \"{name}\"";
-                    if (restartAfterSet)
-                        cmd = $"{cmd} -Restart";
-                    instance.AddScript(cmd);
+        //    using (PowerShell instance = PowerShell.Create())
+        //    {
+        //        instance.Runspace = runspace;
 
-                    instance.Invoke();
+        //        instance.AddScript($"Set-ExecutionPolicy -ExecutionPolicy {Policy} -Scope LocalMachine -Force");
+        //        instance.Invoke();
+        //        if (!instance.HadErrors)
+        //        {
+        //            _isIntialized = false;
+        //            runspace.Close();
+        //        }
+        //    }
+        //}
 
-                    if (instance.HadErrors)
-                    {
-                        if (instance.InvocationStateInfo != null)
-                            if (instance.InvocationStateInfo.Reason != null)
-                                System.Diagnostics.EventLog.WriteEntry("Application",
-                                    instance.InvocationStateInfo.Reason.Message, System.Diagnostics.EventLogEntryType.Error);
-                        return "Could not set the computer name! Perhaps you should run Zest Script as an administrator. See the system Event Log for errors.";
-                    }
-                    return $"Computer name successfully set to: {name}";
-                }
-            }
+        //private static ExecutionPolicy GetExecutionPolicy()
+        //{
+        //    using (PowerShell instance = PowerShell.Create())
+        //    {
+        //        instance.Runspace = runspace;
 
-            internal static string JoinDomain(string domain, string username, SecureString password, bool restartAfterJoin = false)
-            {
-                if (!_isIntialized)
-                    return "Environment is not initialized!";
+        //        instance.AddScript("Get-ExecutionPolicy");
+        //        Collection<PSObject> result = instance.Invoke();
+        //        if (result.Count > 0)
+        //        {
+        //            ExecutionPolicy i = (ExecutionPolicy)result[0].BaseObject;
+        //            return i;
+        //        }
+        //        return ExecutionPolicy.Default;
+        //    }
+        //}
 
-                using (PowerShell instance = PowerShell.Create())
-                {
-                    instance.Runspace = runspace;
+        //private static string GetPsCommand(PowerShell ps)
+        //{
+        //    string cmdText = string.Empty;
+        //    for (int i = 0; i < ps.Commands.Commands.Count; i++)
+        //    {
+        //        var cmd = ps.Commands.Commands[i];
+        //        cmdText += cmd.CommandText;
+        //        foreach (var param in cmd.Parameters)
+        //        {
+        //            if (!string.IsNullOrEmpty(param.Name))
+        //                cmdText += " -" + param.Name + ":";
 
-                    PSCredential credential = new PSCredential(username, password);
-                    instance.AddStatement()
-                        .AddScript("Add-Computer")
-                        .AddParameter("DomainName", domain)
-                        .AddParameter("Credential", credential)
-                        .AddParameter("Force", "$True");
-                    if (restartAfterJoin)
-                        instance.AddParameter("Restart", "$True");
+        //            cmdText += param.Value;
+        //        }
+        //        if (cmd.IsEndOfStatement || i + 1 == ps.Commands.Commands.Count)
+        //            cmdText += Environment.NewLine;
+        //        else
+        //            cmdText += "|";
+        //    }
+        //    return cmdText;
+        //}
 
-                    System.Diagnostics.Debug.WriteLine(GetPsCommand(instance));
+        //#region Internal Classes
 
-                    instance.Invoke();
-                    if (instance.HadErrors)
-                        return instance.Streams.Error.First().Exception.Message;
+        //#region Basic Info
+        //public sealed class Basic
+        //{
+        //    private Basic() { }
 
-                    return GetPsCommand(instance);
-                }
-            }
+        //    internal static string JoinDomain(string domain, string username, SecureString password, bool restartAfterJoin = false)
+        //    {
+        //        if (!_isIntialized)
+        //            return "Environment is not initialized!";
 
-            internal static string SetTimeZone(TimeZoneInfo timeZone, string ntpServer, bool performTimeSync)
-            {
-                if (!_isIntialized)
-                    return "Environment is not initialized!";
+        //        using (PowerShell instance = PowerShell.Create())
+        //        {
+        //            instance.Runspace = runspace;
 
-                using (PowerShell instance = PowerShell.Create())
-                {
-                    instance.Runspace = runspace;
+        //            PSCredential credential = new PSCredential(username, password);
+        //            instance.AddStatement()
+        //                .AddScript("Add-Computer")
+        //                .AddParameter("DomainName", domain)
+        //                .AddParameter("Credential", credential)
+        //                .AddParameter("Force", "$True");
+        //            if (restartAfterJoin)
+        //                instance.AddParameter("Restart", "$True");
 
-                    instance.AddStatement()
-                        .AddScript("Set-TimeZone")
-                        .AddParameter("Id", timeZone.Id);
+        //            System.Diagnostics.Debug.WriteLine(GetPsCommand(instance));
 
-                    instance.AddStatement()
-                        .AddScript($"w32tm /config /syncfromflags:manual /manualpeerlist:\"{ntpServer}\"");
+        //            instance.Invoke();
+        //            if (instance.HadErrors)
+        //                return instance.Streams.Error.First().Exception.Message;
 
-                    if (performTimeSync)
-                        instance.AddStatement()
-                            .AddScript("w32tm /resync /force");
+        //            return GetPsCommand(instance);
+        //        }
+        //    }
 
-                    System.Diagnostics.Debug.WriteLine(GetPsCommand(instance));
+        //    internal static string SetTimeZone(TimeZoneInfo timeZone, string ntpServer, bool performTimeSync)
+        //    {
+        //        if (!_isIntialized)
+        //            return "Environment is not initialized!";
 
-                    instance.Invoke();
-                    if (instance.HadErrors)
-                        return instance.Streams.Error.First().Exception.Message;
+        //        using (PowerShell instance = PowerShell.Create())
+        //        {
+        //            instance.Runspace = runspace;
 
-                    return GetPsCommand(instance);
-                }
-            }
-        }
-        #endregion
+        //            instance.AddStatement()
+        //                .AddScript("Set-TimeZone")
+        //                .AddParameter("Id", timeZone.Id);
+
+        //            instance.AddStatement()
+        //                .AddScript($"w32tm /config /syncfromflags:manual /manualpeerlist:\"{ntpServer}\"");
+
+        //            if (performTimeSync)
+        //                instance.AddStatement()
+        //                    .AddScript("w32tm /resync /force");
+
+        //            System.Diagnostics.Debug.WriteLine(GetPsCommand(instance));
+
+        //            instance.Invoke();
+        //            if (instance.HadErrors)
+        //                return instance.Streams.Error.First().Exception.Message;
+
+        //            return GetPsCommand(instance);
+        //        }
+        //    }
+        //}
+        //#endregion
         /// <summary>
         /// Contains scripts for configuring printers.
         /// </summary>
@@ -229,15 +292,10 @@ namespace Zest_Script.Powershell
             /// <returns>A list of strings containing the exact driver <c>Name</c>s.</returns>
             internal static List<string> GetPrinterDriversInstalled()
             {
-                if (!_isIntialized)
-                    return new List<string>() { "Environment is not initialized!" };
-
                 List<string> drivers = new List<string>();
 
                 using (PowerShell instance = PowerShell.Create())
                 {
-                    instance.Runspace = runspace;
-
                     instance.AddScript("Get-PrinterDriver");
                     //string path = Path.Combine("scripts", "printers", "GetPrinterDrivers.ps1");
                     //if (!string.IsNullOrEmpty(path))
@@ -280,6 +338,6 @@ namespace Zest_Script.Powershell
                 return drivers;
             }
         }
-        #endregion
+        //#endregion
     }
 }

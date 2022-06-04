@@ -337,12 +337,12 @@ namespace Zest_Script
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            PSHelper.DestroyPSEnvironment();
+            
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            PSHelper.InitializePSEnvironment();
+            PSHelper.SetEnvironment();
         }
     }
 }

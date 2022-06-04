@@ -39,25 +39,34 @@ namespace Zest_Script.forms
 
         private void ConfigureBasicInfo()
         {
-            BasicInfo info = Configuration.Instance.BasicInfo;
-            currentTask.ShortMessage = "Setting computer name...";
-            currentTask.DescriptionMessage = inDevEnv ? "[WhatIf] only! Running in development..." : PSHelper.Basic.SetComputerName(info.ComputerName);
+            currentTask.ShortMessage = "Creating script...";
+            currentTask.DescriptionMessage = $"Script writing to: {PSHelper.FullScriptPath}\nPlease wait...";
             tasks.Add(currentTask);
+
+            PSHelper.WriteHeader();
             bgOnboardWorker.ReportProgress(5);
 
-            //Join domain if present
-            if (!info.Domain.Equals(string.Empty))
-            {
-                currentTask.ShortMessage = $"Joining the {info.Domain} domain...";
-                currentTask.DescriptionMessage = PSHelper.Basic.JoinDomain(info.Domain, info.DomainUsername, info.DomainPassword, true);
-                tasks.Add(currentTask);
-                bgOnboardWorker.ReportProgress(10);
-            }
+            PSHelper.WriteBasicInfo();
+            bgOnboardWorker.ReportProgress(10);
+            //BasicInfo info = Configuration.Instance.BasicInfo;
+            //currentTask.ShortMessage = "Setting computer name...";
+            //currentTask.DescriptionMessage = inDevEnv ? "[WhatIf] only! Running in development..." : PSHelper.Basic.SetComputerName(info.ComputerName);
+            //tasks.Add(currentTask);
+            //bgOnboardWorker.ReportProgress(5);
 
-            currentTask.ShortMessage = "Setting timezone and NTP server...";
-            currentTask.DescriptionMessage = PSHelper.Basic.SetTimeZone(info.TimeZone, info.PrimaryNTPServer, info.PerformTimeSync);
-            tasks.Add(currentTask);
-            bgOnboardWorker.ReportProgress(20);
+            ////Join domain if present
+            //if (!info.Domain.Equals(string.Empty))
+            //{
+            //    currentTask.ShortMessage = $"Joining the {info.Domain} domain...";
+            //    currentTask.DescriptionMessage = PSHelper.Basic.JoinDomain(info.Domain, info.DomainUsername, info.DomainPassword, true);
+            //    tasks.Add(currentTask);
+            //    bgOnboardWorker.ReportProgress(10);
+            //}
+
+            //currentTask.ShortMessage = "Setting timezone and NTP server...";
+            //currentTask.DescriptionMessage = PSHelper.Basic.SetTimeZone(info.TimeZone, info.PrimaryNTPServer, info.PerformTimeSync);
+            //tasks.Add(currentTask);
+            //bgOnboardWorker.ReportProgress(20);
 
         }
 
