@@ -46,5 +46,17 @@ namespace Zest_Script.Properties {
                 this["RestartAfterComputerNameSet"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowEnterpriseWifiPopUp {
+            get {
+                return ((bool)(this["ShowEnterpriseWifiPopUp"]));
+            }
+            set {
+                this["ShowEnterpriseWifiPopUp"] = value;
+            }
+        }
     }
 }

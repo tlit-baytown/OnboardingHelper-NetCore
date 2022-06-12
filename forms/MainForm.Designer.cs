@@ -284,7 +284,7 @@
             this.tabVPN.Location = new System.Drawing.Point(4, 24);
             this.tabVPN.Name = "tabVPN";
             this.tabVPN.Padding = new System.Windows.Forms.Padding(3);
-            this.tabVPN.Size = new System.Drawing.Size(178, 38);
+            this.tabVPN.Size = new System.Drawing.Size(863, 385);
             this.tabVPN.TabIndex = 1;
             this.tabVPN.Text = "VPN Connections";
             this.tabVPN.UseVisualStyleBackColor = true;
@@ -294,7 +294,7 @@
             this.vpnUserCtl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.vpnUserCtl1.Location = new System.Drawing.Point(3, 3);
             this.vpnUserCtl1.Name = "vpnUserCtl1";
-            this.vpnUserCtl1.Size = new System.Drawing.Size(172, 32);
+            this.vpnUserCtl1.Size = new System.Drawing.Size(857, 379);
             this.vpnUserCtl1.TabIndex = 0;
             // 
             // programsTab

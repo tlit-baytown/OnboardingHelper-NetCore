@@ -23,6 +23,8 @@ namespace Zest_Script.forms
             cmbAuthenticationType.SelectedIndex = 3; //Set to WPA2: Pre-Shared Key by default
             cmbConnectionType.SelectedIndex = 0; //Set to ESS by default
             cmbEncryptionType.SelectedIndex = 3; //Set to AES by default
+            if (Properties.Settings.Default.ShowEnterpriseWifiPopUp)
+                new EnterprisePopUp().ShowDialog(this); //show note to users that enterprise networks are not available yet.
         }
 
         private void btnAddAndClear_Click(object sender, EventArgs e)
@@ -144,6 +146,7 @@ namespace Zest_Script.forms
             pw = txtEnterprisePassword.Text;
         }
 
+        //Enterprise network is not supported...yet
         private void cmbAuthenticationType_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (cmbAuthenticationType.SelectedIndex)
@@ -172,24 +175,24 @@ namespace Zest_Script.forms
                     lblPSK.Visible = true;
                     txtPSK.Visible = true;
                     break;
+                //case 4:
+                //    wifi.WiFiType = WiFiType.WPA2_ENTERPRISE;
+                //    grpEnterpriseCreds.Visible = true;
+                //    lblPSK.Visible = false;
+                //    txtPSK.Visible = false;
+                //    break;
                 case 4:
-                    wifi.WiFiType = WiFiType.WPA2_ENTERPRISE;
-                    grpEnterpriseCreds.Visible = true;
-                    lblPSK.Visible = false;
-                    txtPSK.Visible = false;
-                    break;
-                case 5:
                     wifi.WiFiType = WiFiType.WPA3PSK;
                     grpEnterpriseCreds.Visible = false;
                     lblPSK.Visible = true;
                     txtPSK.Visible = true;
                     break;
-                case 6:
-                    wifi.WiFiType = WiFiType.WPA3_ENTERPRISE;
-                    grpEnterpriseCreds.Visible = true;
-                    lblPSK.Visible = false;
-                    txtPSK.Visible = false;
-                    break;
+                //case 6:
+                //    wifi.WiFiType = WiFiType.WPA3_ENTERPRISE;
+                //    grpEnterpriseCreds.Visible = true;
+                //    lblPSK.Visible = false;
+                //    txtPSK.Visible = false;
+                //    break;
                 default:
                     break;
             }

@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.dgWifis = new System.Windows.Forms.DataGridView();
+            this.btnAddWiFi = new System.Windows.Forms.Button();
+            this.btnDeleteWiFi = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.columnSSID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnPSK = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnAuthType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnConnectType = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnEncryption = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.columnIsHidden = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.btnAddWiFi = new System.Windows.Forms.Button();
-            this.btnDeleteWiFi = new System.Windows.Forms.Button();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.dgWifis)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -63,52 +63,6 @@
             this.dgWifis.RowTemplate.Height = 25;
             this.dgWifis.Size = new System.Drawing.Size(765, 316);
             this.dgWifis.TabIndex = 9;
-            // 
-            // columnSSID
-            // 
-            this.columnSSID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.columnSSID.HeaderText = "SSID";
-            this.columnSSID.Name = "columnSSID";
-            this.columnSSID.ReadOnly = true;
-            // 
-            // columnPSK
-            // 
-            this.columnPSK.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.columnPSK.HeaderText = "Pre-Shared Key";
-            this.columnPSK.Name = "columnPSK";
-            this.columnPSK.ReadOnly = true;
-            // 
-            // columnAuthType
-            // 
-            this.columnAuthType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.columnAuthType.HeaderText = "Auth. Type";
-            this.columnAuthType.Name = "columnAuthType";
-            this.columnAuthType.ReadOnly = true;
-            this.columnAuthType.Width = 79;
-            // 
-            // columnConnectType
-            // 
-            this.columnConnectType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.columnConnectType.HeaderText = "Connection Type";
-            this.columnConnectType.Name = "columnConnectType";
-            this.columnConnectType.ReadOnly = true;
-            this.columnConnectType.Width = 109;
-            // 
-            // columnEncryption
-            // 
-            this.columnEncryption.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.columnEncryption.HeaderText = "Encryption Type";
-            this.columnEncryption.Name = "columnEncryption";
-            this.columnEncryption.ReadOnly = true;
-            this.columnEncryption.Width = 104;
-            // 
-            // columnIsHidden
-            // 
-            this.columnIsHidden.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.columnIsHidden.HeaderText = "Is Hidden Network?";
-            this.columnIsHidden.Name = "columnIsHidden";
-            this.columnIsHidden.ReadOnly = true;
-            this.columnIsHidden.Width = 103;
             // 
             // btnAddWiFi
             // 
@@ -151,6 +105,52 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(765, 40);
             this.tableLayoutPanel1.TabIndex = 10;
+            // 
+            // columnSSID
+            // 
+            this.columnSSID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnSSID.HeaderText = "SSID";
+            this.columnSSID.Name = "columnSSID";
+            this.columnSSID.ReadOnly = true;
+            // 
+            // columnPSK
+            // 
+            this.columnPSK.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.columnPSK.HeaderText = "Pre-Shared Key (encrypted)";
+            this.columnPSK.Name = "columnPSK";
+            this.columnPSK.ReadOnly = true;
+            // 
+            // columnAuthType
+            // 
+            this.columnAuthType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.columnAuthType.HeaderText = "Auth. Type";
+            this.columnAuthType.Name = "columnAuthType";
+            this.columnAuthType.ReadOnly = true;
+            this.columnAuthType.Width = 88;
+            // 
+            // columnConnectType
+            // 
+            this.columnConnectType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.columnConnectType.HeaderText = "Connection Type";
+            this.columnConnectType.Name = "columnConnectType";
+            this.columnConnectType.ReadOnly = true;
+            this.columnConnectType.Width = 111;
+            // 
+            // columnEncryption
+            // 
+            this.columnEncryption.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.columnEncryption.HeaderText = "Encryption Type";
+            this.columnEncryption.Name = "columnEncryption";
+            this.columnEncryption.ReadOnly = true;
+            this.columnEncryption.Width = 106;
+            // 
+            // columnIsHidden
+            // 
+            this.columnIsHidden.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.columnIsHidden.HeaderText = "Is Hidden Network?";
+            this.columnIsHidden.Name = "columnIsHidden";
+            this.columnIsHidden.ReadOnly = true;
+            this.columnIsHidden.Width = 105;
             // 
             // WiFiUserCtl
             // 

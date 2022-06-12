@@ -171,9 +171,7 @@
             "WEP",
             "WPA",
             "WPA2: Pre-Shared Key",
-            "WPA2: Enterprise",
-            "WPA3: Pre-Shared Key",
-            "WPA3: Enterprise"});
+            "WPA3: Pre-Shared Key"});
             this.cmbAuthenticationType.Location = new System.Drawing.Point(132, 74);
             this.cmbAuthenticationType.Name = "cmbAuthenticationType";
             this.cmbAuthenticationType.Size = new System.Drawing.Size(341, 23);
